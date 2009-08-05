@@ -47,7 +47,7 @@ function getDo(){
 				hy		= HD.getYear() 
 			}
 			if (dow > 7){dow = 1}
-			o[i][j] = {dow:dow,d:hd,m:mm,y:hy} //c({d:hd,mi:hm,m:mm,y:hy})
+			o[i][j] = {dow:dow,d:hd,mi:hm,m:mm,y:hy} //c({d:hd,mi:hm,m:mm,y:hy})
 			hd++
 			dow++
 		}
@@ -65,16 +65,29 @@ function show(){
 	tdy = td.getFullYear()
 	tdd = td.getDate()
 	tdm = td.getMonth() +1
-	
+	pos = 0
 	for (var i=0;i<d.length;i++){
 		x = ''
 		for (var j=0;j<d[i].length;j++){
+			pos ++
 			dd = d[i][j]
 			cs=(dd.dow==7) ? 's' : ''
-			istd = ((i+1)==tdm&&(j+1)==tdd) ? 'tod' : '' 
+			istd = ''
+			if ((i+1)==tdm&&(j+1)==tdd) {
+				xpos = pos -15
+				istd = 'tod'
+			}
+				 
 			x += '<tr class="'+cs+' '+istd+'"><td width="10%">'+dd.dow+'</td><td width="10%">'+(j+1)+'/'+(i+1)+'/'+tdy+'</td>'
-			x += '<td width="50%" onmouse="">_</td><td width="12%">Ed</td><td width="12%">En</td><td width="15%">'+dd.d +' ' +dd.m+' '+dd.y+'</td></tr>'
+			x += '<td width="50%" onclick="getZmanim(new HDate('+dd.d +',' +dd.mi+','+dd.y+'),this)">_</td><td width="12%">Ed</td><td width="12%">En</td><td width="15%">'+dd.d +' ' +dd.m+' '+dd.y+'</td></tr>'
 		}	
 		$("d").innerHTML += x 
-	}		
+	}
+	$("scrl").scrollTop = xpos *17
+	
+}
+function getZmanim(od,elm){
+	shd = od.getZmanim('Paris')
+	c(shd.city)
+	elm.innerHTML = shd.knissatShabbat +' ' + shd.motzeiShabbat
 }
