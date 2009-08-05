@@ -48,6 +48,10 @@ Sof  zman  tefillah (gr"a) 	929,Chatzot  hayom (noon) 	1145,Mincha  gedolah 	 12
 Plag  hamincha 	1708 , Shkiat  hachama (sunset) 	1833,Tzeit  hakochavim (nightfall) 	1900,Knissat  Shabbat ,Motzei  Shabbat
 */
 JDate.prototype.getZmanim = function(_O){
+		if( typeof(_O) == "string" ){ 
+			if (_O.toLowerCase()=='paris')
+				_O = { lond:2,lonm: 20, ns:0/*N*/,latd: 48,latm: 50,ew: 1/*E*/, tz:1,stdi:14,city:"Paris"}
+		}
 		if( typeof(_O) != "object" ){ 
 			_O = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, tz:2,stdi:15,city:"Jerusalem"}
 		}
@@ -129,7 +133,6 @@ JDate.prototype.getZmanim = function(_O){
 			ns 		= _OPOS.ns
 			
 			timezone = _OPOS.tz		
-			timezone =  - (12 - _OPOS.stdi)		
 			
 			longitude = (londeg + lonmin/60.0) * ((ew == 0) ? -1 : 1);
 			latitude  = (latdeg + latmin/60.0) * ((ns == 0) ? 1 : -1);
