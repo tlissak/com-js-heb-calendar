@@ -96,16 +96,17 @@ JDate.prototype.getZmanim = function(_O){
 		time = suntime(_D, 98, 30, _O);// motzei shabbat (3 small stars)
 		motzeiShabbat = timeadj(time.ss);
 		var day_before // get knisat shabat	for day before
-		time = suntime(_D, 90, 50, _O);
 		if (place == "jerusalem")
 			xmns = (40.0/ 60.0)
 		else if(place == "haifa" || place == "be'er Sheva")
 			xmns = (30.0/ 60.0)
 		else if(place == "karnei Shomron" || place == "tel Aviv")
 			xmns = (22.0/ 60.0)
-		else 
+		else{ 
+			//xmns = (18.0/ 60.0) find the reql t 
 			xmns = (18.0/ 60.0)
-		knissatShabbat = timeadj(time.ss - xmns);	
+		}
+		knissatShabbat = timeadj(sunset  - xmns);	
 		return {
 			city:_O
 			,hanetz:hanetz,	shkia:shkia ,shaa_zmanit:shaa_zmanit,alot:alot,misheyakir:misheyakir
