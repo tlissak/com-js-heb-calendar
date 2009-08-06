@@ -1,14 +1,3 @@
-Cal.prototype = new GDate(1,12,(new Date()).getFullYear()); 
-function Cal(){
-	this.getYearInfo = getYearInfo
-	function getYearInfo(){
-		year			= this.getYear()
-		yearLen 		= this.getYearLength()
-		lastMonthLen	= this.getMonthLength()
-		return {lastMonthLen:lastMonthLen,year:year,yearLen:yearLen}
-	}
-}
-cal = new Cal
 function c(){console.log(c.arguments)}
 function $(id){return document.getElementById(id)}
 function cursorPosition(ev){ev = ev || window.event;	
@@ -16,7 +5,7 @@ function cursorPosition(ev){ev = ev || window.event;
 	return {x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
 		y:ev.clientY + document.body.scrollTop  - document.body.clientTop};
 }
-<!--
+/*<!--
 //HD.getZmanim() {}
 //HD.getParashaName() ""
 //HD.getMonthName() ""
@@ -24,65 +13,72 @@ function cursorPosition(ev){ev = ev || window.event;
 //HD.getHoliday() ""
 -->
 //c(cal.getYearInfo())
+*/
 function getDo(){
 	o = new Array()
 	for (var i=0;i<12;i++){
+		
+		
 		GD = new GDate(1,i+1,(new Date()).getFullYear())
 		HD = new HDate(GD)//c(GD,HD)
-		gsize  = GD.getMonthLength()
-		dow = GD.getDayOfWeek() +1
-		gm = GD.getMonthName()
-		hy = HD.getYear()
-		hm = HD.getMonth()
-		nm = HD.nbMonths()
-		hd = HD.getDay() 
-		mm = HD.getMonthName()
-		hsize  = HD.getMonthLength()
-		o[i] =  new Array()//c("outside","day",hd,"month:",hm,"year",hy)	
-		for (var j=0;j<gsize ;j++){
-			if (hd > hsize){//c("inside","day",hd,"month:",hm,"year",hy,"size",hsize)			
-				hd = 1
-				hm++
-				if (hm == 7){ /*tishrqi*/	hy++ ; 	}
-				if (hm > nm){ /* hm */	hm=1 ; }
-				//c("qfter","day",hd,"month:",hm,"year",hy)
-				HD.setDate(1,hm,hy)
-				hm 		= HD.getMonth()
-				hsize  	= HD.getMonthLength()
-				mm 		= HD.getMonthName()
-				hy		= HD.getYear() 
+		
+		_gsize  = GD.getMonthLength()
+		_dow = GD.getDayOfWeek() +1
+		_gm = GD.getMonthName()
+		_hy = HD.getYear()
+		_hm = HD.getMonth()
+		_hd = HD.getDay()
+		_nm = HD.nbMonths()
+	
+		_mm = HD.getMonthName()
+		
+		
+		
+		_hsize  = HD.getMonthLength()
+		o[i] =  new Array()
+			
+		for (var j=0;j<_gsize ;j++){
+			if (_hd > _hsize){	
+				_hd = 1
+				_hm++
+				if (_hm == 7){ /*tishrqi*/	_hy++ ; 	}
+				if (_hm > _nm){ /* hm */	_hm=1 ; }
+				HD.setDate(1,_hm,_hy)
+				_hm 	= HD.getMonth()
+				_hsize 	= HD.getMonthLength()
+				_mm 	= HD.getMonthName()
+				_hy		= HD.getYear() 
 			}
-			if (dow > 7){dow = 1}
-			o[i][j] = {dow:dow,d:hd,m:hm,hm:mm,gm:gm,y:hy} //c({d:hd,mi:hm,m:mm,y:hy})
-			hd++
-			dow++
+			if (_dow > 7){_dow = 1}
+			o[i][j] = {d:_hd,m:_hm,y:_hy,hm:_mm,gm:_gm,dow:_dow} //c({d:hd,mi:hm,m:mm,y:hy})
+			_hd++
+			_dow++
 		}
 	}
+	
 	return o
 }
 window.onload = function(){
-		$("q").href = "?rnd="+Math.random()
-		show()
+	$("q").href = "?rnd="+Math.random()
+	show()
 }
 function show(){
-	d = getDo()
+
+	_d = getDo()
 	td = new Date()
-	
 	tdy = td.getFullYear()
 	tdd = td.getDate()
-	tdm = td.getMonth() +1
-	pos = 0
-	
+	tdm = td.getMonth() +1	
 
-	for (var i=0;i<d.length;i++){
+	for (var i=0;i<_d.length;i++){
 		x = '<li><table>'		
-		x += "<tr class='m'><th colspan='7'>"+d[i][0].gm+"</th></tr>"		
+		x += "<tr class='m'><th colspan='7'>"+_d[i][0].gm+"</th></tr>"		
 		x += '<tr class="j"><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>'		
-		x += '<tr>'		
-		for (var of = 1;of < d[i][0].dow;of++){	x += "<th>-</th>"}		
-		for (var j=0;j<d[i].length;j++){
-			//pos ++ ; 	
-			dd = d[i][j]			//if ((i+1)==tdm&&(j+1)==tdd) { xpos = pos -15 ; 	istd = 'tod'	}
+		x += '<tr>'
+		
+		for (var of = 1;of < _d[i][0].dow;of++){	x += "<th>-</th>"}		
+		for (var j=0;j<_d[i].length;j++){
+			dd = _d[i][j]			//if ((i+1)==tdm&&(j+1)==tdd) { xpos = pos -15 ; 	istd = 'tod'	}  ; pos ++ ; 	
 			x += '<td id="j_'+i+'_'+j+'" onclick="_j(event,'+i+','+j+')">'+(j+1)+'</td>'
 			if (dd.dow==7){	x += '</tr><tr>'} /*Sha.bat*/
 		}	
@@ -93,6 +89,7 @@ function show(){
 }
 
 function _j(e,i,j){
+	
 	is_israel = false 
 	
 	pos = cursorPosition(e)
@@ -100,31 +97,34 @@ function _j(e,i,j){
 	cj = j+1	
 	cy = (new Date()).getFullYear()
 	
-	gd  = new GDate(cj,cm,cy)
-	hd  = new HDate(gd)	
+	GD  = new GDate(cj,cm,cy)
+	HD  = new HDate(GD)	
 	
-	city = $("city").value 
-	country = $("city").options[$("city").selectedIndex].parentNode.label.toLowerCase()
+	six = $("city").selectedIndex
+	_city = $("city").options[six].value
+	country = $("city").options[six].parentNode.label.toLowerCase()
+	
 	
 	if (country == "israel"){is_israel = true }
 	
-	jEvent = new JEvent(HOLIDAYS.currentHoliday(hd))
 	
-	//c(je)
 	
-	zmanim = hd.getZmanim(city)	
-	parasha = hd.getParashaName(is_israel,is_israel)
 	
-
-	 
+	jEvent = new JEvent(HOLIDAYS.currentHoliday(HD))
+	
+	zmanim = HD.getZmanim(_city)	
+	parasha = HD.getParashaName(is_israel,is_israel)
+		 
+	
 	$("j").style.display 	= "block"
 	$("j").style.top 		= pos.y+"px"
 	$("j").style.left 		= pos.x+"px"
 	
 	
 	$("gd").innerHTML = cj +"."+ cm+"."+cy
-	$("cd").innerHTML = cj +" "+  gd.getMonthName() +" "+cy
-	$("hd").innerHTML = hd.getDay() +" "+  hd.getMonthName() +" "+ hd.getYear()
+	$("cd").innerHTML = cj +" "+  GD.getMonthName() +" "+cy
+	$("hd").innerHTML = HD.getDay() +" "+  HD.getMonthName() +" "+ HD.getYear()
+	
 	if (jEvent.name){
 		$("holiday").style.display 	= "block"	
 		$("hdd").innerHTML = jEvent.name
@@ -132,7 +132,7 @@ function _j(e,i,j){
 		$("holiday").style.display 	= "none"		
 		$("hdd").innerHTML = ""
 	}
-	if (gd.getDayOfWeek()==6){
+	if (GD.getDayOfWeek()==6){
 		$("shabat").style.display 	= "block"
 		$("pn").innerHTML 	= parasha
 	}else{
@@ -148,11 +148,9 @@ function _j(e,i,j){
 	$("ct").innerHTML = zmanim.city.place
 }
 
-function Move(e,elm){
-	//Move by tlissak v 0.7 
+function Move(e,elm){//Move by tlissak v 0.7 
 	var elm = elm
 	elm.style.position = "absolute"
-	
 	var process 	= true
 	var cursorPosition = function (ev){
 		ev = ev || window.event;
@@ -161,14 +159,10 @@ function Move(e,elm){
 				y:ev.clientY + document.body.scrollTop  - document.body.clientTop}
 	}
 	var findObjPos = function (obj) {
-		if (obj){
-			var curleft = 0 ;var curtop = 0;
+		if (obj){var curleft = 0 ;var curtop = 0;
 			if (obj.offsetParent) {
 				curleft = obj.offsetLeft ; curtop = obj.offsetTop
-				while (obj = obj.offsetParent) {
-					curleft += obj.offsetLeft ; curtop += obj.offsetTop
-				}
-			}
+				while (obj = obj.offsetParent) {curleft += obj.offsetLeft ; curtop += obj.offsetTop	}}
 			return {x:curleft,y:curtop};
 		}
 	}	
