@@ -5,15 +5,6 @@ function cursorPosition(ev){ev = ev || window.event;
 	return {x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
 		y:ev.clientY + document.body.scrollTop  - document.body.clientTop};
 }
-/*<!--
-//HD.getZmanim() {}
-//HD.getParashaName() ""
-//HD.getMonthName() ""
-//HD.getMoadim() ""
-//HD.getHoliday() ""
--->
-//c(cal.getYearInfo())
-*/
 function getDo(){
 	o = new Array()
 	for (var i=0;i<12;i++){
@@ -192,3 +183,7 @@ function Move(e,elm){//Move by tlissak v 0.7
 	}	
 }
 
+function create_ev(){
+	$("j").style.display = "none"
+	$("se").style.display = "block"
+}

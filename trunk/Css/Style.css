@@ -13,8 +13,9 @@ body{ padding:0; margin:0; font-family:Arial, Helvetica, sans-serif; font-size:1
 #d td:hover{background:#CCC}
 
 #j{width:220px; padding:15px;-moz-border-radius:5px; position:absolute;  background:#FFF; display:none;}
-#j legend {background:#fff; padding:3px; border:#7C7B7D 1px solid;-moz-border-radius:5px; }
-#j legend span{ margin-left:70px; color:#F00; border:#CCC 1px solid; padding:1px 5px; cursor:pointer;-moz-border-radius:5px; }
+#j legend { background:#fff; padding:3px; border:#7C7B7D 1px solid;-moz-border-radius:5px; }
+#j legend label{padding-right:70px}
+#j legend span{ color:#F00; border:#CCC 1px solid; padding:1px 5px; cursor:pointer;-moz-border-radius:5px; }
 #j form label{ float:left; width:90px;  display:block;height:20px; text-align:right}
 #j form select,#j form span{width:120px; height:20px; display:block;float:left;}
 

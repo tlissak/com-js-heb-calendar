@@ -34,7 +34,7 @@
 
 <div style="width:800px;margin:10px; "><ul id="d"></ul></div>
 
-<fieldset id="j"><legend onmousedown="Move(event,this.parentNode)"><label id='gd'>GD</label><span  onclick="$('j').style.display='none'">x</span></legend>
+<fieldset id="j"><legend><label id='gd' onmousedown="Move(event,$('j'))">GD</label><span  onclick="$('j').style.display='none'">x</span></legend>
 <form name="as">
 <label>Civil day : </label><span id="cd">-</span>
 <label>Hebrew date :</label><span id="hd">-</span>
@@ -55,11 +55,24 @@
 
 <label>Create Event :</label>
 <select id="event">
-<optgroup label="N event">
 	<option value="1">Raia</option>
     <option value="2">Hefsek</option>
     <option value="3">Ketem</option>
-</optgroup></select>
+</select>
+<input type="button" onclick="create_ev($('gd').value)" value="Create" />
+</form>
+</fieldset>
+
+
+<fieldset id="seV"><legend onmousedown="Move(event,this.parentNode)"><label id='gd'>GD</label><span  onclick="$('j').style.display='none'">x</span></legend>
+<form name="as">
+<label>Civil day : </label><span id="cd">-</span>
+<label>Zmanim for :</label><span id="ct">-</span>
+<label>Sunrise(Netz) :</label><span id="sr">-</span>
+<label>Sunset(Shkia) :</label><span id="ss">-</span>
+<label>Knisa :</label><span id="s_st">-</span>
+<label>Motzai :</label><span id="s_en">-</span>
+<input type="button" onclick="create_ev($('gd').value)" value="Create" />
 </form>
 </fieldset>
 
