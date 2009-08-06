@@ -14,31 +14,55 @@
 <body>
 <div style="border-bottom:#CCC 1px solid; height:28px">
 	<ul class="menu">
-    	<li>From :1/2/2009</li>
-        <li>To :1/2/2009</li>
+    	<li>From :</li>
+        <li>To :</li>
+        <li><a href="#" id="q">Reload</a></li>
+        <li><select id="city">
+        	<optgroup label="Israel">
+				<option value="" selected="selected">Jerusalem</option>
+            </optgroup>
+            <optgroup label="Europe">
+                <option value="Paris">Paris</option>
+            </optgroup>
+            <optgroup label="Russie">
+            	<option value="Moscow">Moscow</option>
+            </optgroup>
+            </select>
+        </li>
     </ul>
 </div>
-<a href="#" id="q">123</a>
-<div style="width:500px;margin:10px; border:#6694E3 3px solid; background:#efefef; ">
-	<div style="height:25px; background:#E0ECFF"><table cellspacing="0" cellpadding="0" width="100%" class="head" ><tbody>
-            	<tr>
-                	<td width="14%">Week day</td>
-                    <td width="13%">Civil day</td>
-                    <td>Holiday and Zmanim</td>
-                    <td width="14%">Event</td>
-                    <td width="12%">Heb day</td>
-                </tr>
-        </tbody></table></div>
 
-    <div style="height:510px; overflow-y:scroll" id="scrl">
-    	<table cellspacing="0" cellpadding="0" class="tbl">
-        	<tbody id="d">
-            	
-            </tbody>      
-        </table>
-            
-  	</div>
-     
+<div style="width:800px;margin:10px; "><ul id="d"></ul></div>
+
+<fieldset id="j"><legend onmousedown="Move(event,this.parentNode)"><label id='gd'>GD</label><span  onclick="$('j').style.display='none'">x</span></legend>
+<form name="as">
+<label>Civil day : </label><span id="cd">-</span>
+<label>Hebrew date :</label><span id="hd">-</span>
+
+<div id="holiday">
+	<label>Holiday :</label><span id="hdd">-</span>
 </div>
+
+<label>Zmanim for :</label><span id="ct">-</span>
+<label>Sunrise(Netz) :</label><span id="sr">-</span>
+<label>Sunset(Shkia) :</label><span id="ss">-</span>
+
+<div id="shabat">
+<label>Parasha :</label><span id="pn">-</span>
+</div>
+<label>Knisa :</label><span id="s_st">-</span>
+<label>Motzai :</label><span id="s_en">-</span>
+
+<label>Create Event :</label>
+<select id="event">
+<optgroup label="N event">
+	<option value="1">Raia</option>
+    <option value="2">Hefsek</option>
+    <option value="3">Ketem</option>
+</optgroup></select>
+</form>
+</fieldset>
+
+
 </body>
 </html>
