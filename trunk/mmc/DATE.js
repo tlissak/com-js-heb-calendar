@@ -147,6 +147,10 @@ function GDate(){
 	this.getYearLength = getYearLength;		/* () */
 	this.isLeap = isLeap;									/* () */
 	this.nbMonths = nbMonths							/* () */
+	
+	
+	this.getMonthName = getMonthName
+	
 	/* public overrides */
 	this.setDate_int_int_int = setDate_int_int_int;
 	/* protected overrides Do not call outside the class hierarchy. */
@@ -155,6 +159,12 @@ function GDate(){
 	this.setDate(arguments);
 	/****** Implementation *****/
 	/* private class methods. */
+	
+	function getMonthName(){
+		return ["","Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+		[this.getMonth()] ;
+	}
+	
 	function st_monthLength(month, year){
 		switch(month){
 		case 2: return (GDate.isLeapYear(year) ? 29 : 28);
@@ -242,6 +252,9 @@ function HDate(){
 	this.isLeap = isLeap;									/* () */
 	this.getYearType = getYearType;		/* () */
 	this.nbMonths = nbMonths;		/* () */
+	
+	this.getMonthName = getMonthName 
+	
 	/* protected overrides */
 	this.calculate = calculate;
 	/* protected methods */
@@ -281,6 +294,10 @@ function HDate(){
 		return 1 + days + (adu?1:0) + (gatarad?2:0) + (betutkafot?1:0) + (zaken?1:0);
 	}
 	/* * private methods */
+	function getMonthName(){
+		return ["","Nisan","Iyar","Sivan","Tamuz","Av","Elul","Tishri","Cheshvan","Kislev","Tevet","Shvat","Adar","Adar a","Adar b"]
+		[this.getMonth()] ;
+	}
 	function calculate(){
 		var jdn;
 		var days;

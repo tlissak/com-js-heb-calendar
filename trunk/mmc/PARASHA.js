@@ -89,7 +89,7 @@ JDate.prototype.getParashaName = function(bIsrael, bHebrew){
 		var arrParshiot = this.getParasha(bIsrael);
 		if( (arrParshiot == null) || (arrParshiot.length == 0) ){			return "";}
 		if(arrParshiot.length == 1)	{
-			if(typeof(refLookupParshiot[arrParshiot[0]]) == 'undefined'){
+			if(typeof(refLookupParshiot[arrParshiot[0]]) == 'undefined'){				
 				jEvent = new JEvent(HOLIDAYS.currentHoliday(this).type);
 				return (jEvent ? jEvent.name : '');
 			}else{			return refLookupParshiot[arrParshiot[0]];}

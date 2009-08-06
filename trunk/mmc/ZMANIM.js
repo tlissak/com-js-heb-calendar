@@ -23,13 +23,13 @@
  * email: abumami@kaluach.org
  * Edited by tlissak@gmail.com
  */
-//OP = { lond:2,lonm: 20, ns:0/*N*/,latd: 48,latm: 50,ew: 1/*E*/, tz:1,stdi:14,city:"Paris"} //???? not verified
-//OP = { lond:37,lonm: 37, ns:0/*N*/,latd: 55,latm: 45,ew: 1/*E*/, tz:3,stdi:16,city:"Moscow"}
+//OP = { lond:2,lonm: 20, ns:0/*N*/,latd: 48,latm: 50,ew: 1/*E*/, tz:1,stdi:14,place:"Paris"} //???? not verified
+//OP = { lond:37,lonm: 37, ns:0/*N*/,latd: 55,latm: 45,ew: 1/*E*/, tz:3,stdi:16,place:"Moscow"}
 /* 
 .getZmanim() : available times :
 city,hanetz,shkia,shaa_zmanit,alot,misheyakir,tzeit,shema,tefillah,chatzot,minchag,minchak,plag,motzeiShabbat,knissatShabbat
 */
-//TEST : moscow : OP = { lond:37,lonm: 37, ns:0/*N*/,latd: 55,latm: 45,ew: 1/*E*/, tz:3,stdi:16,city:"Moscow"}
+//TEST : moscow : OP = { lond:37,lonm: 37, ns:0/*N*/,latd: 55,latm: 45,ew: 1/*E*/, tz:3,stdi:16,place:"Moscow"}
 /*
 [3, 8, "2009", 90, 50, 37, 37, 1, 55, 45, 0, 3]
 [3, 8, "2009", 106, 6, 37, 37, 1, 55, 45, 0, 3]
@@ -37,7 +37,7 @@ city,hanetz,shkia,shaa_zmanit,alot,misheyakir,tzeit,shema,tefillah,chatzot,minch
 [3, 8, "2009", 96, 0, 37, 37, 1, 55, 45, 0, 3]
 results
 128,258,440,837,957,1235,1315,1713,1852,2031,2117 */
-//TEST : jerusalem : OP = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, tz:2,stdi:15,city:"Jerusalem"}
+//TEST : jerusalem : OP = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, tz:2,stdi:15,place:"Jerusalem"}
 /*[3, 8, "2009", 90, 50, 35, 14, 1, 31, 46, 0, 2]
 [3, 8, "2009", 106, 6, 35, 14, 1, 31, 46, 0, 2]
 [3, 8, "2009", 101, 0, 35, 14, 1, 31, 46, 0, 2]
@@ -49,12 +49,16 @@ Plag  hamincha 	1708 , Shkiat  hachama (sunset) 	1833,Tzeit  hakochavim (nightfa
 */
 JDate.prototype.getZmanim = function(_O){
 		if( typeof(_O) == "string" ){ 
-			if (_O.toLowerCase()=='paris')
-				_O = { lond:2,lonm: 20, ns:0/*N*/,latd: 48,latm: 50,ew: 1/*E*/, tz:1,stdi:14,city:"Paris"}
+			if (_O.toLowerCase()=='paris'){
+				_O = { lond:2,lonm: 20, ns:0/*N*/,latd: 48,latm: 50,ew: 1/*E*/, tz:1,stdi:14,place:"Paris (France)"}
+			}else if (_O.toLowerCase()=='moscow'){
+				_O = { lond:37,lonm: 37, ns:0/*N*/,latd: 55,latm: 45,ew: 1/*E*/, tz:3,stdi:16,place:"Moscow (Russie)"}
+			}
 		}
 		if( typeof(_O) != "object" ){ 
-			_O = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, tz:2,stdi:15,city:"Jerusalem"}
+			_O = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, tz:2,stdi:15,place:"Jerusalem"}
 		}
+		
 		g 	= new GDate(this)
 		//alwayes convert this to gregorien date
 		var _D = {d:g.getDay(),m:g.getMonth(),y:g.getYear()}
