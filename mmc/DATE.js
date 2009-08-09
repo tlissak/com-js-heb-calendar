@@ -22,6 +22,7 @@ function JDate(){
 	this.getMonth = getMonth;		/* () */
 	this.getYear = getYear;				/* () */
 	this.getDayOfWeek = getDayOfWeek;	/* () */
+	this.getWeekDayName = getWeekDayName 
 	this.setDay = setDay;				/* (int) */
 	this.setMonth = setMonth;			/* (int) */
 	this.setYear = setYear;				/* (int) */
@@ -74,7 +75,7 @@ function JDate(){
 	function setMonth(month)	{ return this.setDate_int_int_int(this.m_day, month, this.m_year); }
 	function setYear(year)		{ return this.setDate_int_int_int(this.m_day, this.m_month, year); }
 	function getDayOfWeek()		{ return this.m_hdn % 7; }
-
+	function getWeekDayName(){	return ["Sunday","Monday","Tuesday","Wendsay","Thursday","Friday","Sat.day"][this.getDayOfWeek()]}
 	function setDate(){
 		var args = arguments;
 		if(args.length == 1)
