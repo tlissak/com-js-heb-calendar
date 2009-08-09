@@ -47,7 +47,7 @@ Alot Hashachar (dawn)  	 336 , Misheyakir 	404 , Hanetz Hachama (sunrise) 	456,S
 Sof  zman  tefillah (gr"a) 	929,Chatzot  hayom (noon) 	1145,Mincha  gedolah 	 1219,Mincha  ketana  	1543
 Plag  hamincha 	1708 , Shkiat  hachama (sunset) 	1833,Tzeit  hakochavim (nightfall) 	1900,Knissat  Shabbat ,Motzei  Shabbat
 */
-JDate.prototype.getZmanim = function(_O){
+JDate.prototype.getZmanim = function(_O,_timedmc){
 		if( typeof(_O) == "string" ){ 
 			if (_O.toLowerCase()=='paris'){
 				_O = { lond:2,lonm: 20, ns:0/*N*/,latd: 48,latm: 50,ew: 1/*E*/, tz:1,stdi:14,place:"Paris (France)"}
@@ -59,8 +59,11 @@ JDate.prototype.getZmanim = function(_O){
 			_O = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, tz:2,stdi:15,place:"Jerusalem"}
 		}
 		
-		g 	= new GDate(this)
-		//alwayes convert this to gregorien date
+		var place = _O.place.toLowerCase()
+		
+		g 	=  (this.Class == GDate) ? 	this : new GDate(this)//alwayes convert this to gregorien date
+		
+		
 		var _D = {d:g.getDay(),m:g.getMonth(),y:g.getYear()}
 		function timeadj(t) {
 			var hour;
@@ -74,18 +77,18 @@ JDate.prototype.getZmanim = function(_O){
 			var str = hour + ':' + ((min < 10) ? '0' : '') + min ;
 			return str;
 		}	
-		place = "jerusalem"
-		time = suntime(_D, 90, 50, _O);
+		
+		time = suntime(_D, 90, 50, _O,_timedmc);
 		sunrise = time.sr; // 2 sr
 		sunset  = time.ss; // 3 ss
 		hanetz = timeadj(sunrise);
 		shkia = timeadj(sunset);
 		shaa_zmanit = (sunset - sunrise) / 12;
-		time = suntime(_D, 106, 6, _O);
+		time = suntime(_D, 106, 6, _O,_timedmc);
 		alot = timeadj(time.sr);
-		time = suntime(_D, 101, 0,_O);
+		time = suntime(_D, 101, 0,_O,_timedmc);
 		misheyakir = timeadj(time.sr);
-		time = suntime(_D, 96, 0, _O);
+		time = suntime(_D, 96, 0, _O,_timedmc);
 		tzeit = timeadj(time.ss);
 		shema    = timeadj(sunrise + shaa_zmanit * 3);
 		tefillah = timeadj(sunrise + shaa_zmanit * 4);
@@ -93,7 +96,7 @@ JDate.prototype.getZmanim = function(_O){
 		minchag  = timeadj(sunrise + shaa_zmanit * 6.5);
 		minchak  = timeadj(sunrise + shaa_zmanit * 9.5);
 		plag     = timeadj(sunrise + shaa_zmanit * 10.75);
-		time = suntime(_D, 98, 30, _O);// motzei shabbat (3 small stars)
+		time = suntime(_D, 98, 30, _O,_timedmc);// motzei shabbat (3 small stars)
 		motzeiShabbat = timeadj(time.ss);
 		var day_before // get knisat shabat	for day before
 		if (place == "jerusalem")
@@ -103,7 +106,6 @@ JDate.prototype.getZmanim = function(_O){
 		else if(place == "karnei Shomron" || place == "tel Aviv")
 			xmns = (22.0/ 60.0)
 		else{ 
-			//xmns = (18.0/ 60.0) find the reql t 
 			xmns = (18.0/ 60.0)
 		}
 		knissatShabbat = timeadj(sunset  - xmns);	
@@ -115,7 +117,7 @@ JDate.prototype.getZmanim = function(_O){
 			,motzeiShabbat:motzeiShabbat
 			,knissatShabbat:knissatShabbat
 		}
-	function suntime(  _D /*{d:01,m:01,y:2001}gregorien date*/, sundeg , sunmin, _OPOS ){
+	function suntime(  _D /*{d:01,m:01,y:2001}gregorien date*/, sundeg , sunmin, _OPOS ,P_timedmc){
 			function doy(d, m, y) {return monCount[m] + d + (m > 2 && leap(y));}
 			function leap(y) { return ((y % 400 == 0) || (y % 100 != 0 && y % 4 == 0));}
 			var monCount = new makeArray(1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366);
@@ -137,7 +139,8 @@ JDate.prototype.getZmanim = function(_O){
 			latmin 	= _OPOS.latm
 			ns 		= _OPOS.ns
 			
-			timezone = _OPOS.tz		
+
+			_timezone = _OPOS.tz	+ P_timedmc
 			
 			longitude = (londeg + lonmin/60.0) * ((ew == 0) ? -1 : 1);
 			latitude  = (latdeg + latmin/60.0) * ((ns == 0) ? 1 : -1);
@@ -148,11 +151,11 @@ JDate.prototype.getZmanim = function(_O){
 			var D = 6.28319;      
 			var E = 0.0174533 * latitude; 
 			var F = 0.0174533 * longitude; 
-			var G = 0.261799 * timezone; 
+			var G = 0.261799 * _timezone; 
 			var R = Math.cos(0.01745 * (sundeg + sunmin/60.0));
 			var J;
 			/* two times through the loop   i=0 is for sunrise    i=1 is for sunset */
-			for (i = 0; i < 2; i++) { 
+			for (var i = 0; i < 2; i++) { 
 					if(!i)
 							J =  A; // sunrise 
 					else
@@ -171,7 +174,7 @@ JDate.prototype.getZmanim = function(_O){
 							M = (M - D);
 					if ((M / A) - Math.floor(M / A) == 0)
 							M += 4.84814E-06;
-					var P = Math.sin(M) / Math.cos(M);                   // Solar Right Ascension 
+					var P = Math.sin(M) / Math.cos(M);                   /// Solar Right Ascension 
 					P = Math.atan2(.91746 * P, 1); 
 					// Quadrant Adjustment 
 					if (M > C)
@@ -181,7 +184,7 @@ JDate.prototype.getZmanim = function(_O){
 									P += B;
 					} 
 					var Q = .39782 * Math.sin(M);      // Solar Declination 
-					Q = Q / Math.sqrt(-Q * Q + 1);     // This is how the original author wrote it! 
+					Q = Q / Math.sqrt(-Q * Q + 1);     /// This is how the original author wrote it! 
 					Q = Math.atan2(Q, 1); 
 					var S = R - (Math.sin(Q) * Math.sin(E)); 
 					S = S / (Math.cos(Q) * Math.cos(E)); 

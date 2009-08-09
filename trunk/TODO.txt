@@ -1,2 +1,2 @@
-- zmanim -  verify the knisat shabat time (20 min)
+- zmanim -  verify the knisat shabat time (20 min) // resulved by place other jerusalem == 40 min
 - 
