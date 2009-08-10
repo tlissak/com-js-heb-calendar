@@ -16,17 +16,19 @@
 </head>
 
 <body>
-<div style="font-size:36px">
-TEFELINIE </div>
 <div style="border-bottom:#CCC 1px solid; height:28px">
 	<ul class="menu">
-    	<li>From :</li>
-        <li>To :</li>
+    	<li>From :<input type="text" id="sCal_start" size="5" 
+        onblur="Pref({cal_start:this.value})"  /></li>
+        <li>To :<input type="text" id="sCal_end" size="5" 
+        onblur="Pref({cal_end:this.value})"/></li>
+        
         <li><a href="#" id="q">Reload</a></li>
-        <li>Summer time : <input type="checkbox" id="summer_time" checked="checked" value="1" /></li>
-        <li><select id="city" name="city">
+        <li>Summer time : <input type="checkbox" id="time_adj" 
+        onclick="var __tqdj=this.checked?1:0;Pref({time_adj:__tqdj})" /></li>
+        <li><select id="city" name="city" onchange="Pref({city:this.value})">
         	<optgroup label="Israel">
-				<option value="Jerusalem" selected="selected">Jerusalem</option>
+				<option value="Jerusalem" >Jerusalem</option>
             </optgroup>
             <optgroup label="Europe">
                 <option value="Paris">Paris</option>
@@ -35,6 +37,9 @@ TEFELINIE </div>
             	<option value="Moscow">Moscow</option>
             </optgroup>
             </select>
+        </li>
+        <li>
+        	<a href="#" onclick="delete_events()">Delete all events</a>
         </li>
     </ul>
 </div>
@@ -71,7 +76,15 @@ TEFELINIE </div>
 </form>
 </fieldset>
 
-
+<fieldset id="step2" class="fs"><legend><label onmousedown="Move(event,$('step2'))">Step 2 Create hefsek thara</label><span  onclick="$('step2').style.display='none'">x</span></legend>
+<form name="sqaxsxasxa">
+	<label>Create a Hefsek tahara at the <span id="hefsek_date"></span> : </label>
+    <input type="hidden" id="hefsek_d" />
+    <span><input type="button" value="create" onclick="create_hefsek()" /></span>
+    <div class="clear"></div>
+    <input type="button" value="cancel" onclick="$('step2').style.display='none'" />
+</form>
+</fieldset>
 <fieldset id="step1" class="fs"><legend><label onmousedown="Move(event,$('step1'))">Step 1 Create raia</label><span  onclick="$('step1').style.display='none'">x</span></legend>
 <form name="sq">
 

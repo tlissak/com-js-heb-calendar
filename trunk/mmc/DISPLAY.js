@@ -1,93 +1,101 @@
-// JavaScript Document
-
-
-var Cookie = {
-  build: function() {
-	 arr_b = new Array()
-	for (var i=0;i<arguments.length;i++){
-		arr_b.push(arguments[i])
-	}
-    return arr_b.join("; ");
-  },
-  daysFromNow: function(days) {
-    var d = new Date();
-    d.setTime(d.getTime() +(days * 24 * 60 * 60 * 1000));
-    return d.toGMTString();
-  },
-  set: function(name,value,day){
-    var expiry = day ? 'expires=' + Cookie.daysFromNow(day) : null;
-    document.cookie = Cookie.build(name + "=" + value, expiry, "path=/");
-  }
-  ,
-  get: function(name){
-    var valueMatch = new RegExp(name + "=([^;]+)").exec(document.cookie);
-    return valueMatch ? valueMatch[1] : null;
-  },
-  unset: function(name){
-    Cookie.set(name,'',-1);
-  }
-};
-function getURLParam(strParamName){
-	var strParamName = strParamName.toLowerCase()
-	var strHref = window.location.href;
-	if ( strHref.indexOf("?") > -1 ){
-		var strQueryString = strHref.substr(strHref.indexOf("?"));
-		var aQueryString = strQueryString.split("&");
-		for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
-			if (aQueryString[iParam].toLowerCase().indexOf(strParamName + "=") > -1 ){
-				return aQueryString[iParam].split("=")[1];
+function getGCalObj(){
+	oPref = Pref()
+	oy = new Array()	
+	for (var yy = 0;yy <= oPref.years;yy++){
+		oy[yy] = new Array()
+		for (var mm=0;mm<12;mm++){
+			GD = new GDate(1,mm+1,oPref.cal_start+yy)
+			_gsize  = GD.getMonthLength()
+			_dow 	= GD.getDayOfWeek() +1
+			_gm 	= GD.getMonthName()
+			_m_hdn	= GD.m_hdn
+			oy[yy][mm] =  new Array()			
+			for (var j=0;j<_gsize ;j++){
+				if (_dow > 7){_dow = 1}
+				oy[yy][mm][j] = {m_hdn:_m_hdn,gm:_gm,dow:_dow}
+				_dow++
+				_m_hdn++
 			}
 		}
 	}
-	return null;
+	return oy
 }
-var qs = getURLParam
-
-
-
-
-
-
-function Move(e,elm){//Move by tlissak v 0.7 
-	var elm = elm
-	elm.style.position = "absolute"
-	var process 	= true
-	var cursorPosition = function (ev){
-		ev = ev || window.event;
-		if(ev.pageX || ev.pageY){			return {x:ev.pageX, y:ev.pageY};		}
-		return {x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
-				y:ev.clientY + document.body.scrollTop  - document.body.clientTop}
-	}
-	var findObjPos = function (obj) {
-		if (obj){var curleft = 0 ;var curtop = 0;
-			if (obj.offsetParent) {
-				curleft = obj.offsetLeft ; curtop = obj.offsetTop
-				while (obj = obj.offsetParent) {curleft += obj.offsetLeft ; curtop += obj.offsetTop	}}
-			return {x:curleft,y:curtop};
+function getHCalObj(){
+	oPref = Pref()
+	oy = new Array()	
+	for (var yy = 0;yy <= oPref.years;yy++){
+		oy[yy] = new Array()
+		for (var mm=0;mm<12;mm++){
+			GD = new GDate(1,mm+1,oPref.cal_start+yy)
+			HD = new HDate(GD)//c(GD,HD)		
+			
+			_gsize  = GD.getMonthLength()
+			_dow 	= GD.getDayOfWeek() +1
+			_gm 	= GD.getMonthName()
+			_m_hdn	= GD.m_hdn
+			
+			_hy = HD.getYear()
+			_hm = HD.getMonth()
+			_hd = HD.getDay()
+			_nm = HD.nbMonths()	
+			_mm = HD.getMonthName()		
+			_hsize  = HD.getMonthLength()
+			oy[yy][mm] =  new Array()			
+			for (var j=0;j<_gsize ;j++){
+				if (_hd > _hsize){	
+					_hd = 1
+					_hm++
+					if (_hm == 7){ /*tishrqi*/	_hy++ ; 	}
+					if (_hm > _nm){ /* hm */	_hm=1 ; }
+					HD.setDate(1,_hm,_hy)
+					_hm 	= HD.getMonth()
+					_hsize 	= HD.getMonthLength()
+					_mm 	= HD.getMonthName()
+					_hy		= HD.getYear() 
+				}
+				if (_dow > 7){_dow = 1}
+				oy[yy][mm][j] = {m_hdn:_m_hdn,d:_hd,m:_hm,y:_hy,hm:_mm,gm:_gm,dow:_dow}
+				_hd++
+				_dow++
+				_m_hdn++
+			}
 		}
-	}	
-	var old_y_pos  = parseInt(elm.style.top) ? parseInt(elm.style.top) : findObjPos(elm).y
-	var old_x_pos	= parseInt(elm.style.left) ? parseInt(elm.style.left) : findObjPos(elm).x
-	var old_csr_x  = cursorPosition(e).x - old_x_pos
-	var old_csr_y	= cursorPosition(e).y - old_y_pos
+	}
+	return oy
+}
+
+function show(){
+	$("d").innerHTML = ""
+	_d = getGCalObj() // getHCalObj
+	oPref = Pref()
+	td = new Date()
+	tdy = td.getFullYear()
+	tdd = td.getDate()
+	tdm = td.getMonth() +1	
 	
-	document.onmousemove= mousemove
-	document.body.onselectstart=function(){return false}//ie
-	document.body.onmousedown=function(){return false}//mozilla}
-	function mouseup(){
-		process=false
-		document.onmouseup = null
-		document.onmousemove = null
-		document.body.onselectstart=function(){return true}//ie
-		document.body.onmousedown=function(){return true}//mozilla
-	}
-	function mousemove(e){
-		elm.onmouseup = mouseup
-		document.onmouseup = mouseup
-		if(process){
-			elm.style.left = cursorPosition(e).x - old_csr_x +"px"
-			elm.style.top  = cursorPosition(e).y - old_csr_y +"px"
-			document.onmouseup = this.mouseup
+	for (var yy = 0 ; yy < _d.length;yy++){
+		yyyy = (oPref.cal_start + yy)
+		x = '<div>'+yyyy+'</div>'
+		for (var mm=0;mm<_d[yy].length;mm++){
+			tmcs = (tdm == mm+1 && tdy == (oPref.cal_start + yy)) ? "class='curr_month'" : ""
+			x += '<li '+tmcs+' ><table>'		
+			x += "<tr class='m'><th colspan='7'>"+_d[yy][mm][0].gm+"</th></tr>"		
+			x += '<tr class="j"><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>'		
+			x += '<tr>'
+			
+			for (var of = 1;of < _d[yy][mm][0].dow;of++){	x += "<th>-</th>"}		
+			for (var j=0;j<_d[yy][mm].length;j++){
+				dd = _d[yy][mm][j]			
+				tcs = ((mm+1)==tdm&&(j+1)==tdd&&tdy==(oPref.cal_start + yy))  ? " class='today'" : "" 	
+				x += '<td id="j_'+dd.m_hdn+'" '+tcs+'  onclick="_j(event,this)">'+(j+1)+'</td>'
+				if (dd.dow==7){	x += '</tr><tr>'} /*Sha.bat*/ //(j+1)+'_'+(mm+1)+'_'+yyyy
+			}	
+			if (dd.dow < 7){for (var of =dd.dow;of < 7 ; of++){	x += "<th>-</th>"	}}
+			x += '</tr></table></li>'
+			
 		}
-	}	
+		$("d").innerHTML += x 
+	}
+	calc_event()
 }
+
