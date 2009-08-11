@@ -162,7 +162,7 @@ function GDate(){
 	/* private class methods. */
 	
 	function getMonthName(){
-		return ["","Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+		return ["","January","February","March","April","May","June","July","August","September","October","November","December"]
 		[this.getMonth()] ;
 	}
 	

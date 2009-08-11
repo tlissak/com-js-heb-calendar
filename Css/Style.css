@@ -1,21 +1,54 @@
 @charset "utf-8";
-/* CSS Document */
+/* ATTENTION */
+html,body{height:90%}
+/* ATTENTION */
+body{padding:0; margin:0; font-family:Arial, Helvetica, sans-serif; font-size:11px; background:#FFF }
+img {border:0 none}a{text-decoration:none; color:#777777} .pointer{cursor:pointer}
+hr{border:0 none; height:1px; width:95%; color:#CCCCCC; border-color:#CCCCCC; background-color:#CCCCCC}
+h2,h3{padding:0; margin:0}
+h1{font-size:18px; font-weight:bold; display:inline; margin:10px}
+h2{font-size:14px; font-weight:bold}
+h3{font-size:12px; font-weight:bold}
+.link{color:#0F29BB; text-decoration:underline; font-size:13px}
+ul{padding:0; margin:0;}
+ul li a{display:block}
+.spacer{ height:18px; clear:both}
+.clear{clear:both; height:1px}
+.msg { color:#009; background:#e0ecff; border:#6694e3 3px  double; padding:10px}
 
-body{ padding:0; margin:0; font-family:Arial, Helvetica, sans-serif; font-size:12px; }
+input:focus {	outline: 0;	outline-offset: 0;}
+input, select {font-size: 12px;vertical-align: top;outline: none;border: 1px solid #bdc2c9;height:17px;padding:0px;}
+
 
 .menu{padding:0; margin:0;}
 .menu li{padding:0; margin:0; float:left; padding:3px 17px; list-style:none; font-size:14px}
 
-#d{ padding:0; margin:0; font-size:9px; text-align:center}
-#d div{ clear:both; height:20px; background:#f1f1f1}
-#d li{float:left;height:140px; width:120px; padding:0; margin:0; list-style:none; padding-left:10px}
-#d table{border-collapse:collapse; border-spacing:0;  border:#f1f1f1 1px solid; width:100%}
+
+.bar-a{ margin:0 2px; background-color:#c3d9ff; height:1px}
+.bar-b{ margin:0 1px; background-color:#c3d9ff; height:1px}
+.bar-c{ background-color:#c3d9ff; min-height:10px}
+
+
+#d{ padding:0; margin:0; font-size:11px; text-align:center}
+#d li{width:180px; height:110px; padding:0; margin:0; list-style:none; }
+#d table{width:90%; background:#FFF; border-spacing:0; border-collapse:collapse; background-color:#fff}
 #d td{cursor:pointer}
-#d td:hover{background:#CCC}
-#d li.curr_month table{ border-color:#00F}
+/*#d td:hover{background:#CCC}*/
+#d li.curr_month table{ }
+#d .dow th{background-color:#f1f1f1}
+#d .month th{background-color:#C3D9FF; color:#112abb; font-size:11px; font-weight:bold}
+
 .today{ border:#00F 1px solid}
 
+.header td{ text-align:center; color:#112abb}
 
+.cal{border-collapse:collapse; border-spacing:0px;}
+.cal td{  border:#C3D9FF 1px solid; vertical-align:top; text-align:center}
+.cal-dt{height:14px; background-color:#E8EEF7; }
+.cal-dt-civil{color:#777777; float:right;}
+.cal-dt-hebrew{color:#ffffff; font-weight:bold; float:left; }
+.cal-ona-0{ clear:both; min-height:20px; background-color:#f7f7f7; color:#CCC}
+.cal-ona-1{ clear:both; min-height:10px; background-color:#fff; color:#CCC}
 
 .fs{width:220px; padding:15px;-moz-border-radius:5px; position:absolute; background:#FFF;display:none;}
 .fs legend { background:#fff; padding:3px; border:#7C7B7D 1px solid;-moz-border-radius:5px; }
@@ -37,16 +70,21 @@ body{ padding:0; margin:0; font-family:Arial, Helvetica, sans-serif; font-size:1
 #step1{width:550px}
 #step1 u{color:#F00; font-weight:bold}
 
-.spacer{ height:18px; clear:both}
-.clear{clear:both; height:1px}
 
-.msg { color:#009; background:#e0ecff; border:#6694e3 3px  double; padding:10px}
 #pn{font-size:8px;}
 
 #shabat{color:#00F}
 #holiday{color:#F00}
 
-.j th{background:#f1f1f1}
-.m th{background:#CCC}
+#month-container{height:270px;background-color:#c3d9ff; overflow-y:scroll; overflow-x:hidden; position:relative;}
 
-
+.has-event{  background-position:50%; background-repeat:no-repeat; border:#f1f1f1 1px solid}
+.flow-s{ background-image:url(../Images/p-red.png); }
+.flow-in{ background-image:url(../Images/p-pink.png) }
+.hodesh{ background-image:url(../Images/p-yellow.png)}
+.ona-benonit{background-image:url(../Images/p-orange.png) }
+.haflaga{background-image:url(../Images/p-blue.png) }
+.hefsek{background-image:url(../Images/p-purple.png)}
+.seven-nekaim{background-image:url(../Images/p-green.png)}
+.mikve{background-image:url(../Images/p-lightblue.png) }
+.multi-event{background-image:url(../Images/p-multicolor.png);  font-weight:bold}

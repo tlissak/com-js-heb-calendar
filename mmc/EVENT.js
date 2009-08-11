@@ -124,7 +124,6 @@ function create_hefsek(){
 }
 function calc_event(){
 	evts 	= Cookie.get("event").split("!")
-	//console.log(evts)
 	var _av = new Array()
 	for (var i = 0 ; i < evts.length;i++){
 		if (evts[i].indexOf("-")>-1){
@@ -134,8 +133,7 @@ function calc_event(){
 			_av[i][1] = _a_ev[0]
 		}
 	}
-	_av.sort()
-	
+	_av.sort()	
 	veset_haflaga 	= new Array()
 	var haflaga			= -1
 	for (var i=0;i<_av.length;i++){
@@ -143,43 +141,66 @@ function calc_event(){
 		GD = new GDate(mdn)
 		
 		if (_av[i][1].indexOf("raia") > -1){
-			c$("j_"+mdn).style.background = "red"
-			for (var nj=1;nj<5;nj++){ // minimum nida
-				c$("j_"+(mdn +nj)).style.background = "pink"
+			c$("j_"+mdn,"flow-s")
+			for (var nj=1;nj<4;nj++){ // minimum nida
+				c$("j_"+(mdn +nj),"flow-in")
 			}
 			HD = new HDate(GD) 
 			orig = HD.getDay()
 			HD.nextMonth()
 			if (orig == HD.getDay()){/*the next month day is exist VESET HACHODESH*/ 
-				c$("j_"+HD.m_hdn).style.background = "green"
+				c$("j_"+HD.m_hdn,"hodesh")
 			}
 			// ONA BENONIT
-			c$("j_"+ (mdn + 28)).style.background = "blue"
+			c$("j_"+ (mdn + 29),"ona-benonit")
 			if (haflaga != -1){
 				veset_haflaga[haflaga][1] = mdn
 				veset_haflaga[haflaga][2] = (mdn - veset_haflaga[haflaga][0]) // distance
 			}
 		}else if(_av[i][1].indexOf("hefsek") > -1){
-			c$("j_"+mdn).style.background = "yellow"
+			c$("j_"+mdn,"hefsek")
 			for (var nj=1;nj<7;nj++){ // 7 nekiim
-				c$("j_"+(mdn +nj)).style.background = "lightgreen"
+				c$("j_"+(mdn +nj),"seven-nekaim")
 			}
 			// mikve day 
-			c$("j_"+(mdn+7)).style.background = "purple"
+			c$("j_"+(mdn+7),"mikve")
 			haflaga++
 			veset_haflaga[haflaga] = new Array()
 			veset_haflaga[haflaga][0] = mdn
 		}
 	}
-	
+	//console.log(Cookie.get("event").split("!").join("<br />"))
 	for (var i=0;i<veset_haflaga.length;i++){
-		c$("j_"+(veset_haflaga[i][0] + veset_haflaga[i][2]  + veset_haflaga[i][2]	)).style.background = "black"
+		c$("j_"+(veset_haflaga[i][0] + veset_haflaga[i][2]  + veset_haflaga[i][2]	),"haflaga")
 	}
 }
 function delete_events(){
 	Cookie.del("event")
 }
-function c$(id){
-	if ($(id)){	return $(id) }	
-	return {style:{background:{}}}
+function c$(id,class){
+	if ($(id)){
+		elm_day = $(id)
+		if (elm_day.className != ""){
+			elm_day.className = "has-event multi-event"	
+		}else{
+			elm_day.className = "has-event "+ class
+		}
+	}else{
+		// day dosent exist or error	
+	}
 }
+/*
+hefsek-2106903!
+raia1-2106922!
+hefsek-2106926!
+raia1-2106949!
+hefsek-2106953!
+raia1-2106976!
+hefsek-2106980!
+raia1-2107004!
+hefsek-2107008!
+raia1-2107030!
+hefsek-2107034!
+raia1-2107056!
+hefsek-2107060!
+*/

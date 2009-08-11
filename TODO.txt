@@ -1,2 +1,7 @@
 - zmanim -  verify the knisat shabat time (20 min) // resulved by place other jerusalem == 40 min
-- 
+- get holiday jEvent (calculation time !!!) issue
+- click on event for detail 
+- large cal navigation and events and holidays
+- few colors each day // resulved 
+- veset haflaga error
+- consult event / delete event
