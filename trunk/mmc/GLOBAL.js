@@ -1,4 +1,10 @@
 function c(){console.log(c.arguments)}
+if (!(window.console)){
+var console = {
+	log:function(){ 
+		for (var console_arg=0;console_arg <arguments.length;console_arg++){
+			$("log").innerHTML = $("log").innerHTML + arguments[console_arg]
+		}}}}
 function $(id){return document.getElementById(id)}
 function cursorPosition(ev){ev = ev || window.event;	
 	if(ev.pageX || ev.pageY){return {x:ev.pageX, y:ev.pageY};}

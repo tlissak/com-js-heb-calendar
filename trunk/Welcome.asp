@@ -54,6 +54,6 @@ End at December - <input type="text" size="5" name="end" maxlength="4" value="<%
 </form>
 </fieldset>
 </center>
-<img src="Logo_small.png" style="position:fixed; bottom:0; right:0" />
+<img src="Images/Logo_small.png" style="position:fixed; bottom:0; right:0" />
 </body>
 </html>

@@ -20,6 +20,7 @@ function getGCalObj(){
 	}
 	return oy
 }
+
 function getHCalObj(){
 	oPref = Pref()
 	oy = new Array()	
@@ -72,30 +73,102 @@ function show(){
 	tdy = td.getFullYear()
 	tdd = td.getDate()
 	tdm = td.getMonth() +1	
-	
+	pos = 0
+	curr_month = {y:1,m:0}
 	for (var yy = 0 ; yy < _d.length;yy++){
 		yyyy = (oPref.cal_start + yy)
-		x = '<div>'+yyyy+'</div>'
+		
 		for (var mm=0;mm<_d[yy].length;mm++){
-			tmcs = (tdm == mm+1 && tdy == (oPref.cal_start + yy)) ? "class='curr_month'" : ""
-			x += '<li '+tmcs+' ><table>'		
-			x += "<tr class='m'><th colspan='7'>"+_d[yy][mm][0].gm+"</th></tr>"		
-			x += '<tr class="j"><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>'		
+			x = ''
+			if (tdm == mm+1 && tdy == yyyy) {
+				tmcs = "class='curr_month'" 
+				curr_month = {yLength:yy,m:mm+1,y:yyyy,month:_d[yy][mm][0].gm}
+			}else{
+				tmcs = ""
+			}
+			x += '<li '+tmcs+' ><table align="center">'		
+			x += "<tr class='month'><th colspan='7'>"+_d[yy][mm][0].gm + " "+ yyyy +"</th></tr>"		
+			// day of week
+			//x += '<tr class="dow"><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>'		
 			x += '<tr>'
 			
 			for (var of = 1;of < _d[yy][mm][0].dow;of++){	x += "<th>-</th>"}		
 			for (var j=0;j<_d[yy][mm].length;j++){
 				dd = _d[yy][mm][j]			
-				tcs = ((mm+1)==tdm&&(j+1)==tdd&&tdy==(oPref.cal_start + yy))  ? " class='today'" : "" 	
+				tcs = ((mm+1)==tdm&&(j+1)==tdd&&tdy==yyyy)  ? " class='today'" : "" 	
 				x += '<td id="j_'+dd.m_hdn+'" '+tcs+'  onclick="_j(event,this)">'+(j+1)+'</td>'
 				if (dd.dow==7){	x += '</tr><tr>'} /*Sha.bat*/ //(j+1)+'_'+(mm+1)+'_'+yyyy
 			}	
 			if (dd.dow < 7){for (var of =dd.dow;of < 7 ; of++){	x += "<th>-</th>"	}}
 			x += '</tr></table></li>'
-			
+			$("d").innerHTML += x 
 		}
-		$("d").innerHTML += x 
+		
 	}
+	pos = ((curr_month.m-1)*(curr_month.yLength+1))
+	$("month-container").scrollTop = (pos * 110)
+	show_calendar(curr_month)
 	calc_event()
 }
+function show_calendar(oMonth){
+	
+	oM = getHMonthObj(oMonth.m,oMonth.y)
+	
+	
+	td = new Date()
+	tdy = td.getFullYear()
+	tdd = td.getDate()
+	tdm = td.getMonth() +1	
+	
+	x = "<tr>"
+	for (var of = 1;of < oM[0].dow;of++){	x += "<td>&nbsp;</td>"}	
+	
+	for (var j=0;j<oM.length;j++){
+		dd = oM[j]			
+		tcs = ((oMonth.m)==tdm&&(j+1)==tdd&&tdy==oMonth.y)  ? " class='today'" : "" 	
 
+		x += '<td id="jm_'+dd.m_hdn+'" '+tcs+'  onclick="_j(event,this)">'
+		x += '<div class="cal-dt"><span class="cal-dt-hebrew">'
+		x += dd.d +' '+dd.hm 
+		x += '</span><span class="cal-dt-civil">'
+		x += (j+1)
+		x += '</span></div>'
+		
+  		x += '<div class="cal-ona-0">'+dd.zmanim.hanetz+'</div>' 
+  		x += '<div class="cal-ona-1">'+dd.zmanim.shkia+'</div>'
+		x += dd.parasha
+		
+		x += '</td>'
+		
+		if (dd.dow==7){	x += '</tr><tr>'} 
+	}	
+	
+	if (dd.dow < 7){for (var of =dd.dow;of < 7 ; of++){	x += "<td>&nbsp;</td>"	}}
+	
+	x += "</tr>"
+  $("cal").innerHTML = x
+  $("cal-date").innerHTML = oMonth.month + " " + oMonth.y
+}
+function getHMonthObj(m,y){
+	oPref = Pref()
+	GD = new GDate(1,m,y)
+	HD = new HDate(GD.m_hdn-1)		
+	_gsize  = GD.getMonthLength()
+	_gm 	= GD.getMonthName()
+	od =  new Array()			
+	for (var j=0;j<_gsize ;j++){
+		HD.add(1)
+		_hy 	= HD.getYear()
+		_hm 	= HD.getMonth()
+		_hd 	= HD.getDay()
+		_m_hdn 	= HD.m_hdn
+		_mm 	= HD.getMonthName()	
+		_dow	= HD.getDayOfWeek() +1
+		_zmanim = HD.getZmanim(oPref.city,oPref.time_adj)
+		_parasha = _dow == 7 ? HD.getParashaName(oPref.bIsrael,oPref.bIsrael) : ""
+		jEvent 	= {name:""}//new JEvent(HOLIDAYS.currentHoliday(HD))
+		_holiday = jEvent.name ? jEvent.name : ""
+		od[j] = {m_hdn:_m_hdn,d:_hd,m:_hm,y:_hy,hm:_mm,gm:_gm,dow:_dow,zmanim:_zmanim,parasha:_parasha,holiday:_holiday}
+	}
+	return od
+}

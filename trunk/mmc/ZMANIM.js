@@ -111,6 +111,7 @@ JDate.prototype.getZmanim = function(_O,_timedmc){
 		knissatShabbat = timeadj(sunset  - xmns);	
 		return {
 			city:_O
+			,sunrise:sunrise,sunset:sunset
 			,hanetz:hanetz,	shkia:shkia ,shaa_zmanit:shaa_zmanit,alot:alot,misheyakir:misheyakir
 			,tzeit:tzeit,shema:shema,tefillah:tefillah,chatzot:chatzot,minchag:minchag
 			,minchak:minchak,plag:plag
