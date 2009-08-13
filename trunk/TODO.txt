@@ -1,7 +1,14 @@
 - zmanim -  verify the knisat shabat time (20 min) // resulved by place other jerusalem == 40 min
 - get holiday jEvent (calculation time !!!) issue
 - click on event for detail 
-- large cal navigation and events and holidays
+- large cal navigation 
 - few colors each day // resulved 
-- veset haflaga error
-- consult event / delete event
+- veset haflaga error // resulved
+- consult event and events details  / delete event
+- candel lighiting // resulved
+- motsai shabat icon
+- add list of cities 
+- create events obj to store and the save to cookie // resulved
+- cal get parash rosh hashana parasha undefined !!!
+- decalage de temp on event // resulved { knisat chabat and shkia }
+- check veset haflaga 
