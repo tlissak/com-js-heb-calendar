@@ -1,10 +1,9 @@
-<!--#include file="inc/Header.js"--><!--#include file="inc/Function.js"-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="Css/Style.css"/>
-<title></title>
+<title>Set your pref</title>
 </head>
 
 <body>
@@ -32,7 +31,8 @@
 <label>Summer time :</label><span><input type="checkbox" id="time_adj" name="time_adj" checked="checked" value="1" /></span>
 <div class="spacer"></div>
 <label>Calendar months  :</label><br />
-<span>Start  at Januar - <input type="text" name="start" size="5" maxlength="4" value="<%= date.getFullYear() %>" /> <br />
+<span>Start  at January - 
+<input type="text" name="start" size="5" maxlength="4" value="<%= date.getFullYear() %>" /> <br />
 End at December - <input type="text" size="5" name="end" maxlength="4" value="<%= date.getFullYear() %>" /></span>
 <div class="spacer"></div>
 <input type="submit" value="Set preferace" />

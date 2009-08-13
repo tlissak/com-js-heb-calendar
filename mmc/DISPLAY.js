@@ -74,20 +74,24 @@ function show(){
 	tdd = td.getDate()
 	tdm = td.getMonth() +1	
 	pos = 0
-	curr_month = {y:1,m:0}
+	calendar_position = 0
+	curr_month = {y:0,m:0}
 	for (var yy = 0 ; yy < _d.length;yy++){
 		yyyy = (oPref.cal_start + yy)
 		
 		for (var mm=0;mm<_d[yy].length;mm++){
 			x = ''
+			_month_name = _d[yy][mm][0].gm
 			if (tdm == mm+1 && tdy == yyyy) {
 				tmcs = "class='curr_month'" 
-				curr_month = {yLength:yy,m:mm+1,y:yyyy,month:_d[yy][mm][0].gm}
+				curr_month = {m:mm+1,y:yyyy}
+				calendar_position = pos
 			}else{
 				tmcs = ""
 			}
 			x += '<li '+tmcs+' ><table align="center">'		
-			x += "<tr class='month'><th colspan='7'>"+_d[yy][mm][0].gm + " "+ yyyy +"</th></tr>"		
+			x += "<tr class='month'><th colspan='7' class='pointer' onclick=\"show_calendar({m:"+(mm+1)+",y:"+yyyy+"})\">"
+			x += _month_name + " "+ yyyy +"</th></tr>"		
 			// day of week
 			//x += '<tr class="dow"><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>'		
 			x += '<tr>'
@@ -102,18 +106,20 @@ function show(){
 			if (dd.dow < 7){for (var of =dd.dow;of < 7 ; of++){	x += "<th>-</th>"	}}
 			x += '</tr></table></li>'
 			$("d").innerHTML += x 
+			pos ++
 		}
 		
 	}
-	pos = ((curr_month.m-1)*(curr_month.yLength+1))
-	$("month-container").scrollTop = (pos * 110)
+
+	$("month-container").scrollTop = (calendar_position * 110)
 	show_calendar(curr_month)
-	calc_event()
+	
 }
 function show_calendar(oMonth){
 	
 	oM = getHMonthObj(oMonth.m,oMonth.y)
 	
+	_month_name = oM[0].gm
 	
 	td = new Date()
 	tdy = td.getFullYear()
@@ -134,10 +140,16 @@ function show_calendar(oMonth){
 		x += (j+1)
 		x += '</span></div>'
 		
-  		x += '<div class="cal-ona-0">'+dd.zmanim.hanetz+'</div>' 
-  		x += '<div class="cal-ona-1">'+dd.zmanim.shkia+'</div>'
-		x += dd.parasha
-		
+  		x += '<div class="cal-ona-0" id="jm_'+dd.m_hdn+'_0"></div>' 
+		if (dd.dow==6){
+		x += "<div class='shabat'>"+dd.zmanim.knissatShabbat+"</div>"
+		}
+		if (dd.dow==7){
+		x += "<div class='shabat'>"+dd.zmanim.motzeiShabbat+"</div>"
+		}
+		x += '<div class="times" >'+ dd.zmanim.hanetz+" - "+dd.zmanim.shkia+'</div>'		
+		x += '<div class="cal-ona-1" id="jm_'+dd.m_hdn+'_1"></div>'		
+		x += dd.parasha		
 		x += '</td>'
 		
 		if (dd.dow==7){	x += '</tr><tr>'} 
@@ -146,8 +158,33 @@ function show_calendar(oMonth){
 	if (dd.dow < 7){for (var of =dd.dow;of < 7 ; of++){	x += "<td>&nbsp;</td>"	}}
 	
 	x += "</tr>"
+  
   $("cal").innerHTML = x
-  $("cal-date").innerHTML = oMonth.month + " " + oMonth.y
+  $("cal-date").innerHTML = _month_name + " " + oMonth.y
+  
+  curr_m = oMonth.m
+  curr_y = oMonth.y
+  next_m = curr_m + 1
+  next_y = curr_y
+  previews_m = curr_m - 1
+  previews_y = curr_y 
+  if (next_m == 13){  next_m = 1 ; 	  next_y ++ ; }
+  if (previews_m == 0){  previews_m = 12 ; 	  previews_y -- ; }
+  
+  
+  
+  $("cal-next").onclick = function(){
+		show_calendar({m:next_m,y:next_y})	
+	}
+	$("cal-previews").onclick = function(){
+		show_calendar({m:previews_m,y:previews_y})	
+	}
+	//////////////////////////////////////
+	//
+	// 
+	calc_event()
+	//
+	///////////////////////
 }
 function getHMonthObj(m,y){
 	oPref = Pref()
