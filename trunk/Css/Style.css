@@ -7,38 +7,52 @@ img {border:0 none}a{text-decoration:none; color:#777777} .pointer{cursor:pointe
 hr{border:0 none; height:1px; width:95%; color:#CCCCCC; border-color:#CCCCCC; background-color:#CCCCCC}
 h2,h3{padding:0; margin:0}h1{font-size:18px; font-weight:bold; display:inline; margin:10px}
 h2{font-size:14px; font-weight:bold}h3{font-size:12px; font-weight:bold}
-.link{color:#0F29BB; text-decoration:underline; font-size:13px}
+.link{color:#0F29BB; text-decoration:underline; font-size:14px}
 ul{padding:0; margin:0;}ul li a{display:block}
 .spacer{ height:18px; clear:both}.clear{clear:both; height:1px}
 .msg { color:#009; background:#e0ecff; border:#6694e3 3px  double; padding:10px}
 input:focus {	outline: 0;	outline-offset: 0;}
 input, select {font-size: 12px;vertical-align: top;outline: none;border: 1px solid #bdc2c9;height:17px;padding:0px;}
 
-.menu{padding:0; margin:0;}
-.menu li{padding:0; margin:0; float:left; padding:3px 17px; list-style:none; font-size:14px}
+#menu{border-bottom:#c9d7f1 1px solid; height:24px;display:none}
+#menu ul{padding:0; margin:0; }
+#menu li{padding:0; margin:0; float:left; padding:3px 17px; list-style:none; font-size:13px; color:#0000CC}
+#menu input,#menu select {color:#900}
 
 .bar-a{ margin:0 2px; background-color:#c3d9ff; height:1px}
 .bar-b{ margin:0 1px; background-color:#c3d9ff; height:1px}
 .bar-c{ background-color:#c3d9ff; min-height:10px}
 
 #d{ padding:0; margin:0; font-size:11px; text-align:center}
-#d li{width:180px; height:110px; padding:0; margin:0; list-style:none; }
+#d li{width:180px; height:120px; padding:0; margin:0; list-style:none; }
 #d table{width:90%; background:#FFF; border-spacing:0; border-collapse:collapse; background-color:#fff}
-#d td{cursor:pointer}
+#d td{cursor:pointer; border:#c3d9ff 1px solid}
 #d li.curr_month table{ }
 #d .dow th{background-color:#f1f1f1}
 #d .month th{background-color:#C3D9FF; color:#112abb; font-size:11px; font-weight:bold}
 
+.list li{list-style:none}
+
 .today{ border:#00F 1px solid}
 
-.cal-header td{ text-align:center; color:#112abb}
+#log{height:250px; overflow:scroll; display:none}
+
+.cal-header td{ text-align:center; color:#112abb;  width:14%}
 .cal{border-collapse:collapse; border-spacing:0px;}
-.cal td{  border:#C3D9FF 1px solid; vertical-align:top; text-align:center}
+.cal td{  border:#C3D9FF 1px solid; vertical-align:top; text-align:center;  width:14%}
 .cal-dt{height:14px; background-color:#E8EEF7; }
 .cal-dt-civil{color:#777777; float:right;}
 .cal-dt-hebrew{color:#B7CDF3; font-weight:bold; float:left; }
-.cal-ona-0{ clear:both; min-height:20px; background-color:#f7f7f7; color:#CCC;}
-.cal-ona-1{ clear:both; min-height:10px; background-color:#fff; color:#CCC}
+.cal-ona-0{ clear:both; min-height:20px; background-color:#f7f7f7; color:#666; font-weight:bold}
+.cal-ona-1{ clear:both; min-height:10px; background-color:#fff; color:#666; font-weight:bold}
+
+.times{background:url(../Images/time.png) no-repeat left; color:#999; visibility:hidden}
+.cal td:hover .times{visibility:visible}
+
+.shabat-s{background:url(../Images/shabat.png) no-repeat left}
+.shabat-e{background:url(../Images/havdala.png) no-repeat top left}
+
+
 
 .fs{width:220px; padding:15px;-moz-border-radius:5px; position:absolute; background:#FFF;display:none;}
 .fs legend { background:#fff; padding:3px; border:#7C7B7D 1px solid;-moz-border-radius:5px; }
@@ -61,15 +75,13 @@ input, select {font-size: 12px;vertical-align: top;outline: none;border: 1px sol
 
 #month-container{height:350px;background-color:#c3d9ff; overflow-y:scroll; overflow-x:hidden; position:relative;}
 
-.times{background:url(../Images/time.png) no-repeat left; color:#999}
-.shabat{background:url(../Images/shabat.png) no-repeat left}
 
 .has-cal-event{background-position:0; background-repeat:no-repeat;}
 
 .ona-0{ float:left; width:4px;}
 .ona-0 span{ background-position:center; background-repeat:no-repeat; display:block; width:4px; height:3px; }
-.ona-1{ float:right; width:4px;}
-.ona-1 span{ background-position:center; background-repeat:no-repeat; display:block; width:4px; height:3px; }
+.ona-1{ float:right; width:4px}
+.ona-1 span{ background-position:center; background-repeat:no-repeat; display:block; width:4px; height:3px;}
 
 .flow-s{ background-image:url(../Images/p-red.png); }
 .flow-in{ background-image:url(../Images/p-pink.png) }

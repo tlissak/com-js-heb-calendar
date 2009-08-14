@@ -6,8 +6,7 @@ JDate.prototype.getHoliday = function() {// American civil holidays and some maj
 	cyear 	= g.getYear()	
 	dow		= g.getDayOfWeek()
 	
-	function Easter(Y) {
-		// based on the algorithm of Oudin
+	function Easter(Y) {// based on the algorithm of Oudin
 		var C = Math.floor(Y / 100);
 		var N = Y - 19 * Math.floor(Y / 19);
 		var K = Math.floor((C - 17) / 25);
@@ -94,7 +93,7 @@ JDate.prototype.getMoadim = function() {
 	cday 	= g.getDay()
 	cmonth 	= g.getMonth()
 	cyear 	= g.getYear()	
-	dow		= g.getDayOfWeek()
+	dow		= g.getDayOfWeek() +1
 
 	if(hmonth == 6) {
 		if(hday == 1 || hday == 2)

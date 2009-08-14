@@ -48,15 +48,9 @@ Sof  zman  tefillah (gr"a) 	929,Chatzot  hayom (noon) 	1145,Mincha  gedolah 	 12
 Plag  hamincha 	1708 , Shkiat  hachama (sunset) 	1833,Tzeit  hakochavim (nightfall) 	1900,Knissat  Shabbat ,Motzei  Shabbat
 */
 JDate.prototype.getZmanim = function(_O,_timedmc){
-		if( typeof(_O) == "string" ){ 
-			if (_O.toLowerCase()=='paris'){
-				_O = { lond:2,lonm: 20, ns:0/*N*/,latd: 48,latm: 50,ew: 1/*E*/, tz:1,stdi:14,place:"Paris (France)"}
-			}else if (_O.toLowerCase()=='moscow'){
-				_O = { lond:37,lonm: 37, ns:0/*N*/,latd: 55,latm: 45,ew: 1/*E*/, tz:3,stdi:16,place:"Moscow (Russie)"}
-			}
-		}
 		if( typeof(_O) != "object" ){ 
 			_O = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, tz:2,stdi:15,place:"Jerusalem"}
+			console.log("getZmanim(_O) _O is!object set Jerusalem ")
 		}
 		
 		var place = _O.place.toLowerCase()
