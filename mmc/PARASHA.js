@@ -1,21 +1,28 @@
  /***************************************
  * Requires: jdates.js                 *
  ***************************************
- ***************************************
  * (c) Gabriel Zerbib,                 *
  *   gabriel@bumpt.net                 *
  *   http://www.bumpt.net              *
  *   http://www.calj.net               *
  *                      v2.4           *
+/***************************************
+ *            parasha_loc.js           *
+ ***************************************
+ * Human-readable names of parshiot    *
+ *    English                          *
+ ***************************************
+ * January 5, 2005 - Tevet 24, 5765    *
+ *  v1.0                               *
+ *                                     *
  * It is strictly forbidden to use or  *
  * reproduce all or parts of this      *
- * program without the author's        *
- * explicit permission.                *
+ * program without author's explicit   *
+ * permission.                         *
  * Commercial use of this program is   *
  * subject to purchase. Please contact *
  * the author.                         *
  ***************************************/
-
 JDate.kevviot = [];
 
 JDate.kevviot["353_1_0"] = [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,[21,22],23,24,[],		25,[26,27],[28,29],30,[31,32],33,	34,35,36,37,38,39,	40,[41,42],43,44,45,46,47,48,49,[50,51],	52,[],[] ];
@@ -89,8 +96,9 @@ JDate.prototype.getParashaName = function(bIsrael, bHebrew){
 		var arrParshiot = this.getParasha(bIsrael);
 		if( (arrParshiot == null) || (arrParshiot.length == 0) ){			return "";}
 		if(arrParshiot.length == 1)	{
-			if(typeof(refLookupParshiot[arrParshiot[0]]) == 'undefined'){				
+			if(typeof(refLookupParshiot[arrParshiot[0]]) == 'undefined'){	
 				jEvent = new JEvent(HOLIDAYS.currentHoliday(this).type);
+				//console.log(jEvent,HOLIDAYS.currentHoliday(this).type)
 				return (jEvent ? jEvent.name : '');
 			}else{			return refLookupParshiot[arrParshiot[0]];}
 		}else if(refLookupParshiot[arrParshiot[0]]){
@@ -121,29 +129,7 @@ JDate.prototype.getSpecialParashaName = function(bIsrael, bHebrew){
 		return (bHebrew ? "&#1508;&#1512;&#1492;" : "PARAH");
 	return "";
 }
-/***************************************
- *            parasha_loc.js           *
- ***************************************
- * Human-readable names of parshiot    *
- *    English                          *
- ***************************************
- * Requires: jdates.js, parasha.js     *
- ***************************************
- * January 5, 2005 - Tevet 24, 5765    *
- *  v1.0                               *
- *                                     *
- * (c) Gabriel Zerbib,                 *
- *   gabriel@bumpt.net                 *
- *   http://www.bumpt.net              *
- *                                     *
- * It is strictly forbidden to use or  *
- * reproduce all or parts of this      *
- * program without author's explicit   *
- * permission.                         *
- * Commercial use of this program is   *
- * subject to purchase. Please contact *
- * the author.                         *
- ***************************************/
+
 JDate.parshiot = [
 	"BERESHIT","NOACH","LECH L'CHA",
 	"VAYERA","CHAYEI SARAH",

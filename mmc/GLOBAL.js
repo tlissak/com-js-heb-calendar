@@ -5,6 +5,12 @@ var console = {
 		for (var console_arg=0;console_arg <arguments.length;console_arg++){
 			$("log").innerHTML = $("log").innerHTML + arguments[console_arg]
 		}}}}
+console.print = function(){
+	$("log").innerHTML +=  "<br />"
+	for (var console_arg=0;console_arg <arguments.length;console_arg++){
+			$("log").innerHTML = $("log").innerHTML +","+ arguments[console_arg]
+	}	
+}
 function $(id){return document.getElementById(id)}
 function cursorPosition(ev){ev = ev || window.event;	
 	if(ev.pageX || ev.pageY){return {x:ev.pageX, y:ev.pageY};}

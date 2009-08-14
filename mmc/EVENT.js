@@ -12,7 +12,7 @@ function _j(e,elm){
 	jEvent = new JEvent(HOLIDAYS.currentHoliday(HD))
 	
 	zmanim = HD.getZmanim(oPref.city,oPref.time_adj)	
-	parasha = HD.getParashaName(oPref.bIsrael,oPref.bIsrael)
+	parasha = HD.getParashaName(oPref.city.bIsrael,oPref.language=="he")
 		 
 	$("j").style.display 	= "block"
 	$("j").style.top 		= pos.y+"px"
@@ -64,7 +64,7 @@ function create_ev(step){
 	
 	
 	if (step == "1"){
-		$("s_time_zone").innerHTML = oPref.city +" (" +oPref.country  + ") DMC + "+ oPref.time_adj
+		$("s_time_zone").innerHTML = oPref.city.place +" DMC + "+ oPref.time_adj
 		$("st1_dow1").innerHTML = _dow
 		$("st1_dow2").innerHTML = _dow
 		$("st1_dow3").innerHTML = _dow

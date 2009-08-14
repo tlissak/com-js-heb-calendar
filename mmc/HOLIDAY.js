@@ -3,10 +3,10 @@
  ***************************************
  * Jewish holidays and events          *
  ***************************************
- * History                                                                                                               *
+ * History                             *
  *  14/03/2005: v1.4: Holiday object,  *
- *              for Yom Tov support.
- *  13/12/2004: v1.31                                                                    *
+ *              for Yom Tov support.   *
+ *  13/12/2004: v1.31				   *
  ***************************************
  * March 14, 2004 - AdarII 3, 5765     *
  *  v1.4                               *
@@ -25,45 +25,21 @@
  * subject to purchase. Please contact *
  * the author.                         *
  ***************************************/
- 
- JEvent = function(){
-	hn = ["RoshHashana",
-        "Gdalia",
-        "YomKippur",
-        "Succot",
-        "HoshaanaRabba",
-        "ShminiAtseret",
-        "SimchatTorah",
-        "Chanuka",
-        "Tevet10",
-        "Shvat15",
-        "PurimFast",
-        "Purim",
-        "Pesach",
-        "YomHashoa",
-        "YomHaatsmaut",
-        "Omer33",
-        "Shavuot",
-        "Tamuz17",
-        "Av9"]
-	if (arguments.length==1){
-		if (!(arguments[0])){ return false 	}
-		
-		if(arguments[0].Class == Holiday){
-			return {name:hn[arguments[0].type],start:arguments[1],end:arguments[2]}	
-		}else{
-			if (HOLIDAYS.events[arguments[0]]){
-				return {name:hn[arguments[0]]}
-			}else{	
-				return false
-			}
-		}
-	}else {
-		// optional value applied
-		throw "optional value applied" ;
-		return false
-	}
+
+JEvent = function(objHoliday){
+	if (!(objHoliday)){	if (parseInt(objHoliday) !=0){	return false }	}
 	
+	hn = ["RoshHashana", "Gdalia","YomKippur","Succot","HoshaanaRabba","ShminiAtseret","SimchatTorah","Chanuka","Tevet10",
+        "Shvat15","PurimFast", "Purim","Pesach", "YomHashoa","YomHaatsmaut", "Omer33", "Shavuot", "Tamuz17", "Av9"]
+	if(objHoliday.Class == Holiday){
+			return {name:hn[objHoliday.type]}	
+	}else{
+		if (HOLIDAYS.events[objHoliday]){
+				return {name:hn[objHoliday]}
+		}else{	
+			return false
+		}
+	}	
 }
 function Holiday(nType, hStart, hEnd, nLength, arrYomTov){
         this.Class = Holiday;
@@ -233,9 +209,9 @@ HOLIDAYS.nextHoliday = function(hdate){
 /* Parameters: in JDate jdate, in optional int nFromType
  * Return: a Holiday object representing the holiday of the passed JDate,
  *                               or null if no holiday occurs on this date. */
-HOLIDAYS.currentHoliday = function(/*in JDate*/ jdate, /*in optional int */ nFromType) /*returns Holiday*/
-{
-
+ 
+ /*returns Holiday*/
+HOLIDAYS.currentHoliday = function(/*in JDate*/ jdate, /*in optional int */ nFromType){
         if( (typeof(nFromType) == "undefined") || (nFromType == null) ){     nFromType = 0}
         var hdate = null;
         var holiday = null;       
@@ -246,15 +222,15 @@ HOLIDAYS.currentHoliday = function(/*in JDate*/ jdate, /*in optional int */ nFro
 		}else{
                 throw "Type mismatch error in HOLIDAYS.currentHolidays: expected subclass of JDate.";
 		}
-	        var i;
+	    var i;
         var y = hdate.getYear();
-        var n;
+        var n;		
         for(n = 2; n; --n, ++y) {
-                for(i = nFromType; i < HOLIDAYS.events.length; ++i){
-                        fn = HOLIDAYS.events[i];
-                        holiday = fn(y, true);
-                        if(holiday.hStartDate.gt(hdate)){     return null;}
-                        if( holiday.hEndDate.gte(hdate) ){   return holiday;}                       
+                for(i = nFromType; i < HOLIDAYS.events.length; ++i){					
+                   fn = HOLIDAYS.events[i];
+                   holiday = fn(y, true);
+                   if(holiday.hStartDate.gt(hdate)){     return null;}
+                   if( holiday.hEndDate.gte(hdate) ){   return holiday;}                       
                 }
         }
 }
