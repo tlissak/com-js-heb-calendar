@@ -25,7 +25,70 @@
  * subject to purchase. Please contact *
  * the author.                         *
  ***************************************/
+function JEvent(type, startDate, endDate){
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.type = type;
+	this.name = "";
+	this.link = "";
+	this.localize();
+	this.format = function()	{
+		switch(this.endDate.minus(this.startDate)){
+			case 0: return "";
+			case 1: return "AND";
+			default: return "FROM_TO";
+		}
+	}
+	this.display = function(){
+		switch(this.format()){
+			case "AND": case "FROM_TO":
+			return this.startDate.WeekdayName() + " " + this.startDate.getDay() + " " + (this.startDate.getMonth() != this.endDate.getMonth() ? this.startDate.MonthName() : "") + " " + this.conj() + " " + this.endDate.WeekdayName() + " " + this.endDate;
+			default:
+				return this.startDate.WeekdayName() + " " + this.startDate;				
+		}
+	}
+}
+JEvent.prototype.localize = function(){
+	switch(this.type){
+		case HOLIDAYS.ROSH_HASHANA:	this.name = "Rosh Hashana";		this.link = "roshhashana.php"; break;
+		case HOLIDAYS.GDALIA:		this.name = "Jeûne de Guédalia";	this.link = "gdalia.php"; break;
+		case HOLIDAYS.YOM_KIPPUR:	this.name = "Yom Kippour";		this.link = "kipour.php"; break;
+		case HOLIDAYS.SUCCOT:		this.name = "Souccot";			this.link = "souccot.php"; break;
+		case HOLIDAYS.HOSHAANA_RABBA:	this.name = "Hoshaâna Rabba";		this.link = "hoshaanaraba.php"; break;
+		case HOLIDAYS.SHMINI_ATSERET:	this.name = "Shemini Atséret";		this.link = "shminiatseret.php"; break;
+		case HOLIDAYS.SIMCHAT_TORAH:	this.name = "Simchat Torah";		this.link = "simchattorah.php"; break;
+		case HOLIDAYS.CHANUKA:		this.name = "Hhanouka";			this.link = "chanuka.php"; break;
+		case HOLIDAYS.TEVET_10:		this.name = "Jeûne du 10 Tevet";	this.link = "10tevet.php"; break;
+		case HOLIDAYS.SHVAT_15:		this.name = "Tou bi Shvat";		this.link = "15shvat.php"; break;
+		case HOLIDAYS.PURIM_FAST:		this.name = "Jeûne d'Esther";			this.link = "pourim.php"; break;
+		case HOLIDAYS.PURIM:		this.name = "Pourim";			this.link = "pourim.php"; break;
+		case HOLIDAYS.PESACH:		this.name = "Pessahh";			this.link = "pesach.php"; break;
+		case HOLIDAYS.YOM_HASHOA: this.name = "Yom haShoa"; this.link = "yomhashoa.php"; break;
+		case HOLIDAYS.YOM_HAATSMAUT:	this.name = "Yom ha Âtsma'out";		this.link = "yomhaatsmaout.php"; break;
+		case HOLIDAYS.OMER_33:		this.name = "Lag ba 'Omer";		this.link = "33omer.php"; break;
+		case HOLIDAYS.SHAVUOT:		this.name = "Shavou'ot";		this.link = "shavuot.php"; break;
+		case HOLIDAYS.TAMUZ_17:		this.name = "Jeûne de Tamouz";		this.link = "17tamuz.php"; break;
+		case HOLIDAYS.AV_9:		this.name = "Tisha bé Av";		this.link = "9av.php"; break;
+	}
+}
 
+JEvent.prototype.prefix = function(){
+	switch(this.format()){
+		case "AND": return "les";
+		case "": return "le";
+		default: return "du";
+	}
+}
+
+JEvent.prototype.conj = function(){
+	switch(this.format()){
+		case "AND": return "et";
+		case "FROM_TO": return "au";
+		default: return "";
+	}
+}
+
+/*
 JEvent = function(objHoliday){
 	if (!(objHoliday)){	if (parseInt(objHoliday) !=0){	return false }	}
 	
@@ -41,6 +104,7 @@ JEvent = function(objHoliday){
 		}
 	}	
 }
+*/
 function Holiday(nType, hStart, hEnd, nLength, arrYomTov){
         this.Class = Holiday;
 		

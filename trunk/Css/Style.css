@@ -39,15 +39,16 @@ input, select {font-size: 12px;vertical-align: top;outline: none;border: 1px sol
 
 .cal-header td{ text-align:center; color:#112abb;  width:14%}
 .cal{border-collapse:collapse; border-spacing:0px;}
-.cal td{  border:#C3D9FF 1px solid; vertical-align:top; text-align:center;  width:14%}
+.cal td{  border:#C3D9FF 1px solid; vertical-align:top; text-align:center;  width:14%; font-size:10px; white-space:nowrap}
 .cal-dt{height:14px; background-color:#E8EEF7; }
 .cal-dt-civil{color:#777777; float:right;}
 .cal-dt-hebrew{color:#B7CDF3; font-weight:bold; float:left; }
 .cal-ona-0{ clear:both; min-height:20px; background-color:#f7f7f7; color:#666; font-weight:bold}
-.cal-ona-1{ clear:both; min-height:10px; background-color:#fff; color:#666; font-weight:bold}
+.cal-ona-1{ clear:both; min-height:5px; background-color:#fff; color:#666; font-weight:bold}
 
-.times{background:url(../Images/time.png) no-repeat left; color:#999; visibility:hidden}
-.cal td:hover .times{visibility:visible}
+.times{background:#FFF url(../Images/time.png) no-repeat top left; color:#999; display:none; position: absolute; padding-left:15px
+; border:#C3D9FF 3px double; text-align:left}
+.cal td:hover .times{ display:block}
 
 .shabat-s{background:url(../Images/shabat.png) no-repeat left}
 .shabat-e{background:url(../Images/havdala.png) no-repeat top left}
