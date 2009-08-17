@@ -133,7 +133,20 @@ function show_calendar(oMonth){
 		x += '</span></div>'
   		x += '<div class="cal-ona-0" id="jm_'+dd.m_hdn+'_0"></div>' 
 		x += '<div class="cal-ona-1" id="jm_'+dd.m_hdn+'_1"></div>'	
-		x += '<div class="times" >'+ dd.zmanim.hanetz+" - "+dd.zmanim.shkia+'</div>'
+		x += '<div class="times" > Netz : '+ dd.zmanim.hanetz+" <br /> "
+		x += 'Shkia : '+dd.zmanim.shkia+' <br />'
+		x += 'alot : '+dd.zmanim.alot+' <br />'
+		x += 'Shaa zmanit : '+dd.zmanim.shaa_zmanit+' <br />'
+		x += 'misheyakir : '+dd.zmanim.misheyakir+' <br />'
+		x += 'tzeit hakochavim : '+dd.zmanim.tzeit+' <br />'
+		x += 'shema : '+dd.zmanim.shema+' <br />'
+		x += 'tefillah : '+dd.zmanim.tefillah+' <br />'
+		x += 'chatzot : '+dd.zmanim.chatzot+' <br />'
+		x += 'mincha gedola : '+dd.zmanim.minchag+' <br />'
+		x += 'mincha ketana : '+dd.zmanim.minchak+' <br />'
+		x += 'plag : '+dd.zmanim.plag+' <br />'
+		x += '3 Stars : '+dd.zmanim.motzeiShabbat+' <br />'
+		x += '</div>'
 		if (dd.dow==6){
 		x += "<div class='shabat-s'>"+dd.zmanim.knissatShabbat+"</div>"
 		}
@@ -141,11 +154,11 @@ function show_calendar(oMonth){
 		x += "<div class='shabat-e'>"+dd.zmanim.motzeiShabbat+"</div>"
 		}
 		if (dd.holiday){
-		x += "<div>" +dd.holiday +"</div>"
+		x += "<div class='holiday'>" +dd.holiday +"</div>"
 		}
 		//x += "<div>"+dd.m_hdn+"</div>"
 		if (dd.parasha){
-		x += "PARASHA :"+ dd.parasha	
+		x += "<div class='parasha'>PARASHA :"+ dd.parasha+"</div>"
 		}
 		x += '</td>'
 		
@@ -189,7 +202,11 @@ function getHMonthObj(m,y){
 	HD = new HDate(GD.m_hdn-1)		
 	_gsize  = GD.getMonthLength()
 	_gm 	= GD.getMonthName()
-	od =  new Array()			
+	od =  new Array()	
+	var _holiday =  null;
+	var oLastHoliday = 1;
+	var nLastEventType = 0;		
+	
 	for (var j=0;j<_gsize ;j++){
 		HD.add(1)
 		_hy 	= HD.getYear()
@@ -200,8 +217,32 @@ function getHMonthObj(m,y){
 		_dow	= HD.getDayOfWeek() +1
 		_zmanim = HD.getZmanim(oPref.city,oPref.time_adj)
 		_parasha = _dow == 7 ? HD.getParashaName(oPref.city.bIsrael,oPref.language == "he") : ""
+		
+		/*
+		bYomTov = false;
+		_holiday = "";
+
+		holiday = HOLIDAYS.currentHoliday(HD, nLastEventType);
+		
+		if(holiday){
+			_holiday = new JEvent(holiday.type).name;
+			oLastHoliday = holiday;
+			nLastEventType = holiday.type;			
+			if(holiday.arrYomTov.length > 0)
+				bYomTov = holiday.arrYomTov[HD.minus(holiday.hStartDate)];
+			else
+				bYomTov = false;
+		}else if(oLastHoliday){
+			++nLastEventType;
+			oLastHoliday = null;
+		}
+		*/
 		_holiday = HD.getMoadim()
 		od[j] = {m_hdn:_m_hdn,d:_hd,m:_hm,y:_hy,hm:_mm,gm:_gm,dow:_dow,zmanim:_zmanim,parasha:_parasha,holiday:_holiday}
 	}
 	return od
 }
+
+		
+		
+		
