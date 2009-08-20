@@ -29,14 +29,14 @@ function dEvent(){
 	
 	
 	function getClass(event_type){
-		if (event_type == dEvent.FLOW_START_NIGHT || event_type == dEvent.FLOW_START_DAY){ 	return	"flow-s" 
-			}else if(event_type == dEvent.FLOW_IN){	return "flow-in"
+		if (event_type == dEvent.FLOW_START_NIGHT || event_type == dEvent.FLOW_START_DAY){ 	return	"flow_s" 
+			}else if(event_type == dEvent.FLOW_IN){	return "flow_in"
 			}else if(event_type == dEvent.HEFSEK_THARA){ return	"hefsek" ; 
-			}else if(event_type == dEvent.SEVEN_NEKIIM){ return "seven-nekaim"
+			}else if(event_type == dEvent.SEVEN_NEKIIM){ return "seven_nekiaim"
 			}else if(event_type == dEvent.MIKVE){ 	return "mikve" ;
-			}else if(event_type == dEvent.ONA_BENONIT){return	"ona-benonit" ;
-			}else if(event_type == dEvent.VESET_HODESH_NIGHT || event_type == dEvent.VESET_HODESH_DAY){ return "hodesh" ;
-			}else if(event_type == dEvent.VESET_HAFLAGA_NIGHT || event_type == dEvent.VESET_HAFLAGA_DAY){ return "haflaga" ;
+			}else if(event_type == dEvent.ONA_BENONIT){return	"ona_benonit" ;
+			}else if(event_type == dEvent.VESET_HODESH_NIGHT || event_type == dEvent.VESET_HODESH_DAY){ return "veset_hodesh" ;
+			}else if(event_type == dEvent.VESET_HAFLAGA_NIGHT || event_type == dEvent.VESET_HAFLAGA_DAY){ return "veset_haflaga" ;
 			}else{ return "today"	}
 	}
 	function getNextRaia(r_start_index){
@@ -239,7 +239,9 @@ function calc_event(){
 	oEvt		= new dEvent() //translate(oEvt)
 	var  print_to_el = function(hdn,ona,class,caller){
 		if ($("jm_"+hdn+"_"+ona)){
-			$("jm_"+hdn+"_"+ona).innerHTML += "<div class='has-cal-event "+class+"' >"+class + " "+ caller +"</div>"
+			a_ev_dt = LNG[oPref.language][class]
+			a_gl_ev = "<a href='"+a_ev_dt[2]+"' title=\""+a_ev_dt[1]+"\" >"+ a_ev_dt[0] + "</a>"
+			$("jm_"+hdn+"_"+ona).innerHTML += "<div class='has-cal-event "+class+"' >"+ a_gl_ev +"</div>"
 		}
 		if ($("j_"+hdn+"_"+ona)){
 			$("j_"+hdn+"_"+ona).innerHTML += "<span class='"+class+"' ></div>"

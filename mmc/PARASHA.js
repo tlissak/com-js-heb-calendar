@@ -98,8 +98,10 @@ JDate.prototype.getParashaName = function(bIsrael, bHebrew){
 		if(arrParshiot.length == 1)	{
 			if(typeof(refLookupParshiot[arrParshiot[0]]) == 'undefined'){	
 				jEvent = new JEvent(HOLIDAYS.currentHoliday(this).type);
-				//console.log(jEvent,HOLIDAYS.currentHoliday(this).type)
-				return (jEvent ? jEvent.name : '');
+				//////////////////////////////////////////////////
+				///			JEvent , LNG ,
+				////////////////////////////////////////////////
+				return (jEvent ? LNG[oPref.language].moadim[jEvent.lng] : '');
 			}else{			return refLookupParshiot[arrParshiot[0]];}
 		}else if(refLookupParshiot[arrParshiot[0]]){
 			return refLookupParshiot[arrParshiot[0]] + " - " + refLookupParshiot[arrParshiot[1]];

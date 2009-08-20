@@ -48,27 +48,29 @@ function JEvent(type, startDate, endDate){
 		}
 	}
 }
+
+
 JEvent.prototype.localize = function(){
 	switch(this.type){
-		case HOLIDAYS.ROSH_HASHANA:	this.name = "Rosh Hashana";		this.link = "roshhashana.php"; break;
-		case HOLIDAYS.GDALIA:		this.name = "Jeûne de Guédalia";	this.link = "gdalia.php"; break;
-		case HOLIDAYS.YOM_KIPPUR:	this.name = "Yom Kippour";		this.link = "kipour.php"; break;
-		case HOLIDAYS.SUCCOT:		this.name = "Souccot";			this.link = "souccot.php"; break;
-		case HOLIDAYS.HOSHAANA_RABBA:	this.name = "Hoshaâna Rabba";		this.link = "hoshaanaraba.php"; break;
-		case HOLIDAYS.SHMINI_ATSERET:	this.name = "Shemini Atséret";		this.link = "shminiatseret.php"; break;
-		case HOLIDAYS.SIMCHAT_TORAH:	this.name = "Simchat Torah";		this.link = "simchattorah.php"; break;
-		case HOLIDAYS.CHANUKA:		this.name = "Hhanouka";			this.link = "chanuka.php"; break;
-		case HOLIDAYS.TEVET_10:		this.name = "Jeûne du 10 Tevet";	this.link = "10tevet.php"; break;
-		case HOLIDAYS.SHVAT_15:		this.name = "Tou bi Shvat";		this.link = "15shvat.php"; break;
-		case HOLIDAYS.PURIM_FAST:		this.name = "Jeûne d'Esther";			this.link = "pourim.php"; break;
-		case HOLIDAYS.PURIM:		this.name = "Pourim";			this.link = "pourim.php"; break;
-		case HOLIDAYS.PESACH:		this.name = "Pessahh";			this.link = "pesach.php"; break;
-		case HOLIDAYS.YOM_HASHOA: this.name = "Yom haShoa"; this.link = "yomhashoa.php"; break;
-		case HOLIDAYS.YOM_HAATSMAUT:	this.name = "Yom ha Âtsma'out";		this.link = "yomhaatsmaout.php"; break;
-		case HOLIDAYS.OMER_33:		this.name = "Lag ba 'Omer";		this.link = "33omer.php"; break;
-		case HOLIDAYS.SHAVUOT:		this.name = "Shavou'ot";		this.link = "shavuot.php"; break;
-		case HOLIDAYS.TAMUZ_17:		this.name = "Jeûne de Tamouz";		this.link = "17tamuz.php"; break;
-		case HOLIDAYS.AV_9:		this.name = "Tisha bé Av";		this.link = "9av.php"; break;
+		case HOLIDAYS.ROSH_HASHANA:	this.name = "Rosh Hashana" ; this.lng = "rosh_hashana" ;		this.link = "roshhashana.php"; break;
+		case HOLIDAYS.GDALIA:		this.name = "Jeûne de Guédalia"; this.lng = "fast_gedalia" ;	this.link = "gdalia.php"; break;
+		case HOLIDAYS.YOM_KIPPUR:	this.name = "Yom Kippour";	 this.lng = "yom_kipur" ;	this.link = "kipour.php"; break;
+		case HOLIDAYS.SUCCOT:		this.name = "Souccot";	 this.lng = "sukot" ;		this.link = "souccot.php"; break;
+		case HOLIDAYS.HOSHAANA_RABBA:	this.name = "Hoshaâna Rabba";	 this.lng = "hoshana_raba" ;	this.link = "hoshaanaraba.php"; break;
+		case HOLIDAYS.SHMINI_ATSERET:	this.name = "Shemini Atséret";	this.lng = "shmini_atseret" ;	this.link = "shminiatseret.php"; break;
+		case HOLIDAYS.SIMCHAT_TORAH:	this.name = "Simchat Torah";	this.lng = "simchat_tora" ;	this.link = "simchattorah.php"; break;
+		case HOLIDAYS.CHANUKA:		this.name = "Hhanouka";		this.lng = "chanuka" ;	this.link = "chanuka.php"; break;
+		case HOLIDAYS.TEVET_10:		this.name = "Jeûne du 10 Tevet"; this.lng = "fast_tevet"	; this.link = "10tevet.php"; break;
+		case HOLIDAYS.SHVAT_15:		this.name = "Tou bi Shvat";	this.lng = "tu_bishvat"	;	this.link = "15shvat.php"; break;
+		case HOLIDAYS.PURIM_FAST:		this.name = "Jeûne d'Esther";	this.lng = "fast_esther" ;		this.link = "pourim.php"; break;
+		case HOLIDAYS.PURIM:		this.name = "Pourim";	this.lng = "purim" ;		this.link = "pourim.php"; break;
+		case HOLIDAYS.PESACH:		this.name = "Pessahh";		this.lng = "pesach" ;	this.link = "pesach.php"; break;
+		case HOLIDAYS.YOM_HASHOA: this.name = "Yom haShoa"; this.lng = "yom_hashoa" ; this.link = "yomhashoa.php"; break;
+		case HOLIDAYS.YOM_HAATSMAUT:	this.name = "Yom ha Âtsma'out";	this.lng = "yom_haatsmaut" ;	this.link = "yomhaatsmaout.php"; break;
+		case HOLIDAYS.OMER_33:		this.name = "Lag ba 'Omer";		this.lng = "lag_baomer" ; this.link = "33omer.php"; break;
+		case HOLIDAYS.SHAVUOT:		this.name = "Shavou'ot";	this.lng = "shavuot" ;	this.link = "shavuot.php"; break;
+		case HOLIDAYS.TAMUZ_17:		this.name = "Jeûne de Tamouz";	this.lng = "fast_tamuz" ;	this.link = "17tamuz.php"; break;
+		case HOLIDAYS.AV_9:		this.name = "Tisha bé Av";		this.lng = "tisha_beav" ;this.link = "9av.php"; break;
 	}
 }
 
@@ -87,24 +89,6 @@ JEvent.prototype.conj = function(){
 		default: return "";
 	}
 }
-
-/*
-JEvent = function(objHoliday){
-	if (!(objHoliday)){	if (parseInt(objHoliday) !=0){	return false }	}
-	
-	hn = ["RoshHashana", "Gdalia","YomKippur","Succot","HoshaanaRabba","ShminiAtseret","SimchatTorah","Chanuka","Tevet10",
-        "Shvat15","PurimFast", "Purim","Pesach", "YomHashoa","YomHaatsmaut", "Omer33", "Shavuot", "Tamuz17", "Av9"]
-	if(objHoliday.Class == Holiday){
-			return {name:hn[objHoliday.type]}	
-	}else{
-		if (HOLIDAYS.events[objHoliday]){
-				return {name:hn[objHoliday]}
-		}else{	
-			return false
-		}
-	}	
-}
-*/
 function Holiday(nType, hStart, hEnd, nLength, arrYomTov){
         this.Class = Holiday;
 		

@@ -13,9 +13,7 @@ function Pref(){
 		Cookie.del("language")	
 		Cookie.del("bIsrael")	
 		Cookie.del("country")	
-	}
-	
-	
+	}	
 	
 	var getPrefHandler		= getCookieParam //getURLParam 
 	var setPrefHandler		= setCookieParam //setURLParam 
@@ -24,44 +22,26 @@ function Pref(){
 	var time_adj = 0
 	var cal_start 	= (new Date()).getFullYear()
 	var cal_end 	= cal_start
-	var max_disp_years = 4
-	
-	var years 		= getYears(cal_end , cal_start )
-	
+	var MAX_DISP_YEARS = 2
 	var	city		= 0
+	var _time_adj		= $("time_adj")
+	var _city 			= $("city")
+	var _language		= $("sLanguage")	
+	var years 		= getYears(cal_end , cal_start )	
 	
-	_time_adj		= $("time_adj")
-	_city 			= $("city")
-		
-	getPref ()
+	getPref ()	
+	setLanguage()
 	
-	for (var i=0;i<_city.options.length;i++){
-		if (parseInt(city) == parseInt(_city.options[i].value)){	
-			_city.selectedIndex = i ;	
-			break ;	
-		}
+	function setLanguage(){
+		$("t_cal_start").innerHTML = LNG[language].t_cal_begin
+		$("t_cal_end").innerHTML = LNG[language].t_cal_end
+		$("t_dailight_st").innerHTML = LNG[language].t_dst
+		$("refresh").innerHTML = LNG[language].refresh
+		$("t_setting").innerHTML = LNG[language].setting
+		$("t_mikve_france").innerHTML = LNG[language].t_mikveh_france
+		$("t_mikve_world").innerHTML = LNG[language].t_mikveh_world
+		$("t_warning").innerHTML = LNG[language].warning
 	}
-	
-	function getYears(e,s){
-		if ((e - s) >= max_disp_years ){
-			//alert("max disp years riched")
-			cal_end = cal_start + max_disp_years -1
-			Cookie.set("cal_end",cal_end,365)
-			return max_disp_years
-		}
-		if ((e-s) < 0 ){
-			//alert("end date cenot be before start date")
-			cal_end = cal_start
-			Cookie.set("cal_end",cal_end,365)
-			return 0
-		}
-		return (e-s)
-	}
-	
-	$("sCal_start").value 	= cal_start
-	$("sCal_end").value 	= cal_end
-	
-	
 	if (arguments.length > 0){
 		o = arguments[0]
 		language 	= o.language ?  o.language : language
@@ -70,7 +50,26 @@ function Pref(){
 		cal_end  	= parseInt(o.cal_end) > 0 ?  parseInt(o.cal_end) : cal_end
 		city		= (!(isNaN(parseInt(o.city))))   ?  parseInt(o.city) : city
 		years 		= getYears(cal_end , cal_start )		
-	}	
+		
+		
+		
+	}
+	$("sCal_start").value 	= cal_start
+	$("sCal_end").value 	= cal_end
+	
+	for (var i=0;i<_city.options.length;i++){
+		if (parseInt(city) == parseInt(_city.options[i].value)){	
+			_city.selectedIndex = i ;	
+			break ;	
+		}
+	}
+	for (var i=0;i<_language.options.length;i++){
+		if (String(language) == String(_language.options[i].value)){	
+			_language.selectedIndex = i ;	
+			break ;	
+		}
+	}
+	
 	out = {
 			language:language,time_adj:time_adj
 			,cal_start:cal_start,cal_end:cal_end,years:years
@@ -83,11 +82,25 @@ function Pref(){
 		////////////////////
 		show() ;
 		return
-	}else { 
-		
+	}else { 		
 		if (time_adj==1){ _time_adj.checked = true} ;
 		out.city = CITY_LOCATION[parseInt(out.city)]
 		return out
+	}
+	function getYears(e,s){
+		if ((e - s) >= MAX_DISP_YEARS ){
+			//alert("max disp years riched")
+			cal_end = cal_start + MAX_DISP_YEARS -1
+			Cookie.set("cal_end",cal_end,365)
+			return MAX_DISP_YEARS
+		}
+		if ((e-s) < 0 ){
+			//alert("end date cenot be before start date")
+			cal_end = cal_start
+			Cookie.set("cal_end",cal_end,365)
+			return 0
+		}
+		return (e-s)
 	}
 	function getPref (){
 		language	= getPrefHandler("language") ? getPrefHandler("language") : language

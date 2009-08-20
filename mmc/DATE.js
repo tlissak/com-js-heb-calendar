@@ -75,7 +75,13 @@ function JDate(){
 	function setMonth(month)	{ return this.setDate_int_int_int(this.m_day, month, this.m_year); }
 	function setYear(year)		{ return this.setDate_int_int_int(this.m_day, this.m_month, year); }
 	function getDayOfWeek()		{ return this.m_hdn % 7; }
-	function getWeekDayName(){	return ["Sunday","Monday","Tuesday","Wendsay","Thursday","Friday","Sat.day"][this.getDayOfWeek()]}
+	
+	function getWeekDayName(lng){	
+		//return ["Sunday","Monday","Tuesday","Wendsay","Thursday","Friday","Sat.day"]
+		return LNG[lng].dow
+		[this.getDayOfWeek()]
+		}
+	
 	function setDate(){
 		var args = arguments;
 		if(args.length == 1)
@@ -161,9 +167,9 @@ function GDate(){
 	/****** Implementation *****/
 	/* private class methods. */
 	
-	function getMonthName(){
-		return ["","January","February","March","April","May","June","July","August","September","October","November","December"]
-		[this.getMonth()] ;
+	function getMonthName(lng){
+		//return ["","January","February","March","April","May","June","July","August","September","October","November","December"][this.getMonth()] ;
+		return LNG[lng].month[this.getMonth()] ;
 	}
 	
 	function st_monthLength(month, year){
@@ -295,9 +301,9 @@ function HDate(){
 		return 1 + days + (adu?1:0) + (gatarad?2:0) + (betutkafot?1:0) + (zaken?1:0);
 	}
 	/* * private methods */
-	function getMonthName(){
-		return ["","Nisan","Iyar","Sivan","Tamuz","Av","Elul","Tishri","Cheshvan","Kislev","Tevet","Shvat","Adar","Adar a","Adar b"]
-		[this.getMonth()] ;
+	function getMonthName(lng){
+		//return ["","Nisan","Iyar","Sivan","Tamuz","Av","Elul","Tishri","Cheshvan","Kislev","Tevet","Shvat","Adar","Adar a","Adar b"][this.getMonth()] ;
+		return LNG[lng].heb_month[this.getMonth()] ;		
 	}
 	function calculate(){
 		var jdn;
