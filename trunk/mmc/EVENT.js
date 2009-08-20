@@ -20,8 +20,8 @@ function _j(e,elm){
 	
 	
 	$("gd").innerHTML = cj +"."+ cm+"."+cy
-	$("cd").innerHTML = cj +" "+  GD.getMonthName() +" "+cy
-	$("hd").innerHTML = HD.getDay() +" "+  HD.getMonthName() +" "+ HD.getYear()
+	$("cd").innerHTML = cj +" "+  GD.getMonthName(oPref.language) +" "+cy
+	$("hd").innerHTML = HD.getDay() +" "+  HD.getMonthName(oPref.language) +" "+ HD.getYear()
 	
 	if (jEvent.name){
 		$("holiday").style.display 	= "block"	
@@ -56,7 +56,7 @@ function create_ev(step){
 	aDate = sDate.split(".")
 	
 	GD = new GDate(aDate[0],aDate[1],aDate[2])
-	_dow 	= GD.getWeekDayName()
+	_dow 	= GD.getWeekDayName(oPref.language)
 	
 	zmanim 	= GD.getZmanim(oPref.city,oPref.time_adj)
 	_sr 	= zmanim.alot

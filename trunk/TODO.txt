@@ -13,9 +13,10 @@
 - veset haflaga allwyes DAY ( CHABAD ) // resulved
 - re creating event will delete old events // resulved
 - check veset haflaga // resulved
+- get holiday system israel and galut from Holiday // resulved (it seems to work fine)
+- search mikveh // resulved
 
+- add mikves montreuil vincenns villiers sur marne champeny
 - veset haflaga not cacneled
-- get holiday system israel and galut from Holiday
 - consult event and events details  / delete event
 - glossery
-

@@ -85,102 +85,59 @@ JDate.prototype.getMoadim = function() {
 	h 	= new HDate(g)// convert this to Hebrew date
 	
 	hday	= h.getDay()
-	hmonth	= h.getMonth() -1
-	/*********************************/
-	/*		HEB MONTH - 1 ???
-	******************************/
+	hmonth	= h.getMonth() -1 /* -1 IMPORTANT */
 	hyear	= h.getYear()
 	cday 	= g.getDay()
 	cmonth 	= g.getMonth()
 	cyear 	= g.getYear()	
 	dow		= g.getDayOfWeek() +1
-
+		
 	if(hmonth == 6) {
-		if(hday == 1 || hday == 2)
-			return "Rosh Hashana"
-		else if(hday == 3 && dow != 7)
-			return "Fast of Gedalia";
-		else if(hday == 4 && dow == 1)
-			return "Fast of Gedalia";
-		else if(hday == 10)
-			return "Yom Kippur"
-		else if(hday >= 15 && hday <= 22)
-			return "Sukkot"
-		else if(hday == 23)
-			return "Isru Chag"
+		if(hday == 1 || hday == 2){return "rosh_hashana"
+		}else if(hday == 3 && dow != 7){return "fast_gedalia" 
+		}else if(hday == 4 && dow == 1){return "fast_gedalia"
+		}else if(hday == 10){ return "yom_kipur"
+		}else if(hday >= 15 && hday <= 22){	return "sukot"
+		}else if(hday == 23) {	return "isru_chag" }
 	}else if(hmonth == 8) {
-		if(hday >= 25)
-			return "Chanukkah"
+		if(hday >= 25){	return "chanuka" }
 	}else if(hmonth == 9) {
-		if(hday <= 2) {
-			return "Chanukkah"
-		}else if(hday == 3) {
-			// Kislev can be malei or chaser
-			if(cday == 1) {
-				cday = 29;
-				cmonth = 11;
-			}else if(cday == 2) {
-				cday = 30;
-				cmonth = 11;
-			}else
-				cday -= 3;
-			//var hdate = civ2heb(cday, cmonth, cyear);
-			//hd = eval(hdate.substring(0, hdate.indexOf(' ')));
-			if(hday == 29)
-				return "Chanukkah"
-		}else if(hday == 10)
-			return "Fast of Tevet"
+		if(hday <= 2) { return "chanuka"
+		}else if(hday == 3) {// Kislev can be malei or chaser
+			if(cday == 1) {	cday = 29;cmonth = 11;
+			}else if(cday == 2) {cday = 30;	cmonth = 11;
+			}else{	cday -= 3;}
+			if(hday == 29){return "chanuka"}
+		}else if(hday == 10){return "fast_tevet"}
 	}else if(hmonth == 10) {
-		if(hday==15)
-			return "Tu b'Shvat"
+		if(hday==15){return "tu_bishvat"}
 	}else if(hmonth == 11 || hmonth == 13) {
-		if(hday == 11 && dow == 5)
-			return "Taanit Esther"
-		else if(hday == 13 && dow != 7)
-			return "Taanit Esther"
-		else if(hday == 14)
-			return "Purim"
-		else if(hday == 15)
-			return "Shushan Purim"
+		if(hday == 11 && dow == 5){	return "fast_esther"
+		}else if(hday == 13 && dow != 7){	return "fast_esther"
+		}else if(hday == 14){	return "purim"
+		}else if(hday == 15){	return "shushan_purim"}
 	}else if(hmonth == 0) {
-		if(hday == 12 && dow == 5)
-			return "Taanit Bechorot"
-		else if(hday == 14 && dow != 7)
-			return "Taanit Bechorot"
-		else if(hday >= 15 && hday <= 21)
-			return "Pesach"
-		else if(hday == 22)
-			return "Isru Chag" 
+		if(hday == 12 && dow == 5){return "fast_bechorot"
+		}else if(hday == 14 && dow != 7){return "fast_bechorot"
+		}else if(hday >= 15 && hday <= 21){return "pesach"
+		}else if(hday == 22){return "isru_chag"}
 	}else if(hmonth == 1) {
-		if(hday == 3 && dow == 5)
-			return "Yom Ha'Atzmaut"
-		else if(hday == 4 && dow == 5)
-			return "Yom Ha'Atzmaut"
-		else if(hday == 5 && dow != 6 && dow != 7)
-			return "Yom Ha'Atzmaut"
-		if(hday == 14)
-			return "Pesah sheni"
-		else if(hday == 18)
-			return "Lag B'Omer"
-		if(hday == 28)
-			return "Yom Yerushalayim"
+		if(hday == 3 && dow == 5){return "yom_haatsmaut"
+		}else if(hday == 4 && dow == 5){return "yom_haatsmaut"
+		}else if(hday == 5 && dow != 6 && dow != 7){return "yom_haatsmaut"}
+		if(hday == 14){return "pesach_sheni"
+		}else if(hday == 18){return "lag_baomer"}
+		if(hday == 28){return "yom_yerushalaim"}
 	}else if(hmonth == 2) {
-		if(hday == 6)
-			return "Shavuot"
-		else if(hday == 7)
-			return "Isru Chag"
+		if(hday == 6){return "shavuot"
+		}else if(hday == 7){return "isru_chag"}
 	}else if(hmonth == 3) {
-		if(hday == 17 && dow != 7)
-			return "Fast of Tammuz"
-		if(hday == 18 && dow == 1)
-			return "Fast of Tammuz"
+		if(hday == 17 && dow != 7){return "fast_tamuz"}
+		if(hday == 18 && dow == 1){return "fast_tamuz"}
 	}else if(hmonth == 4) {
-		if(hday == 9 && dow != 7)
-			return "Tisha B'Av"
-		if(hday == 10 && dow == 1)
-			return "Tisha B'Av"
-		if(hday == 15)
-			return "Tu B'Av"
+		if(hday == 9 && dow != 7){return "tisha_beav" }
+		if(hday == 10 && dow == 1){return "tisha_beav" }
+		if(hday == 15){return "tu_beav" }
 	}
 
 	return "";
