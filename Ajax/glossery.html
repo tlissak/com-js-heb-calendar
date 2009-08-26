@@ -1,0 +1,27 @@
+<div id="glossery-inner">
+<div class="bar-a"></div>
+<div class="bar-b"></div>
+<div class="bar-c">
+<div onmousedown="Move(event,$('glossery-inner'))" id="glossery-title"  >Glossery</div>
+<div class="box-btn" onclick="$('glossery').style.display='none'" >Close</div>
+<div style="clear:both"></div>
+</div>
+<div class="border">
+	<div class="msg">
+    	<h2 id="Glossery">Terms</h2>
+        <div class="spacer"></div>
+     	<select id="select_term" onchange="show_term(this.value)" >
+    	<option value="">Select term</option>
+        <option value="1">Raia</option>
+ 		<option value="2">Hefsek tahara</option>       
+    	</select>
+    </div>
+    <div class="spacer"></div>
+    <div id="term1">info</div>
+    <div id="term2">info</div>
+    <div id="term3">info</div>
+    <div id="term4">info</div>
+    <div id="term5">info</div>
+</div>
+<div class="bar-c"></div><div class="bar-b"></div><div class="bar-a"></div>
+</div>

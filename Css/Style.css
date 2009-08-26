@@ -1,21 +1,47 @@
 @charset "utf-8";
 /* ATTENTION body height % */
 html,body{height:100%}
-body{padding:0; margin:0; font-family:Arial, Helvetica, sans-serif; font-size:11px; background:#FFF }
+body{padding:0; margin:0; font-family:Arial, Helvetica, sans-serif; font-size:11px; background:#fff url(../Images/bg.png) bottom repeat-x}
 img {border:0 none}a{text-decoration:none; color:#777777} .pointer{cursor:pointer}
 hr{border:0 none; height:1px; width:95%; color:#CCCCCC; border-color:#CCCCCC; background-color:#CCCCCC}
 h2,h3{padding:0; margin:0}h1{font-size:18px; font-weight:bold; display:inline; margin:10px}
 h2{font-size:14px; font-weight:bold}h3{font-size:12px; font-weight:bold}
-.link{color:#0F29BB; text-decoration:underline; font-size:14px}
+.link{color:#0F29BB; text-decoration:underline; font-size:14px; cursor:pointer}
 ul{padding:0; margin:0;}ul li a{display:block}
 .spacer{ height:18px; clear:both}.clear{clear:both; height:1px}
 .msg { color:#009; background:#e0ecff; border:#6694e3 3px  double; padding:10px}
 input:focus {	outline: 0;	outline-offset: 0;}
-input, select {font-size: 12px;vertical-align: top;outline: none;border: 1px solid #bdc2c9;height:17px;padding:0px;}
+input, select {font-size: 12px;vertical-align: top;outline: none;}
+
+form{display:inline}
+
+.nav li{ padding:3px 5px;}
 
 .left-border{border-left:#c3d9ff 10px solid; height:85%; position:relative; }
 
-#mikveh-list{ font-size:10px; position:absolute; top:10px; left:10px; background:#FFF}
+.btn{background:url(../Images/gradian.gif) top; border:#f1f1f1 1px solid; border-bottom-color:#ccc; font-size:12px;  color:#666}
+
+#welcome{width:100%; height:100%; position:absolute; background:#fff; z-index:555; top:0; left:0; min-height:450px; display:none}
+#welcome-inner{width:90%; display:block; position:absolute; z-index:556; top:30px; height:90%; left:5%}
+#welcome-inner .border{height:90%}
+
+#glossery{width:100%; height:100%; position:absolute; background:#fff; z-index:555; top:0; left:0; min-height:450px; display:none}
+#glossery-inner{width:90%; display:block; position:absolute; z-index:556; top:5%; height:90%; left:5%}
+#glossery-inner .border{height:90%}
+
+#glossery-title{float:left; width:200px; cursor:move; font-weight:bold; color:#009 ; padding:1px 10px;}
+
+#dialog{width:400px; display:none; position:absolute; z-index:500}
+#dialog-date{float:left; width:200px; cursor:move; font-weight:bold; color:#009 ; padding:1px 10px;}
+
+#s1,#s2,#s3{ display:none}
+
+.border{border-left:#c3d9ff 10px solid; border-right:#c3d9ff 10px solid ;  position:relative; padding:10px;min-height:100px; background:#FFF }
+.box-btn{float:right;padding:0px 10px; cursor:pointer}
+.box-btn:hover{ color:#900}
+
+
+#mikveh-list{ font-size:10px; position:absolute; top:30px; padding-left:10px; background:#FFF}
 #mikveh-list h3{font-size:14px; margin:3px;}
 #mikveh-list label{ font-size:10px; font-weight:bold }
 #mikveh-list li{list-style:none;}
@@ -24,17 +50,17 @@ input, select {font-size: 12px;vertical-align: top;outline: none;border: 1px sol
 .cal-title-box{position:relative; height:10%; }
 .cal-title{position:absolute; bottom:2px}
 
-#menu{border-bottom:#c9d7f1 1px solid; height:24px;display:none}
+#menu{border-bottom:#c9d7f1 1px solid; height:24px;display:none; position:absolute; background:#FFC; z-index:999;width:100%}
 #menu ul{padding:0; margin:0; }
 #menu li{padding:0; margin:0; float:left; padding:3px 17px; list-style:none; font-size:13px; color:#0000CC}
 #menu input,#menu select {color:#900}
 
-.bar-a{ margin:0 2px; background-color:#c3d9ff; height:1px}
-.bar-b{ margin:0 1px; background-color:#c3d9ff; height:1px}
+.bar-a{ margin-left:2px; margin-right:2px; background-color:#c3d9ff; height:1px ; line-height:1px; border-color:#c3d9ff; font-size:1px;}
+.bar-b{ margin:0 1px; background-color:#c3d9ff; height:1px; line-height:1px ;border-color:#c3d9ff; font-size:1px;}
 .bar-c{ background-color:#c3d9ff; min-height:10px}
 
 #d{ padding:0; margin:0; font-size:11px; text-align:center;position:absolute;top:0;left:0}
-#d li{width:180px; height:120px; padding:0; margin:0; list-style:none; }
+#d li{width:180px; height:140px; padding:0; margin:0; list-style:none; }
 #d table{width:90%; background:#FFF; border-spacing:0; border-collapse:collapse; background-color:#fff}
 #d td{cursor:pointer; border:#c3d9ff 1px solid}
 #d li.curr_month table{ }
@@ -52,17 +78,21 @@ input, select {font-size: 12px;vertical-align: top;outline: none;border: 1px sol
 .cal td{  border:#C3D9FF 1px solid; vertical-align:top; text-align:center;  width:14%; font-size:10px; white-space:nowrap}
 .cal-dt{height:14px; background-color:#E8EEF7; }
 .cal-dt-civil{color:#777777; float:right;}
-.cal-dt-hebrew{color:#7777FF/*#B7CDF3*/; font-weight:bold; float:left; }
-.cal-ona-0{ clear:both; min-height:20px; background-color:#f7f7f7; color:#666; font-weight:bold}
-.cal-ona-1{ clear:both; min-height:5px;  color:#666; font-weight:bold}
+.cal-dt-hebrew{color:#009/*#B7CDF3*/; font-weight:bold; float:left; }
+.cal-ona-0{ clear:both; min-height:20px; height:35%; background-color:#f7f7f7; color:#666; font-weight:bold}
+.cal-ona-1{ clear:both; min-height:5px; color:#666; font-weight:bold}
 
 .today{background-color:#FFC; }
-.times{background:#FFF url(../Images/time.png) no-repeat top left; color:#999; display:none; position: absolute; padding-left:15px
-; border:#C3D9FF 3px double; text-align:left}
-/**************************
-IMPORTANT
-*/
-/*.cal td:hover .times{ display:block}*/
+.times{ position:absolute; color:#E6E6E6 }
+.times img{margin-left:2px;height:13px; width:13px; background-repeat:no-repeat;visibility:hidden}
+
+.times:hover{ color:#666 }
+.times:hover img{ visibility:visible }
+
+.sunrise{background:url(../images/sun.png);}
+.sunset{background:url(../images/sunset.png) ;}
+.stars{background:url(../images/1star.png);}
+.threestars{background:url(../images/3stars.png) ;}
 
 .rosh-hodesh{background:url(../Images/roch-chodesh.png) no-repeat 5px}
 .j-holiday{background:url(../Images/magen-david.png) no-repeat left}
@@ -91,14 +121,14 @@ IMPORTANT
 #step1{width:550px}
 #step1 u{color:#F00; font-weight:bold}
 
-#month-container{height:70%;background-color:#c3d9ff; overflow-y:scroll; overflow-x:hidden; position:relative;}
+#month-container{height:70%;background-color:#c3d9ff; overflow-y:scroll; overflow-x:hidden; position:relative; }
 
 
 .has-cal-event{background-position:0; background-repeat:no-repeat;}
 
-.ona-0{ float:left; width:4px;}
+.ona-0{ float:left; width:4px; font-size:1px}
 .ona-0 span{ background-position:center; background-repeat:no-repeat; display:block; width:4px; height:3px; }
-.ona-1{ float:right; width:4px}
+.ona-1{ float:right; width:4px ;  font-size:1px}
 .ona-1 span{ background-position:center; background-repeat:no-repeat; display:block; width:4px; height:3px;}
 
 #event-index{padding:10px; height:20%}

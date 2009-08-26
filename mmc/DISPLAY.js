@@ -92,8 +92,11 @@ function show(){
 			}
 			x += '<li '+tmcs+' ><table align="center">'		
 			x += "<tr class='month'><th colspan='7' class='pointer' onclick=\"show_calendar({m:"+(mm+1)+",y:"+yyyy+"})\">"
-			x += _month_name + " "+ yyyy +"</th></tr>"
-			x += '<tr>'			
+			x += _month_name + " "+ yyyy +"</th></tr><tr>"
+			for (var i_d=0;i_d<7;i_d++){
+			x += "<th>"+ LNG[oPref.language].dow_short[i_d] + "</th>"
+			}
+			x += '</tr><tr>'			
 			for (var of = 1;of < _d[yy][mm][0].dow;of++){	x += "<th>&nbsp;</th>"}		
 			for (var j=0;j<_d[yy][mm].length;j++){
 				dd = _d[yy][mm][j]			
@@ -140,12 +143,13 @@ function show_calendar(oMonth){
 	tdy = td.getFullYear()
 	tdd = td.getDate()
 	tdm = td.getMonth() +1	
-	x = "<tr>"
+	x = '<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="cal" style="z-index:1; background:#FFF" ><tbody>'
+	x += "<tr>"
 	for (var of = 1;of < oM[0].dow;of++){	x += "<th>&nbsp;</th>"}	
 	for (var j=0;j<oM.length;j++){
 		dd = oM[j]			
 		tcs = ((oMonth.m)==tdm&&(j+1)==tdd&&tdy==oMonth.y)  ? " class='today'" : "" 	
-		x += '<td id="jm_'+dd.m_hdn+'" '+tcs+'  ondblclick="_j(event,this)">'
+		x += '<td id="jm_'+dd.m_hdn+'" '+tcs+'  onclick="_j(event,this)">' // ondblclick="_j(event,this)"
 		x += '<div class="cal-dt"><span class="cal-dt-hebrew">'
 		x += dd.d +' '+dd.hm 
 		x += '</span><span class="cal-dt-civil">'
@@ -153,20 +157,7 @@ function show_calendar(oMonth){
 		x += '</span></div>'
   		x += '<div class="cal-ona-0" id="jm_'+dd.m_hdn+'_0"></div>' 
 		x += '<div class="cal-ona-1" id="jm_'+dd.m_hdn+'_1"></div>'	
-		x += '<div class="times" > '+LNG[oPref.language].netz +' : '+ dd.zmanim.hanetz+" <br /> "
-		x += LNG[oPref.language].shkia + ' : '+dd.zmanim.shkia+' <br />'
-		x += LNG[oPref.language].alot +' : '+dd.zmanim.alot+' <br />'
-		x += LNG[oPref.language].shaa_zmanit +' : '+dd.zmanim.shaa_zmanit+' <br />'
-		x += LNG[oPref.language].misheyakir + ' : '+dd.zmanim.misheyakir+' <br />' // mishayakir ben tchelet le karti
-		x += LNG[oPref.language].tzeit + ' : '+dd.zmanim.tzeit+' <br />'
-		x += LNG[oPref.language].shema + ' : '+dd.zmanim.shema+' <br />'
-		x += LNG[oPref.language].tefillah + ' : '+dd.zmanim.tefillah+' <br />'
-		x += LNG[oPref.language].chatzot + ' : '+dd.zmanim.chatzot+' <br />'
-		x += LNG[oPref.language].mincha_g + ' : '+dd.zmanim.minchag+' <br />'
-		x += LNG[oPref.language].mincha_k + ' : '+dd.zmanim.minchak+' <br />'
-		x += LNG[oPref.language].plag + ' : '+dd.zmanim.plag+' <br />'
-		x += LNG[oPref.language].three_stars + ' : '+dd.zmanim.motzeiShabbat+' <br />'
-		x += '</div>'
+		
 		if (dd.dow==6){
 		x += "<div class='shabat-s'>"+dd.zmanim.knissatShabbat+"</div>"
 		}
@@ -183,6 +174,30 @@ function show_calendar(oMonth){
 		if (dd.parasha){
 		x += "<div class='parasha'>"+ dd.parasha+"</div>"
 		}
+		
+		x += '<div class="times" > '
+		//x += LNG[oPref.language].netz +' : '+ dd.zmanim.hanetz+" <br /> "
+		//x += LNG[oPref.language].shkia + ' : '+dd.zmanim.shkia+' <br />'
+		
+		x += '<img src="images/spacer.gif" class="sunrise" />'+ dd.zmanim.hanetz
+		x += '<img src="images/spacer.gif" class="sunset" />'+dd.zmanim.shkia
+		
+		
+		//x += LNG[oPref.language].alot +' : '+dd.zmanim.alot+' <br />'
+		//x += LNG[oPref.language].shaa_zmanit +' : '+dd.zmanim.shaa_zmanit+' <br />'
+		//x += LNG[oPref.language].misheyakir + ' : '+dd.zmanim.misheyakir+' <br />' // mishayakir ben tchelet le karti
+		//x += LNG[oPref.language].tzeit + ' : '+dd.zmanim.tzeit+' <br />'
+		x += '<img src="images/spacer.gif" class="stars" />'+dd.zmanim.tzeit
+		//x += LNG[oPref.language].shema + ' : '+dd.zmanim.shema+' <br />'
+		//x += LNG[oPref.language].tefillah + ' : '+dd.zmanim.tefillah+' <br />'
+		//x += LNG[oPref.language].chatzot + ' : '+dd.zmanim.chatzot+' <br />'
+		//x += LNG[oPref.language].mincha_g + ' : '+dd.zmanim.minchag+' <br />'
+		//x += LNG[oPref.language].mincha_k + ' : '+dd.zmanim.minchak+' <br />'
+		//x += LNG[oPref.language].plag + ' : '+dd.zmanim.plag+' <br />'
+		//x += LNG[oPref.language].three_stars + ' : '+dd.zmanim.motzeiShabbat+' <br />'
+		x += '<img src="images/spacer.gif" class="threestars" />'+dd.zmanim.motzeiShabbat
+		x += '</div>'
+		
 		x += '</td>'
 		
 		if (dd.dow==7){	x += '</tr><tr>'} 
@@ -190,8 +205,8 @@ function show_calendar(oMonth){
 	
 	if (dd.dow < 7){for (var of =dd.dow;of < 7 ; of++){	x += "<th>&nbsp;</th>"	}}
 	
-	x += "</tr>"
-  
+	x += "</tr></tbody></table>"
+	
   $("cal").innerHTML = x
   $("cal-date").innerHTML = _month_name + " " + oMonth.y
   

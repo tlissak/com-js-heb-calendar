@@ -3,11 +3,13 @@ function hdn2gd(_hdn){
 	return _GD.getDay() + "/"+ _GD.getMonth() // +"/"+ _GD.getYear()
 }
 function dEvent(){	
+	oPref = Pref()
 	this.arr		= new Array()	
 	this.events		= events
 	this.calculate 	= calculate
 	this.add 		= add	
-	this.calc_haflaga = calc_haflaga
+	this.calc_chabad_haflaga 	= calc_chabad_haflaga
+	this.calc_haflaga 			= calc_haflaga
 	this.length 	= -1
 	this.haflaga_length = -1 
 	this.NIGHT 	= 0
@@ -18,16 +20,45 @@ function dEvent(){
 	/* INIT functions */
 	this.calculate()
 	this.arr.sort()
-	this.calc_haflaga()
+	if (oPref.minhag == "ch"){
+		this.calc_chabad_haflaga()
+	}else{
+		this.calc_haflaga()
+	}
 	//this.arr.sort() dont sort for keep index for veset haflaga calculation
 	/*calc_veset_hodesh_that_not_canceled()
 	calc_veset_haflaga_that_not_canceled()*/
 	//this.arr.sort() 
 	
 	this.arr.sort() // finely sort
-	
-	
-	
+	function calc_haflaga(){
+		haflaga 	= new Array()
+		for (var i=0,x=0;i<this.arr.length;i++){
+			if (this.arr[i][1] == dEvent.FLOW_START_NIGHT || this.arr[i][1] == dEvent.FLOW_START_DAY){
+				idx_next_raia 	= this.getNextRaia(i+1/* !IMORTANT Starting index +1 */)
+				if (idx_next_raia > -1){
+					this.haflaga_length ++
+					haflaga[this.haflaga_length] = new Array()								
+					haflaga[this.haflaga_length][0] = i
+					haflaga[this.haflaga_length][1] = idx_next_raia
+				}
+			}
+		}
+		
+		for (var i=0;i<haflaga.length;i++){
+			
+			_haflaga_start 	= this.arr[haflaga[i][0]]
+			_haflaga_end 	= this.arr[haflaga[i][1]]
+			_haflaga_distance_hdn 	= 	_haflaga_end[0] - _haflaga_start[0] // hdn	- hdn			
+			TYPE	= (_haflaga_start[1] == dEvent.FLOW_START_NIGHT) ? dEvent.VESET_HAFLAGA_NIGHT : dEvent.VESET_HAFLAGA_DAY
+			ONA		= (TYPE == dEvent.VESET_HAFLAGA_NIGHT) ? this.NIGHT : this.DAY
+			
+			this.add({hdn:_haflaga_end[0]+_haflaga_distance_hdn,type:TYPE
+										   ,caller:"<br />" +" raia:"+ hdn2gd(_haflaga_start[0]) + "<br />"
+										   +", Raia:"+hdn2gd(_haflaga_end[0]) + "<br />"
+										   ,ona:ONA })
+		}
+	}	
 	function getClass(event_type){
 		if (event_type == dEvent.FLOW_START_NIGHT || event_type == dEvent.FLOW_START_DAY){ 	return	"flow_s" 
 			}else if(event_type == dEvent.FLOW_IN){	return "flow_in"
@@ -37,11 +68,10 @@ function dEvent(){
 			}else if(event_type == dEvent.ONA_BENONIT){return	"ona_benonit" ;
 			}else if(event_type == dEvent.VESET_HODESH_NIGHT || event_type == dEvent.VESET_HODESH_DAY){ return "veset_hodesh" ;
 			}else if(event_type == dEvent.VESET_HAFLAGA_NIGHT || event_type == dEvent.VESET_HAFLAGA_DAY){ return "veset_haflaga" ;
-			}else{ return "today"	}
+			}else{ alert("unknown-event-type-getClass("+event_type+")") ; return ""	}
 	}
 	function getNextRaia(r_start_index){
 		for (var j=r_start_index;j<this.arr.length;j++	){
-			/* find end haflaga (next start raia) index [starting from this point and next j=i]*/
 			/* if there is hafsek thara before next raia ???????????????delete current start hefsek tahara
 			if (this.arr[j][1] == dEvent.HEFSEK_THARA ){	break ; }	*/
 			if (this.arr[j][1] == dEvent.FLOW_START_NIGHT || this.arr[j][1] == dEvent.FLOW_START_DAY ){	return j }		
@@ -50,18 +80,18 @@ function dEvent(){
 	}
 	function getNextHefsek(h_start_index){
 		if (h_start_index == -1){return -1}
-		for (var k=h_start_index;k<this.arr.length;k++){/* find the next hefsek taharh to applay the haflaga [starting from this point and next k=j]*/
+		for (var k=h_start_index;k<this.arr.length;k++){
 			if (this.arr[k][1] == dEvent.HEFSEK_THARA){	return k }
 		}
 		return -1
 	}
-	function calc_haflaga(){
+	function calc_chabad_haflaga(){
 		haflaga 	= new Array()
 		for (var i=0,x=0;i<this.arr.length;i++){
 			
 			if (this.arr[i][1] == dEvent.HEFSEK_THARA){
 				
-				idx_next_raia 	= this.getNextRaia(i)
+				idx_next_raia 	= this.getNextRaia(i+1/* !IMORTANT Starting index i+1 */)
 				idx_next_hefsek = this.getNextHefsek(idx_next_raia)
 				
 				if (idx_next_hefsek > -1){
@@ -78,17 +108,17 @@ function dEvent(){
 			_haflaga_end 	= this.arr[haflaga[i][1]]
 			_haflaga_applied= this.arr[haflaga[i][2]]
 			_haflaga_distance_hdn 	= 	_haflaga_end[0] - _haflaga_start[0] // hdn	- hdn			
-			TYPE 	= dEvent.VESET_HAFLAGA_DAY // LUBA //TYPE	=  _haflaga_start[1] == dEvent.FLOW_START_NIGHT ? dEvent.VESET_HAFLAGA_NIGHT : dEvent.VESET_HAFLAGA_DAY
+			TYPE 	= dEvent.VESET_HAFLAGA_DAY // LUBA 
 			this.add({hdn:_haflaga_applied[0]+_haflaga_distance_hdn,type:TYPE
 										   ,caller:"<br />" +" Hefsek:"+ hdn2gd(_haflaga_start[0]) + "<br />"
 										   +", Raia:"+hdn2gd(_haflaga_end[0]) + "<br />"
 										   +", Hefsek:"+hdn2gd(_haflaga_applied[0] )
 										   ,ona:this.DAY })
-			//this.arr.sort()
 		}
 	}
 	function events(){
 		evts 	= Cookie.get("event").split("!")
+		//console.log("calculate cookie caled - \n" + Cookie.get("event"))
 		var _av = new Array()
 			for (var i = 0 ; i < evts.length;i++){
 				if (evts[i].indexOf("-")>-1){
@@ -100,6 +130,7 @@ function dEvent(){
 		return _av.sort()
 	}	
 	function add(obj){ 
+		// verify that length is re initialing
 		this.length++
 		this.arr[ this.length ] = new Array()
 		this.arr[this.length][0] = obj.hdn ;	
@@ -119,7 +150,7 @@ function dEvent(){
 			if (ev_type.indexOf("raia") > -1){
 				TYPE = ev_type == "raia0" ? dEvent.FLOW_START_NIGHT : dEvent.FLOW_START_DAY
 				ONA	 = TYPE == dEvent.FLOW_START_NIGHT ? this.NIGHT : this.DAY
-				this.add({hdn:hdn,type:TYPE,caller:0,ona:ONA})
+				this.add({hdn:hdn,type: TYPE,caller:0,ona:ONA})
 				for (var nj=1;nj<5;nj++){ // minimum nida
 					this.add({hdn:(hdn +nj),type:dEvent.FLOW_IN,caller:hdn,ona:this.NIGHT})
 					this.add({hdn:(hdn +nj),type:dEvent.FLOW_IN,caller:hdn,ona:this.DAY})
@@ -141,12 +172,14 @@ function dEvent(){
 						break ;
 					}
 				}
+				
 				this.add({hdn:hdn,type:dEvent.HEFSEK_THARA,caller:caller,ona:this.DAY})
 				for (var nj=1;nj<=7;nj++){ // 7 nekiim
 					this.add({hdn:(hdn +nj),type:dEvent.SEVEN_NEKIIM,caller:caller,ona:this.DAY})
 					this.add({hdn:(hdn +nj),type:dEvent.SEVEN_NEKIIM,caller:caller,ona:this.NIGHT})
 				}
 				this.add({hdn:(hdn+7),type:dEvent.MIKVE,caller:caller,ona:this.DAY})
+				
 			}else{ c("UNKOWN event ("+ev_type+") != (raia|hefsek) check cookie")}			
 		}
 		
@@ -159,7 +192,7 @@ dEvent.FLOW_START_DAY			= 2
 dEvent.FLOW_IN					= 3
 dEvent.HEFSEK_THARA				= 4
 dEvent.SEVEN_NEKIIM				= 5
-dEvent.MIKVE_DAY				= 6
+dEvent.MIKVE					= 6
 dEvent.ONA_BENONIT				= 7
 dEvent.VESET_HODESH_NIGHT 		= 8
 dEvent.VESET_HODESH_DAY 		= 9
@@ -172,79 +205,47 @@ dEvent.VESET_HAFLAGA_DAY_NOT_CANCELED 	= 15
 dEvent.VESET_KAVUA_NIGHT		= 16
 dEvent.VESET_KAVUA_DAY			= 17
 
-dEvent.getTypeName = function(id){
-	error = error+1 // correct with the events
-	return [""
-,"FLOW_START_NIGHT 				= 1"	
-,"FLOW_START_DAY				= 2"
-,"FLOW_IN 					= 3"
-,"HEFSEK_THARA 			= 4"
-,"SEVEN_NEKIIM 			= 5"
-,"MIKVE					= 6"
-,"ONA_BENONIT 				= 7"
-,"VESET_HODESH_NIGHT 		= 8"
-,"VESET_HODESH_DAY 		= 9"
-,"VESET_HAFLAGA_NIGHT 		= 10"
-,"VESET_HAFLAGA_DAY 		= 11"
-,"VESET_HODESH_NIGHT_NOT_CANCELED 	= 12"
-,"VESET_HODESH_DAY_NOT_CANCELED 	= 13"
-,"VESET_HAFLAGA_NIGHT_NOT_CANCELED = 14"
-,"VESET_HAFLAGA_DAY_NOT_CANCELED 	= 15"
-,"VESET_KAVUA_NIGHT		= 16"
-,"VESET_KAVUA_DAY			= 17"][parseInt(id)]	
-}
-
-function translate(_oe){
-	for (var i= 0;i<_oe.arr.length;i++){
-		_oEv = _oe.arr[i]
-		GD = new GDate(_oEv[0])
-		cGD = new GDate(_oEv[2])
-		sCaller	= cGD.getDay() +"/"+cGD.getMonth() + "/"+ cGD.getYear()
-		sDate 	= GD.getDay() +"/"+GD.getMonth() + "/"+ GD.getYear()
-		sType 	= dEvent.getTypeName(_oEv[1])
-		console.print("date",sDate,"type",sType,"caller:",sCaller)	
-	}
-}
 function clear_event(){
+	if (!(DEVENT)){return /* nothing to clean */}
+	for (var i=0;i<DEVENT.length;i++){
+		if ($("jm_"+ DEVENT[i][0] +"_" +DEVENT[i][3] )){
+			$("jm_"+ DEVENT[i][0] +"_" +DEVENT[i][3] ).innerHTML = "" ;	
+		}
+		if ($("j_"+ DEVENT[i][0] +"_" +DEVENT[i][3] )){
+			$("j_"+ DEVENT[i][0] +"_" +DEVENT[i][3] ).innerHTML = "" ;	
+		}
+	}	
+	
+	return
+	/* IMPORTANT */
+	// OLD cleaning all 
 	dElm = $("d").getElementsByTagName("td")
 	j_s = parseInt(dElm[0].id.replace("j_",""))
 	j_e = parseInt(dElm[dElm.length-1].id.replace("j_",""))
-	
 	calElm = $("cal").getElementsByTagName("td") 
 	c_s	= parseInt(calElm[0].id.replace("jm_",""))
 	c_e	= parseInt(calElm[calElm.length-1].id.replace("jm_",""))
-	
-	
 	if ( c_e > c_s ){
-		for (var i=c_s;i < c_e ;i++){
-			if ($("jm_"+ i +"_0")){
-				$("jm_"+ i +"_0").innerHTML = "" ;  
-			}
-			if($("jm_"+ i +"_1")){
-				 $("jm_"+ i +"_1").innerHTML = ""
-			}
-		}	
+	for (var i=c_s;i < c_e ;i++){if ($("jm_"+ i +"_0")){$("jm_"+ i +"_0").innerHTML = "" ;  }if($("jm_"+ i +"_1")){  $("jm_"+ i +"_1").innerHTML = "" ; }}	
 	}
-	if (j_e > j_s){
-		for (var i=j_s;i <j_e ;i++){
-			if ($("j_"+ i +"_0") && $("j_"+ i +"_1")){
-				$("j_"+ i +"_0").innerHTML = "" ; $("j_"+ i +"_1").innerHTML = ""
-			}
-		}
-	}
+	if (j_e > j_s){for (var i=j_s;i <j_e ;i++){if ($("j_"+ i +"_0") && $("j_"+ i +"_1")){	$("j_"+ i +"_0").innerHTML = "" ; $("j_"+ i +"_1").innerHTML = ""	}}}
 }
+var DEVENT = null
+
+
 function calc_event(){
 	clear_event()
-	
-	oEvt		= new dEvent() //translate(oEvt)
-	var  print_to_el = function(hdn,ona,class,caller){
-		if ($("jm_"+hdn+"_"+ona)){
-			a_ev_dt = LNG[oPref.language][class]
+	oEvt		= new dEvent() 
+	DEVENT		= oEvt.arr
+	//console.log(DEVENT)
+	function print_to_el(_hdn,_ona,_class,_caller){
+		if ($("jm_"+_hdn+"_"+_ona)){
+			a_ev_dt = LNG[oPref.language][_class]
 			a_gl_ev = "<a href='"+a_ev_dt[2]+"' title=\""+a_ev_dt[1]+"\" >"+ a_ev_dt[0] + "</a>"
-			$("jm_"+hdn+"_"+ona).innerHTML += "<div class='has-cal-event "+class+"' >"+ a_gl_ev +"</div>"
+			$("jm_"+_hdn+"_"+_ona).innerHTML += "<div class='has-cal-event "+_class+"' >"+ a_gl_ev +"</div>"
 		}
-		if ($("j_"+hdn+"_"+ona)){
-			$("j_"+hdn+"_"+ona).innerHTML += "<span class='"+class+"' ></div>"
+		if ($("j_"+_hdn+"_"+_ona)){
+			$("j_"+_hdn+"_"+_ona).innerHTML += "<span class='"+_class+"' ></div>"
 		}
 	}
 	for (var i=0;i < oEvt.arr.length;i++){
@@ -252,8 +253,8 @@ function calc_event(){
 			type 	= oEvt.arr[i][1]
 			caller 	= oEvt.arr[i][2]
 			ona 	= oEvt.arr[i][3]
-			class 	= oEvt.getClass(type)
-			print_to_el(hdn,ona,class,caller)
+			_class 	= oEvt.getClass(type)
+			print_to_el(hdn,ona,_class,caller)
 	}
 }
 function delete_events(){	Cookie.del("event")}

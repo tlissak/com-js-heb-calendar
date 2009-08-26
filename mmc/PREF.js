@@ -13,20 +13,22 @@ function Pref(){
 		Cookie.del("language")	
 		Cookie.del("bIsrael")	
 		Cookie.del("country")	
+		Cookie.del("minhag")	
 	}	
 	
 	var getPrefHandler		= getCookieParam //getURLParam 
 	var setPrefHandler		= setCookieParam //setURLParam 
-	
-	var language = "fr"
-	var time_adj = 0
+	var minhag		= "ch"
+	var language 	= "fr"
+	var time_adj 	= 0
 	var cal_start 	= (new Date()).getFullYear()
 	var cal_end 	= cal_start
 	var MAX_DISP_YEARS = 2
 	var	city		= 0
-	var _time_adj		= $("time_adj")
-	var _city 			= $("city")
-	var _language		= $("sLanguage")	
+	var _time_adj	= $("time_adj")
+	var _city 		= $("sCity")
+	var _language	= $("sLanguage")
+	var _minhag		= $("sMinhag")
 	var years 		= getYears(cal_end , cal_start )	
 	
 	getPref ()	
@@ -41,18 +43,23 @@ function Pref(){
 		$("t_mikve_france").innerHTML = LNG[language].t_mikveh_france
 		$("t_mikve_world").innerHTML = LNG[language].t_mikveh_world
 		$("t_warning").innerHTML = LNG[language].warning
+		$("t_select_minhag").innerHTML = LNG[language].t_select_minhag
+		$("t_today").innerHTML = LNG[language].today
+		$("t_user_guide").innerHTML = LNG[language].t_user_guide
+		$("t_location").innerHTML   = LNG[language].t_location
+		x_s = '<option value="ch">'+LNG[language].minhag_chabad+'</option>'
+		x_s += '<option value="sef">'+LNG[language].minhag_sfarad+'</option>'
+		$("sMinhag").innerHTML = x_s
 	}
 	if (arguments.length > 0){
 		o = arguments[0]
 		language 	= o.language ?  o.language : language
+		minhag 		= o.minhag  ? o.minhag : minhag
 		time_adj 	= parseInt(o.time_adj)  >-1 ?  parseInt(o.time_adj) : time_adj
 		cal_start	= parseInt(o.cal_start) > 0 ?  parseInt(o.cal_start) : cal_start
 		cal_end  	= parseInt(o.cal_end) > 0 ?  parseInt(o.cal_end) : cal_end
 		city		= (!(isNaN(parseInt(o.city))))   ?  parseInt(o.city) : city
-		years 		= getYears(cal_end , cal_start )		
-		
-		
-		
+		years 		= getYears(cal_end , cal_start )
 	}
 	$("sCal_start").value 	= cal_start
 	$("sCal_end").value 	= cal_end
@@ -69,9 +76,14 @@ function Pref(){
 			break ;	
 		}
 	}
-	
+	for (var i=0;i<_minhag.options.length;i++){
+		if (String(minhag) == String(_minhag.options[i].value)){	
+			_minhag.selectedIndex = i ;	
+			break ;	
+		}
+	}
 	out = {
-			language:language,time_adj:time_adj
+			minhag:minhag,language:language,time_adj:time_adj
 			,cal_start:cal_start,cal_end:cal_end,years:years
 			,city:city
 	}
@@ -103,6 +115,7 @@ function Pref(){
 		return (e-s)
 	}
 	function getPref (){
+		minhag		= getPrefHandler("minhag") ? getPrefHandler("minhag") : minhag
 		language	= getPrefHandler("language") ? getPrefHandler("language") : language
 		city 		= (!(isNaN(parseInt(getPrefHandler("city"))))) ? parseInt(getPrefHandler("city")) : city
 		time_adj 	= getPrefHandler("time_adj") ? parseInt(getPrefHandler("time_adj")) : time_adj

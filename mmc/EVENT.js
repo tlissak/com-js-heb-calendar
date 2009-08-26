@@ -1,6 +1,24 @@
 // JavaScript Document
 function _j(e,elm){
 	oPref = Pref()
+	
+	$("btn_delete_event").value 		= LNG[oPref.language].btn_delete_event
+	$("btn_create_raia").value			= LNG[oPref.language].btn_create_raia
+	$("btn_create_hefsek").value		= LNG[oPref.language].btn_create_hefsek
+	
+	$("btn_create_raia_in").value			= LNG[oPref.language].btn_create_raia
+	$("btn_create_hefsek_in").value			= LNG[oPref.language].btn_create_hefsek
+	
+	$("t_select_period").innerHTML 		= LNG[oPref.language].t_select_period
+	$("t_before").innerHTML				= LNG[oPref.language].t_before
+	$("t_early_morning").innerHTML		= LNG[oPref.language].t_early_morning
+	$("t_dialogday").innerHTML			= LNG[oPref.language].t_dialogday
+	$("t_between").innerHTML			= LNG[oPref.language].t_between
+	$("t_morning_and").innerHTML		= LNG[oPref.language].t_morning_and
+	$("t_evening").innerHTML			= LNG[oPref.language].t_evening
+
+	$("t_create_event_attention").innerHTML 	= LNG[oPref.language].t_create_event_attention
+	
 	aDay = parseInt(elm.id.replace("j_","").replace("jm_",""))
 	pos = cursorPosition(e)	
 	
@@ -8,117 +26,127 @@ function _j(e,elm){
 	HD  = new HDate(GD)	
 	cj = GD.getDay()
 	cm = GD.getMonth()
+	cmn = GD.getMonthName(oPref.language)
 	cy = GD.getYear()	
+	CURR_HDN = GD.m_hdn
+	sGDate 	= cj + "-" + cmn + "-"+ cy
+	sHDate	= HD.getDay() +" "+  HD.getMonthName(oPref.language) +" "+ HD.getYear()
+	sDate 	= sGDate + " " + sHDate
+	_dow 	= GD.getWeekDayName(oPref.language)
+	
 	jEvent = new JEvent(HOLIDAYS.currentHoliday(HD))
 	
 	zmanim = HD.getZmanim(oPref.city,oPref.time_adj)	
 	parasha = HD.getParashaName(oPref.city.bIsrael,oPref.language=="he")
-		 
-	$("j").style.display 	= "block"
-	$("j").style.top 		= pos.y+"px"
-	$("j").style.left 		= pos.x+"px"
 	
+	$("s2").style.display 				= "none"
+	$("s1").style.display				= "none"
+	$("s3").style.display 				= "none"
+	$("s3").innerHTML 					= ""
+	$("btn_create_raia").style.display 	= "block"
+	$("btn_create_hefsek").style.display = "block"
+	$("btn_delete_event").style.display = "none"
 	
-	$("gd").innerHTML = cj +"."+ cm+"."+cy
-	$("cd").innerHTML = cj +" "+  GD.getMonthName(oPref.language) +" "+cy
-	$("hd").innerHTML = HD.getDay() +" "+  HD.getMonthName(oPref.language) +" "+ HD.getYear()
+	$("dialog").style.display 	= "block"
+	$("dialog").style.top 		= pos.y+"px"
+	$("dialog").style.left 		= pos.x+"px"
 	
-	if (jEvent.name){
-		$("holiday").style.display 	= "block"	
-		$("hdd").innerHTML = jEvent.name
-	}else{
-		$("holiday").style.display 	= "none"		
-		$("hdd").innerHTML = ""
-	}
-	if (GD.getDayOfWeek()==6){
-		$("shabat").style.display 	= "block"
-		$("pn").innerHTML 	= parasha
-	}else{
-		$("pn").innerHTML 	= ""
-		$("shabat").style.display 	= "none"
-	}
-	
-	$("s_st").innerHTML = zmanim.knissatShabbat
-	$("s_en").innerHTML = zmanim.motzeiShabbat
-	
-	$("sr").innerHTML = zmanim.hanetz
-	$("ss").innerHTML = zmanim.shkia
-	$("ct").innerHTML = zmanim.city.place
-}
-
-function create_ev(step){
-	
-	oPref = Pref()
-	
-	$("j").style.display = "none"
-	sDate = $("gd").innerHTML
-	
-	aDate = sDate.split(".")
-	
-	GD = new GDate(aDate[0],aDate[1],aDate[2])
-	_dow 	= GD.getWeekDayName(oPref.language)
-	
+	$("dialog-date").innerHTML 	= sGDate + " " + sHDate
+	$("sDate").innerHTML 		= sGDate + " " + sHDate
+	$("sHdn").value				= CURR_HDN
+		
 	zmanim 	= GD.getZmanim(oPref.city,oPref.time_adj)
 	_sr 	= zmanim.alot
 	_ss		= zmanim.shkia
+	$("s_time_zone").innerHTML = oPref.city.place +" DMC + "+ oPref.time_adj
+	$("st1_dow1").innerHTML = _dow
+	$("st1_dow2").innerHTML = _dow
+	$("st1_d1").innerHTML = sDate
+	$("st1_d2").innerHTML = sDate
+	$("st1_sr1").innerHTML = _sr
+	$("st1_sr2").innerHTML = _sr
+	$("st1_ss1").innerHTML = _ss
 	
-	
-	if (step == "1"){
-		$("s_time_zone").innerHTML = oPref.city.place +" DMC + "+ oPref.time_adj
-		$("st1_dow1").innerHTML = _dow
-		$("st1_dow2").innerHTML = _dow
-		$("st1_dow3").innerHTML = _dow
-		$("st1_d1").innerHTML = sDate
-		$("st1_d2").innerHTML = sDate
-		$("st1_d3").innerHTML = sDate
-		$("st1_sr1").innerHTML = _sr
-		$("st1_sr2").innerHTML = _sr
-		$("st1_ss1").innerHTML = _ss
-		$("st1_ss2").innerHTML = _ss
-		$("step1").style.display = "block"
-		$("step2").style.display = "none"
-		$("step1").style.top = 200+"px"
-		$("step1").style.left = 200+"px"
-	}else if(step=="2"){ // hefsek
-		$("hefsek_date").innerHTML 	= GD.getDay() +"." + GD.getMonth()+ "." + GD.getYear()
-		$("hefsek_d").value 		= GD.m_hdn
+	$("hefsek_date").innerHTML 	= sDate	
+	//verify_by_thecurrent event if you can create hefsek or raia()	 then block select
+	// consulte event
+	if (!(DEVENT)){return}
+	for (var i=0;i<DEVENT.length;i++){
+		hdn 	= DEVENT[i][0]
+		type 	= DEVENT[i][1]
+		caller 	= DEVENT[i][2]
+		ona 	= DEVENT[i][3]
 		
-		$("step1").style.display = "none"
-		$("step2").style.display = "block"
-		$("step2").style.top = 200+"px"
-		$("step2").style.left = 200+"px"
-	}else if(step=="9"){ // hefsek a partir de raia
-		ht = new GDate(GD.m_hdn+4)
-		$("hefsek_date").innerHTML 	= ht.getDay() +"." + ht.getMonth()+ "." + ht.getYear()
-		$("hefsek_d").value 	= GD.m_hdn+4
-		
-		$("step1").style.display = "none"
-		$("step2").style.display = "block"
-		$("step2").style.top = 200+"px"
-		$("step2").style.left = 200+"px"
+		if (CURR_HDN == hdn){
+			if (type==dEvent.FLOW_START_NIGHT || type==dEvent.FLOW_START_DAY || type == dEvent.HEFSEK_THARA){
+				if (type==dEvent.FLOW_START_NIGHT){
+					s_event = "raia0-"
+				}else if(type==dEvent.FLOW_START_DAY){
+					s_event =  "raia1-" 
+				}else{
+					s_event =  "hefsek-"
+				}
+				$("btn_delete_event").style.display = "block"	
+				$("btn_delete_event").onclick = function(){		
+					Cookie.set("event",Cookie.get("event").replace(s_event + CURR_HDN+"!",""),365)
+					calc_event()
+				}
+				$("btn_create_raia").style.display = "none"
+				$("btn_create_hefsek").style.display = "none"
+			}
+			if (type == dEvent.SEVEN_NEKIIM ){
+				$("btn_create_raia").style.display = "none"
+			}
+			if (type == dEvent.FLOW_IN ){
+				$("btn_create_raia").style.display = "none"
+				$("btn_create_hefsek").style.display = "none"
+			}
+			
+			$("s3").innerHTML += "today ona :"+ ona +" type:"+ type + " hdn : " + hdn + " caller :" + caller
+			$("s3").style.display = "block"
+			
+		}		
 	}
 }
+function show_create_event_dialog(step){
+	if (step == "1"){
+		$("s2").style.display = "none"
+		$("s1").style.display = "block"
+	}else if(step=="2"){
+		$("s1").style.display = "none"
+		$("s2").style.display = "block"
+	}
+}
+
 function create_raia(f){
-	sDate = $("st1_d1").innerHTML
-	aDate = sDate.split(".")
-	
-	_d = parseInt(aDate[0]) ; _m = parseInt(aDate[1]) ; _y = parseInt(aDate[2] )
-	var GD = new GDate(_d,_m,_y)
+	oPref = Pref()
 	for (var i=0;(elm = f.elements[i]);i++){	if (elm.checked){		Curr = elm.value		}	}
 	ona = 0
 	if (Curr == "2"){ ona = 1}
-	if (Curr == "3" ){	GD.add(1)	}
-	
-	curr_ona 	= "raia"+ona+"-"+GD.m_hdn+"!"
+	curr_ona 	= "raia"+ona+"-"+$("sHdn").value+"!"
 	evts 		= Cookie.get("event").replace(curr_ona,"")
 	Cookie.set("event",evts+curr_ona,365)
-	create_ev("9")
+	
 	calc_event()
+	
+	show_create_event_dialog("2")
+
+	GD = new GDate(parseInt($("sHdn").value)+4)
+	HD = new HDate(GD)
+	sGDate = GD.getDay() +"-" + GD.getMonthName(oPref.language)+ "-" + GD.getYear()
+	sHDate = HD.getDay() +"-" + HD.getMonthName(oPref.language)+ "-" + HD.getYear()
+	sDate = sGDate +" " + sHDate
+	
+	$("hefsek_date").innerHTML 	= sDate
+	$("sHdn").value 			= GD.m_hdn
+	
+	$("dialog-date").innerHTML 	= sDate
+	$("sDate").innerHTML 		= sDate
 }
 function create_hefsek(){
-	hfsk = "hefsek-"+$("hefsek_d").value+"!"
+	hfsk = "hefsek-"+$("sHdn").value+"!"
 	evts 		= Cookie.get("event").replace(hfsk,"")
 	Cookie.set("event",evts+hfsk,365)
-	$("step2").style.display = "none"
+	$("dialog").style.display = "none"
 	calc_event()
 }
