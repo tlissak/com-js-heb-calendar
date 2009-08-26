@@ -1,0 +1,50 @@
+<div class="bar-a"></div>
+<div class="bar-b"></div>
+<div class="bar-c">
+<div onmousedown="Move(event,$('dialog'))"  id="dialog-date">dialog-date</div>
+<div class="box-btn" onclick="$('dialog').style.display='none'" >Close</div>
+<div style="clear:both"></div>
+</div>
+<div class="border">
+	<div class="msg">
+    	<input type="hidden" id="sHdn" />
+    	<h2 id="sDate"></h2>
+        <div class="spacer"></div>
+        Timezone :<span id="s_time_zone"></span>
+        <div class="spacer"></div>
+        <input type="button" value="Create Raia"  id="btn_create_raia" onclick="show_create_event_dialog('1')"/>
+        <input type="button" value="Create Hefsek tahara" id="btn_create_hefsek" onclick="show_create_event_dialog('2')" />        
+    </div>	
+    <div class="spacer"></div>
+    <input type="button" class='btn'  id="btn_delete_event" value="Delete event" />
+    <div id="s3" class="msg">    	
+    	info for day
+    </div>
+	<div class="spacer"></div>
+    <form name="s1" id="s1">
+<h3 id="t_select_period">Please Select your pariod  </h3>
+<div class="msg-1" id="t_create_event_attention">Pay Attention</div>
+<div class="spacer"></div>
+<input type="radio" name="sd" value="1" />
+<strong id="st1_dow1" ></strong> <strong id="st1_d1">1.2.3</strong> 
+<u><br /><span id="t_before">BEFORE</span>
+</u> <strong id="st1_sr1"></strong> (<span id="t_early_morning">Early Morning</span>)
+<div class="spacer"></div>
+<input type="radio" name="sd" value="2" checked="checked" />
+<strong id="st1_dow2" ></strong> <strong id="st1_d2"></strong> <span id="t_dialogday">Day</span>
+<u><br />
+<span id="t_between">BETWEEN</span></u> <strong id="st1_sr2"></strong> (<span id="t_morning_and">Morning and</span>) <strong id="st1_ss1"></strong> 
+(<span id="t_evening">Evening</span>) 
+<div class="spacer"></div>
+<div class="spacer"></div>
+<input type="button"  id="btn_create_raia_in"  onclick="create_raia(this.form)" value="Create raia" class="btn" />
+</form>
+	<form name="s2" id="s2">
+    <div class="clear"></div>
+  	<input type="button" id="btn_create_hefsek_in" value="Create hefsek tahara" onclick="create_hefsek()" class="btn" />
+    <span id="hefsek_date"></span>
+</form>
+</div>
+<div class="bar-c"></div>
+<div class="bar-b"></div>
+<div class="bar-a"></div>

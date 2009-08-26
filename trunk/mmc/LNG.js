@@ -6,14 +6,83 @@ LNG.fr ={}
 LNG.he ={}
 
 LNG["Available"] = ["Hebrew","English","Francais"]
-LNG["Available_short"] = []
+
 
 LNG["en"].dow 		= ["Sunday","Monday","Tuesday","Wendsday","Thursday","Friday","Saterday"]
 LNG["fr"].dow 		= ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]
 LNG["he"].dow 		= ["ריאשון","שני","שלישי","רביעי","חמישי","שישי","שבת"]
 
-LNG["en"].dow_short = ["Sun","Mon","Tue","Wen","Thu","Fri","Sat"]
-LNG["fr"].dow_short = ["Dim","Lun","Mar","Mer","Jue","Ven","Sam"]
+LNG["en"].t_select_period 		= "Please Select your pariod"
+LNG["fr"].t_select_period 		= "Selectionez votre period"
+LNG["he"].t_select_period 		= "בחר את העונה בה התחילה הראיה"
+
+LNG["en"].t_before 		= "BEFORE"
+LNG["fr"].t_before 		= "AVANT"
+LNG["he"].t_before 		= "לפני"
+
+LNG["en"].t_early_morning 		= "Early morning"
+LNG["fr"].t_early_morning 		= "tout le matin avent le levi de jour"
+LNG["he"].t_early_morning 		= "בבוקר לפני התחלת היום"
+
+LNG["en"].t_dialogday 		= "in the day"
+LNG["fr"].t_dialogday 		= "dans la journe"
+LNG["he"].t_dialogday 		= "ביום עצמו"
+
+LNG["en"].t_between 		= "BETWEEN"
+LNG["fr"].t_between 		= "ENTRE LES"
+LNG["he"].t_between 		= "בין"
+
+LNG["en"].t_morning_and 		= "MORNING AND"
+LNG["fr"].t_morning_and 		= "MATIN ET JUSQUE"
+LNG["he"].t_morning_and 		= "בוקר ל"
+
+LNG["en"].t_evening 		= "Evening"
+LNG["fr"].t_evening 		= "Fin du jour"
+LNG["he"].t_evening 		= "בערב"
+
+LNG["en"].t_location 		= "Your location"
+LNG["fr"].t_location 		= "Votre localisation"
+LNG["he"].t_location 		= "מקומך"
+
+LNG["en"].t_create_event_attention 	= "1. Please pay attention to times (Your Time zone & Summer Clock)<br />2. in case of closer times check your own calendar <br /><strong>and then contact your Rav</strong>"
+LNG["fr"].t_create_event_attention 		= "1. Faire attantion pour les heuraires (Votre localization et Heur dete )<br />2. en case des minute pre consulte votre calendarier<br /><strong>et consulte votre RAV</strong>"
+LNG["he"].t_create_event_attention 		= "<p dir='rtl'>1. שים לב למיקומך בהגדרות ולשעון קיץ<br />2. במקרה של קרוב של מספר דקות הסתכל בלוח השנה שבביתך <br /><strong>והתיעץ ברב שלך</strong></p>"
+
+LNG["en"].btn_delete_event 		= "Delete this event"
+LNG["fr"].btn_delete_event 		= "Supprime cet event"
+LNG["he"].btn_delete_event 		= "מחק את האירוע"
+
+LNG["en"].btn_create_raia 		= "Create raia"
+LNG["fr"].btn_create_raia 		= "Ajouter un debut de se.. pour aujourdui"
+LNG["he"].btn_create_raia 		= "הוסף התחלת ראיה"
+
+LNG["en"].btn_create_hefsek 	= "Create hefsek thara"
+LNG["fr"].btn_create_hefsek 	= "Ajouter hefsek tahara"
+LNG["he"].btn_create_hefsek 	= "הוסף הפסק טהרה"
+
+LNG["en"].t_user_guide 		= "User guide"
+LNG["fr"].t_user_guide 		= "Guide d'utilisation"
+LNG["he"].t_user_guide 		= "מדריך שימוש"
+
+LNG["en"].today 		= "Today"
+LNG["fr"].today 		= "Aojurdhi"
+LNG["he"].today 		= "היום"
+
+LNG["en"].t_select_minhag = "Select your minhag"
+LNG["fr"].t_select_minhag = "Chosier votre 'minhag'"
+LNG["he"].t_select_minhag = "בחר מנהג"
+
+LNG["en"].minhag_chabad = "Minhag chabad (Lubavitch)"
+LNG["fr"].minhag_chabad = "Minhag Habad (Lubavitch)"
+LNG["he"].minhag_chabad = "מנהג חבד"
+
+LNG["en"].minhag_sfarad = "Minhag sfarad / achkenaz "
+LNG["fr"].minhag_sfarad = "Minhag sefarad / achkenaz"
+LNG["he"].minhag_sfarad = "מנהג ספרד אשכנז"
+
+
+LNG["en"].dow_short = ["S","M","T","W","T","F","S"]
+LNG["fr"].dow_short = ["D","L","M","M","J","V","S"]
 LNG["he"].dow_short = ["א","ב","ג","ד","ה","ו","ז"]
 
 LNG["en"].month 	= ["","January","February","March","April","May","June","July","August","September","October","November","December"]
@@ -148,7 +217,7 @@ LNG["fr"].t_cal_end = "Ann&eacute;e de fin du calendrier"
 LNG["he"].t_cal_end = "שנת סיום הלוחות"
 LNG["en"].t_dst = "Daylight saving time (+1 hr)"
 LNG["fr"].t_dst = "Heure d'&eacute;t&eacute;(+1 hr)"
-LNG["he"].t_dst = "שעון קיץ (+1 ש)"
+LNG["he"].t_dst = "שעון קיץ +1 שעה"
 
 
 
@@ -206,7 +275,7 @@ LNG["en"].veset_haflaga = ["Veset haflaga","'Ona' of posibility to see a flow be
 LNG["en"].ona_benonit = ["Ona benonit","Entire day of posibilit to see a flow becouse of most of women see at it","#ona-benonit"]
 
 LNG["fr"].flow_s 	= ["D&eacute;but des saignements","La ona pendant laquelle le saignement a &eacute;t&eacute; vu","#flow-s"]
-LNG["fr"].flow_in 	= ["P&eacute;riode minimale des r&egrave;gles","Le minimum de jours du r&egrave;gles &agrave; compter du d&eacute;but des r&egrave;gles","#flow-in"]
+LNG["fr"].flow_in 	= ["P&eacute;riode des r&egrave;gles","Le minimum de jours du r&egrave;gles &agrave; compter du d&eacute;but des r&egrave;gles","#flow-in"]
 LNG["fr"].hefsek 	= ["Hefsek tahara","La bedika 'Mokh dakhuk' &agrave; la fin des r&egrave;gles","#hefsek"]
 LNG["fr"].seven_nekiaim = ["7 nekiim","Sept jours pendant lesquels on v&eacute;rifie deux fois par jours l'absence du sang","#7-nekim"]
 LNG["fr"].mikve		= ["Mikve","Le mikv&eacute;&agrave; la fin des 7 nekiim","#mikveh"]

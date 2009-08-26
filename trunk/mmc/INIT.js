@@ -1,12 +1,24 @@
 // JavaScript Document
 Event.add(window,"load",function(){
-		load_mikveh_list()
-		load_dialog()
+		ajax_load("welcome",load_todo)
+		ajax_load("mikveh-list")
+		ajax_load("glossery")
+		ajax_load("dialog")
+		
 		setCitiesList()
 		Pref() // to set seleted things
 		$("refresh").href = "?rnd="+Math.random()
+		
+		if (Cookie.get("init") != "true"){
+			$("welcome").style.display = "block"
+			$("menu").style.display = "block"
+		}
 		show()/* having calc_event*/
+		Event.add($("t_today"),"click",function(){show_calendar({y:(new Date()).getFullYear(),m:(new Date()).getMonth()+1})})
+		
 })
+function ajax_load(pfx,callback){xmlHttp({url:"Ajax/"+pfx+".html",response:function(s){$(pfx).innerHTML = s;if(callback){callback()}}})}
+function load_todo(){xmlHttp({url:"TODO.txt",response:function(s){$("change_log").innerHTML = s.replace(/\n/g,"<br />");}})}
 function setCitiesList(){
 	var OPT = ""
 	curr_group = CITY_LOCATION[0].group
@@ -22,13 +34,8 @@ function setCitiesList(){
 		}
 	}
 	OPT += "</optgroup>"
-	$("city").innerHTML = OPT
+	$("sCity").innerHTML = OPT
 }
-
-function load_dialog(){xmlHttp({url:"dialog.html",response:function(s){$("dialog").innerHTML = s}})}
-function load_mikveh_list(){xmlHttp({url:"mikveh-list.html",response:function(s){$("mikveh-list").innerHTML = s}})}
-
-
 var MIKVE
 function search_mikve(){
 	if (!(MIKVE)){
