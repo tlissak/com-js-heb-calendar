@@ -33,6 +33,8 @@
 - consult event and events details  / delete event anddialog design //resulved 
 - click to create event // resulved
 
+- contact button 
+- ask the rav button
 - rivka on lng.js
 - verify minhag sefarad is the same as ashkenaz 
 - veset haflaga not cacneled

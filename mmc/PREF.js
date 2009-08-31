@@ -31,10 +31,36 @@ function Pref(){
 	var _minhag		= $("sMinhag")
 	var years 		= getYears(cal_end , cal_start )	
 	
+	if (arguments.length > 0){
+		o = arguments[0]
+		language 	= o.language ?  o.language : language
+		minhag 		= o.minhag  ? o.minhag : minhag
+		time_adj 	= parseInt(o.time_adj)  >-1 ?  parseInt(o.time_adj) : time_adj
+		cal_start	= parseInt(o.cal_start) > 0 ?  parseInt(o.cal_start) : cal_start
+		cal_end  	= parseInt(o.cal_end) > 0 ?  parseInt(o.cal_end) : cal_end
+		city		= (!(isNaN(parseInt(o.city))))   ?  parseInt(o.city) : city
+		years 		= getYears(cal_end , cal_start )
+		WINDOW_LOAD = true
+		setLanguage()
+		WINDOW_LOAD = false
+		show() ;
+		return 
+	}
+	$("sCal_start").value 	= cal_start
+	$("sCal_end").value 	= cal_end
+	
 	getPref ()	
 	setLanguage()
 	
 	function setLanguage(){
+		if (!(WINDOW_LOAD)){return}
+			
+		if (language=="he"){
+			document.body.dir = "rtl" ; 
+		}else{
+			document.body.dir = "ltr" ; 
+		}		
+		
 		$("t_cal_start").innerHTML = LNG[language].t_cal_begin
 		$("t_cal_end").innerHTML = LNG[language].t_cal_end
 		$("t_dailight_st").innerHTML = LNG[language].t_dst
@@ -51,18 +77,7 @@ function Pref(){
 		x_s += '<option value="sef">'+LNG[language].minhag_sfarad+'</option>'
 		$("sMinhag").innerHTML = x_s
 	}
-	if (arguments.length > 0){
-		o = arguments[0]
-		language 	= o.language ?  o.language : language
-		minhag 		= o.minhag  ? o.minhag : minhag
-		time_adj 	= parseInt(o.time_adj)  >-1 ?  parseInt(o.time_adj) : time_adj
-		cal_start	= parseInt(o.cal_start) > 0 ?  parseInt(o.cal_start) : cal_start
-		cal_end  	= parseInt(o.cal_end) > 0 ?  parseInt(o.cal_end) : cal_end
-		city		= (!(isNaN(parseInt(o.city))))   ?  parseInt(o.city) : city
-		years 		= getYears(cal_end , cal_start )
-	}
-	$("sCal_start").value 	= cal_start
-	$("sCal_end").value 	= cal_end
+	
 	
 	for (var i=0;i<_city.options.length;i++){
 		if (parseInt(city) == parseInt(_city.options[i].value)){	
@@ -82,23 +97,13 @@ function Pref(){
 			break ;	
 		}
 	}
-	out = {
-			minhag:minhag,language:language,time_adj:time_adj
-			,cal_start:cal_start,cal_end:cal_end,years:years
-			,city:city
-	}
-	if (arguments.length > 0){
-		setPref(out) ;
-		////////////////////
-		// show after setting Pref
-		////////////////////
-		show() ;
-		return
-	}else { 		
-		if (time_adj==1){ _time_adj.checked = true} ;
-		out.city = CITY_LOCATION[parseInt(out.city)]
-		return out
-	}
+	out = {	minhag:minhag,language:language,time_adj:time_adj,cal_start:cal_start,cal_end:cal_end,years:years,city:city }
+	
+	if (time_adj==1){ _time_adj.checked = true} ;
+	out.city = CITY_LOCATION[parseInt(out.city)]
+	
+	return out
+
 	function getYears(e,s){
 		if ((e - s) >= MAX_DISP_YEARS ){
 			//alert("max disp years riched")
@@ -126,24 +131,6 @@ function Pref(){
 	function setPref(oPref){setPrefHandler(oPref)}		
 	function getCookieParam(p){	return Cookie.get(p)}
 	function setCookieParam(o){	for (var x in o){	Cookie.set(x,o[x],365)}	}	
-	function obj2str(o){var out="";for (var x in o){out +="&"+x+"="+o[x]}return out.replace("&","?")}
-	function setURLParam(_op){	window.location.href = obj2str(_op)}
-	function getURLParam(strParamName){
-		var strParamName = strParamName.toLowerCase()
-		var strHref = window.location.href;
-		if ( strHref.indexOf("?") > -1 ){
-			var strQueryString = strHref.substr(strHref.indexOf("?"));
-			var aQueryString = strQueryString.split("&");
-			for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
-				if (aQueryString[iParam].toLowerCase().indexOf(strParamName + "=") > -1 ){
-					return aQueryString[iParam].split("=")[1];
-				}
-			}
-		}
-		return null;
-	}	
-		
-	
 }
 
 

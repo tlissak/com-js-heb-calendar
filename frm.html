@@ -49,10 +49,10 @@
     </ul>
 </div>
 <div class="clear"></div>
-<table width="100%" height="97%" border="0" cellspacing="0" cellpadding="0" style="background:url(Images/Logo_small.png) top left no-repeat" >
+<table width="100%" height="97%" border="0" cellspacing="0" cellpadding="0" >
   <tr>
     <td style="width:200px" height="100%" align="left" valign="top" id="left">
-    	<div style="height:10%; "></div>
+    	<div style="height:10%; background:url(Images/Logo_small.png) top left no-repeat" ></div>
 		<div style="height:85%;">
         <div class="bar-a"></div>
         <div class="bar-b"></div>
@@ -79,8 +79,8 @@
             Delete all events</span>
         </li> 
         </ul>      
-        <div style="position:relative;">
-         <ul id="event-index" style="position:absolute; z-index:0"></ul>
+        <div style="position:relative;direction:ltr">
+         <ul id="event-index" style="position:absolute; z-index:0; "></ul>
          </div>
          
         </div>
@@ -93,23 +93,22 @@
     
     </div>
     <div class="cal-title" style="left:0">
-    <input type="checkbox" id="setting" style="height:auto" name="setting" onclick="$('menu').style.display=this.checked?'block':'none'"/>
-    <label for="setting" class="link" id="t_setting" >Setting</label>
+    <label for="setting" class="link" id="t_setting"  onclick="$('menu').style.display=$('menu').style.display=='block'?'none':'block'" >Setting</label>
     </div>
-    <div class="cal-title" style="right:0; "><span class="link" style="margin-right:35px" id="t_today">Today</span><a href="#" id="refresh" class="link">Refresh</a></div></div>
+    <div class="cal-title" style="right:0; "><span class="link" style="margin-right:35px; margin-left:35px;" id="t_today">Today</span><a href="#" id="refresh" class="link">Refresh</a></div></div>
     <div class="bar-a"></div>
     <div class="bar-b"></div>
     <div class="bar-c" > 
     <div id="cal-header"></div>
   </div>
-  <div class="left-border" id="cal" ></div>
+  <div class="left-border" id="cal" style="height:85%;" ></div>
   <div class="bar-c">
   	<h3 id="t_warning">Habad halacha ,Attention no calculation for veset hodesh haflaga that not canceled becouse of raia came first</h3>
   </div>
   <div class="bar-b"></div>
   <div class="bar-a"></div>    
     </td>
-    <td height="100%" align="left" valign="top">
+    <td height="100%" align="center" valign="top">
     	<div style="height:100%; ">
         <div style="height:10%">
             <a href="http://mikvah.org/directory/index.asp" target="_blank" ><h2 id="t_mikve_world">Mikve over the world</h2></a><br />
@@ -119,14 +118,26 @@
 		<div class="bar-a"></div>
         <div class="bar-b"></div>
         <div class="bar-c">&nbsp;</div>
-        <div  class="left-border" style="overflow-y:scroll">        	
+        <div  class="left-border" style="overflow-y:scroll;height:65%;">        	
             <div class="clear"></div>
-        	<div id="mikveh-list" style="width:95%"></div>   
+        	<div id="mikveh-list" style="width:95%; text-align:left"></div>   
         </div>
         <div class="bar-c">&nbsp;</div>
         <div class="bar-b"></div>
 		<div class="bar-a"></div>
+        <div align="center">
+        <div class="spacer"></div>
+        Support us by donating <br />
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" >
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="7854787">
+            <input type="image" src="https://www.paypal.com/en_US/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
         </div>
+        </div>
+        
+
      </td>
   </tr>
 </table>
