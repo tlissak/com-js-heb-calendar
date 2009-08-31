@@ -187,7 +187,7 @@ function show_calendar(oMonth){
 		//x += LNG[oPref.language].shaa_zmanit +' : '+dd.zmanim.shaa_zmanit+' <br />'
 		//x += LNG[oPref.language].misheyakir + ' : '+dd.zmanim.misheyakir+' <br />' // mishayakir ben tchelet le karti
 		//x += LNG[oPref.language].tzeit + ' : '+dd.zmanim.tzeit+' <br />'
-		x += '<img src="images/spacer.gif" class="stars" />'+dd.zmanim.tzeit
+		//x += '<img src="images/spacer.gif" class="stars" />'+dd.zmanim.tzeit
 		//x += LNG[oPref.language].shema + ' : '+dd.zmanim.shema+' <br />'
 		//x += LNG[oPref.language].tefillah + ' : '+dd.zmanim.tefillah+' <br />'
 		//x += LNG[oPref.language].chatzot + ' : '+dd.zmanim.chatzot+' <br />'

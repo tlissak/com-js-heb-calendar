@@ -40,8 +40,8 @@ LNG["en"].t_evening 		= "Evening"
 LNG["fr"].t_evening 		= "Fin du jour"
 LNG["he"].t_evening 		= "בערב"
 
-LNG["en"].t_location 		= "Your location"
-LNG["fr"].t_location 		= "Votre localisation"
+LNG["en"].t_location 		= "Location"
+LNG["fr"].t_location 		= "Localisation"
 LNG["he"].t_location 		= "מקומך"
 
 LNG["en"].t_create_event_attention 	= "1. Please pay attention to times (Your Time zone & Summer Clock)<br />2. in case of closer times check your own calendar <br /><strong>and then contact your Rav</strong>"
@@ -68,8 +68,8 @@ LNG["en"].today 		= "Today"
 LNG["fr"].today 		= "Aojurdhi"
 LNG["he"].today 		= "היום"
 
-LNG["en"].t_select_minhag = "Select your minhag"
-LNG["fr"].t_select_minhag = "Chosier votre 'minhag'"
+LNG["en"].t_select_minhag = "Minhag"
+LNG["fr"].t_select_minhag = "Minhag"
 LNG["he"].t_select_minhag = "בחר מנהג"
 
 LNG["en"].minhag_chabad = "Minhag chabad (Lubavitch)"
@@ -195,9 +195,9 @@ LNG["en"].parasha = "Parasha"
 LNG["fr"].parasha = "paracha"
 LNG["he"].parasha = "פרשה"
 
-LNG["en"].warning = "Habad halacha ,Attention no calculation for veset hodesh haflaga that not canceled becouse of raia came first"
-LNG["fr"].warning = "Habad halacha ,Attention no calculation for veset hodesh haflaga that not canceled becouse of raia came first"
-LNG["he"].warning = "Habad halacha ,Attention no calculation for veset hodesh haflaga that not canceled becouse of raia came first"
+LNG["en"].warning = "Attention Minhag chabad no calculation for veset hodesh haflaga that not canceled becouse of raia came first"
+LNG["fr"].warning = "Attention Minhag chabad  no calculation for veset hodesh haflaga that not canceled becouse of raia came first"
+LNG["he"].warning = "שים לב לפי מנהג חבד אין חישוב של ווסת הפלגה או ווסת החדש שלא נתבטל מחמת שקדמה וראתה"
 
 
 
@@ -209,13 +209,15 @@ LNG["en"].t_mikveh_world = "Find mikveh over the world"
 LNG["fr"].t_mikveh_world = "Trouver un mikv&eacute; partout dans le monde"
 LNG["he"].t_mikveh_world = "רשימת מקוואות בעולם"
 
-LNG["en"].t_cal_begin = "Calendars begin from"
-LNG["fr"].t_cal_begin = "Ann&eacute;e de d&eacute;but du calendrier"
+LNG["en"].t_cal_begin = "Calendars begin"
+LNG["fr"].t_cal_begin = "Ann&eacute;e de d&eacute;but"
 LNG["he"].t_cal_begin = "שנת התחלת הלוחות"
-LNG["en"].t_cal_end = "Calendars end at"
-LNG["fr"].t_cal_end = "Ann&eacute;e de fin du calendrier"
+
+LNG["en"].t_cal_end = "Calendars end"
+LNG["fr"].t_cal_end = "Ann&eacute;e de fin"
 LNG["he"].t_cal_end = "שנת סיום הלוחות"
-LNG["en"].t_dst = "Daylight saving time (+1 hr)"
+
+LNG["en"].t_dst = "Summer DST(+1 hr)"
 LNG["fr"].t_dst = "Heure d'&eacute;t&eacute;(+1 hr)"
 LNG["he"].t_dst = "שעון קיץ +1 שעה"
 

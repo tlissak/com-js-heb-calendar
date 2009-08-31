@@ -1,6 +1,8 @@
 // JavaScript Document
+WINDOW_LOAD = true
 Event.add(window,"load",function(){
-		ajax_load("welcome",load_todo)
+								 
+		ajax_load("welcome",load_next)
 		ajax_load("mikveh-list")
 		ajax_load("glossery")
 		ajax_load("dialog")
@@ -15,10 +17,14 @@ Event.add(window,"load",function(){
 		}
 		show()/* having calc_event*/
 		Event.add($("t_today"),"click",function(){show_calendar({y:(new Date()).getFullYear(),m:(new Date()).getMonth()+1})})
-		
+		WINDOW_LOAD = false
 })
 function ajax_load(pfx,callback){xmlHttp({url:"Ajax/"+pfx+".html",response:function(s){$(pfx).innerHTML = s;if(callback){callback()}}})}
-function load_todo(){xmlHttp({url:"TODO.txt",response:function(s){$("change_log").innerHTML = s.replace(/\n/g,"<br />");}})}
+function load_next(){
+	oPref = Pref()
+	xmlHttp({url:"TODO.txt",response:function(s){$("change_log").innerHTML = s.replace(/\n/g,"<br />");}})
+	ajax_load("guide_"+oPref.language)
+}
 function setCitiesList(){
 	var OPT = ""
 	curr_group = CITY_LOCATION[0].group
