@@ -1,16 +1,21 @@
 // JavaScript Document
 WINDOW_LOAD = true
+function send_email(){
+	if ($('contact_data').value.length == 0){alert("Please spacify your request");return}
+	this.r = function(_s){if(_s	== "OK"){$("contact").style.display ='none';$("contact_form").reset(); return} ;	alert("Email cennot be sent ,server error");}
+	DT = 'email='+$('contact_email').value +'&subject='+$('contact_subject').value+'&data='+$('contact_data').value
+	xmlHttp({url:'ajax/contact.php',method:'post',data:DT,response:this.r})	
+}
 Event.add(window,"load",function(){
-								 
-		ajax_load("welcome",load_next)
+		oPref = Pref() // to set seleted things		
+		ajax_load("change_log")
+		ajax_load("contact")
+		ajax_load("guide_"+oPref.language)
 		ajax_load("mikveh-list")
 		ajax_load("glossery")
-		ajax_load("dialog")
-		
-		setCitiesList()
-		Pref() // to set seleted things
-		$("refresh").href = "?rnd="+Math.random()
-		
+		ajax_load("dialog")		
+		setCitiesList()		
+		$("refresh").href = "?rnd="+Math.random()		
 		if (Cookie.get("init") != "true"){
 			$("welcome").style.display = "block"
 			$("menu").style.display = "block"
@@ -20,11 +25,6 @@ Event.add(window,"load",function(){
 		WINDOW_LOAD = false
 })
 function ajax_load(pfx,callback){xmlHttp({url:"Ajax/"+pfx+".html",response:function(s){$(pfx).innerHTML = s;if(callback){callback()}}})}
-function load_next(){
-	oPref = Pref()
-	xmlHttp({url:"TODO.txt",response:function(s){$("change_log").innerHTML = s.replace(/\n/g,"<br />");}})
-	ajax_load("guide_"+oPref.language)
-}
 function setCitiesList(){
 	var OPT = ""
 	curr_group = CITY_LOCATION[0].group

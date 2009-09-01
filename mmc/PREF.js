@@ -1,21 +1,5 @@
 // JavaScript Document
 function Pref(){
-	
-	/***************************************/
-	// delPref() // del pref
-	/**************************************/
-	function delPref(){
-		Cookie.del("city")	
-		Cookie.del("years")	
-		Cookie.del("cal_end")	
-		Cookie.del("cal_start")	
-		Cookie.del("time_adj")	
-		Cookie.del("language")	
-		Cookie.del("bIsrael")	
-		Cookie.del("country")	
-		Cookie.del("minhag")	
-	}	
-	
 	var getPrefHandler		= getCookieParam //getURLParam 
 	var setPrefHandler		= setCookieParam //setURLParam 
 	var minhag		= "ch"
@@ -29,10 +13,18 @@ function Pref(){
 	var _city 		= $("sCity")
 	var _language	= $("sLanguage")
 	var _minhag		= $("sMinhag")
-	var years 		= getYears(cal_end , cal_start )	
-	
+	var years 		= getYears(cal_end , cal_start )
+	// delPref() // del pref	
 	if (arguments.length > 0){
-		o = arguments[0]
+		getCookiePref()	; 
+		setPref(arguments[0])	
+		setCookieParam({	minhag:minhag,language:language,time_adj:time_adj,cal_start:cal_start,cal_end:cal_end,years:years,city:city })
+	}else{
+		return getPref()	
+	}
+	function delPref(){ Cookie.del("city");Cookie.del("years");	Cookie.del("cal_end");Cookie.del("cal_start");Cookie.del("time_adj");Cookie.del("language")	
+		Cookie.del("bIsrael");Cookie.del("country")	;Cookie.del("minhag");}			
+	function setPref(o){
 		language 	= o.language ?  o.language : language
 		minhag 		= o.minhag  ? o.minhag : minhag
 		time_adj 	= parseInt(o.time_adj)  >-1 ?  parseInt(o.time_adj) : time_adj
@@ -46,21 +38,30 @@ function Pref(){
 		show() ;
 		return 
 	}
-	$("sCal_start").value 	= cal_start
-	$("sCal_end").value 	= cal_end
-	
-	getPref ()	
-	setLanguage()
-	
-	function setLanguage(){
-		if (!(WINDOW_LOAD)){return}
-			
-		if (language=="he"){
-			document.body.dir = "rtl" ; 
-		}else{
-			document.body.dir = "ltr" ; 
-		}		
+	function getPref(){
+		getCookiePref()
+		setLanguage()
+		for (var i=0;i<_city.options.length;i++){
+			if (parseInt(city) == parseInt(_city.options[i].value)){ _city.selectedIndex = i ;	break ;	}
+		}
+		for (var i=0;i<_language.options.length;i++){
+			if (String(language) == String(_language.options[i].value)){_language.selectedIndex = i ;	break ;	}
+		}
+		for (var i=0;i<_minhag.options.length;i++){
+			if (String(minhag) == String(_minhag.options[i].value)){_minhag.selectedIndex = i ;	break ;	}
+		}
+		$("sCal_start").value 	= cal_start
+		$("sCal_end").value 	= cal_end
 		
+		if (time_adj==1){ _time_adj.checked = true} ;
+		city = CITY_LOCATION[parseInt(city)]
+		
+		return {	minhag:minhag,language:language,time_adj:time_adj,cal_start:cal_start,cal_end:cal_end,years:years,city:city }
+	}
+
+	function setLanguage(){
+		if (!(WINDOW_LOAD)){return}			
+		if (language=="he"){document.body.dir = "rtl" ; }else{	document.body.dir = "ltr" ; }		
 		$("t_cal_start").innerHTML = LNG[language].t_cal_begin
 		$("t_cal_end").innerHTML = LNG[language].t_cal_end
 		$("t_dailight_st").innerHTML = LNG[language].t_dst
@@ -77,33 +78,6 @@ function Pref(){
 		x_s += '<option value="sef">'+LNG[language].minhag_sfarad+'</option>'
 		$("sMinhag").innerHTML = x_s
 	}
-	
-	
-	for (var i=0;i<_city.options.length;i++){
-		if (parseInt(city) == parseInt(_city.options[i].value)){	
-			_city.selectedIndex = i ;	
-			break ;	
-		}
-	}
-	for (var i=0;i<_language.options.length;i++){
-		if (String(language) == String(_language.options[i].value)){	
-			_language.selectedIndex = i ;	
-			break ;	
-		}
-	}
-	for (var i=0;i<_minhag.options.length;i++){
-		if (String(minhag) == String(_minhag.options[i].value)){	
-			_minhag.selectedIndex = i ;	
-			break ;	
-		}
-	}
-	out = {	minhag:minhag,language:language,time_adj:time_adj,cal_start:cal_start,cal_end:cal_end,years:years,city:city }
-	
-	if (time_adj==1){ _time_adj.checked = true} ;
-	out.city = CITY_LOCATION[parseInt(out.city)]
-	
-	return out
-
 	function getYears(e,s){
 		if ((e - s) >= MAX_DISP_YEARS ){
 			//alert("max disp years riched")
@@ -119,7 +93,7 @@ function Pref(){
 		}
 		return (e-s)
 	}
-	function getPref (){
+	function getCookiePref (){
 		minhag		= getPrefHandler("minhag") ? getPrefHandler("minhag") : minhag
 		language	= getPrefHandler("language") ? getPrefHandler("language") : language
 		city 		= (!(isNaN(parseInt(getPrefHandler("city"))))) ? parseInt(getPrefHandler("city")) : city
@@ -128,7 +102,6 @@ function Pref(){
 		cal_end		= getPrefHandler("cal_end")	? parseInt(getPrefHandler("cal_end"))	 : cal_end		
 		years 		= getYears(cal_end , cal_start )
 	}
-	function setPref(oPref){setPrefHandler(oPref)}		
 	function getCookieParam(p){	return Cookie.get(p)}
 	function setCookieParam(o){	for (var x in o){	Cookie.set(x,o[x],365)}	}	
 }
