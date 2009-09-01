@@ -93,7 +93,9 @@
     
     </div>
     <div class="cal-title" style="left:0">
-    <label for="setting" class="link" id="t_setting"  onclick="$('menu').style.display=$('menu').style.display=='block'?'none':'block'" >Setting</label>
+    <span class="link" id="t_setting"  onclick="$('menu').style.display=$('menu').style.display=='block'?'none':'block'" >Setting</span>
+    <span class="link" id="t_contact"  style="margin-right:35px; margin-left:35px;"   
+    onclick="$('contact').style.display=$('contact').style.display=='block'?'none':'block'" >Contact</span>
     </div>
     <div class="cal-title" style="right:0; "><span class="link" style="margin-right:35px; margin-left:35px;" id="t_today">Today</span><a href="#" id="refresh" class="link">Refresh</a></div></div>
     <div class="bar-a"></div>
@@ -144,6 +146,24 @@
 <div id="log"></div>
 <div id="dialog"></div>
 <div id="glossery"></div>
-<div id="welcome"></div>
+<div id="contact"></div>
+
+<div id="welcome">
+<div id="welcome-inner">
+<div class="bar-a"></div><div class="bar-b"></div><div class="bar-c">
+<div onmousedown="Move(event,$('welcome-inner'))" id="welcome-title"  >Bienvenue Welcome to tahara calendar , ברוכים הבאים לאתר לוח טהרה</div>
+<div class="box-btn" onclick="$('welcome').style.display='none'" >Close</div><div style="clear:both"></div>
+</div>
+<div class="border">
+	<input type="button" onclick="Cookie.set('init','true',365);$('welcome').style.display='none'" value="  Enter Now " class="btn" />
+    <div class="msg"><h2>Guide</h2></div><div class="spacer"></div>
+     <div style="position:absolute; height:70%; width:99%; overflow-y:scroll"> 
+              <div id="guide_fr"></div><div id="guide_en"></div><div id="guide_he"></div><div class="spacer"></div>
+              <h2>Change log</h2><div class="spacer"></div><div id="change_log"></div>
+    </div>
+</div>
+<div class="bar-c"></div><div class="bar-b"></div><div class="bar-a"></div>
+</div>
+</div>
 </body>
 </html>
