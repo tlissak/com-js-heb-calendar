@@ -1,4 +1,5 @@
 /***************************************
+* http://www.calj.net
  * holidays.js  Jewish holidays and events   
  * History   14/03/2005: v1.4: Holiday object, for Yom Tov support. 13/12/2004: v1.31 March 14, 2004 - AdarII 3, 5765  v1.4 
  * (c) Gabriel Zerbib, gabriel@bumpt.net   http://www.bumpt.net   http://www.calj.net

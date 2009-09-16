@@ -18,7 +18,7 @@ city,hanetz,shkia,shaa_zmanit,alot,misheyakir,tzeit,shema,tefillah,chatzot,minch
 
 JDate.prototype.getZmanim = function(_O,_timedmc){
 		if( typeof(_O) != "object" ){ 
-			_O = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, tz:2,stdi:15,place:"Jerusalem"}
+			_O = { lond:35,lonm: 14, ns:0/*N*/,latd: 31,latm: 46,ew: 1/*E*/, gmt:2,stdi:15,place:"Jerusalem"}
 			console.log("getZmanim(_O) _O is!object set Jerusalem ")
 		}
 		
@@ -97,7 +97,7 @@ JDate.prototype.getZmanim = function(_O,_timedmc){
 			ns 		= _OPOS.ns
 			
 
-			_timezone = _OPOS.tz	+ P_timedmc
+			_timezone = _OPOS.gmt	+ P_timedmc
 			
 			longitude = (londeg + lonmin/60.0) * ((ew == 0) ? -1 : 1);
 			latitude  = (latdeg + latmin/60.0) * ((ns == 0) ? 1 : -1);

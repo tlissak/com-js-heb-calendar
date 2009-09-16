@@ -1,4 +1,5 @@
-/* jdates.js               
+/* jdates.js  
+* http://www.calj.net
  * Hebrew / Gregorian date conversion  
  *
  * December 13, 2004 - Tevet 1st, 5765  v4.67               	           
@@ -34,6 +35,10 @@ function JDate(){
 	this.prevMonth = prevMonth;	/* () */
 	this.nextDay = nextDay;		/* () */
 	this.setDate = setDate;		/* (), (int), (JDate), (int, int, int) */
+	
+	/****************/
+	this.getDayOfYear = getDayOfYear;
+	/***************/
 	/* public pure virtual methods Subclasses must implement */
 	this.today = null;
 	this.getMonthLength = null;
@@ -70,7 +75,13 @@ function JDate(){
 	function setMonth(month)	{ return this.setDate_int_int_int(this.m_day, month, this.m_year); }
 	function setYear(year)		{ return this.setDate_int_int_int(this.m_day, this.m_month, year); }
 	function getDayOfWeek()		{ return this.m_hdn % 7; }
-	
+	/************ FOR ZMANIM **********/	
+	function getDayOfYear()		{	
+		var monCount = [1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366];
+		var Leap =  ((this.getYear() % 400 == 0) || (this.getYear() % 100 != 0 && this.getYear() % 4 == 0))
+		return monCount[this.getMonth()-1] + this.getDay() + ((this.getMonth()-1) > 2 && Leap);
+	}
+	/************** END *****************/
 	function getWeekDayName(lng){	
 		//return ["Sunday","Monday","Tuesday","Wendsay","Thursday","Friday","Sat.day"]
 		return LNG[lng].dow
