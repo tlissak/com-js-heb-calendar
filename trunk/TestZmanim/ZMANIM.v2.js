@@ -15,64 +15,67 @@ JDate.prototype.getZmanim = function(_O,_timedmc){
 		var sunrise,sunset,hanetz,shkia,shaa_zmanit,alot,misheyakir,tzeit,shema,tefillah,chatzot,minchag,minchak,plag,motzeiShabbat,knissatShabbat
 		var place = _O.place.toLowerCase()
 		var  _D	=  (this.Class == GDate) ? 	this : new GDate(this)//alwayes convert this to gregorien date
-			
-		/*//SunPos =  //90 - 109//90 - 101  //90 - 90.833 
-		# h = 0 ° : 	le centre du disque solaire est sur l'horizon mathématique
-		# h = -0.25 ° :	l'extrémité haute du disque solaire est sur l'horizon mathématique
-		# h = -0.833 ° : Sunset/sunrise// l'extrémité haute du disque solaire est sur l'horizon visible, en tenant compte de la réfraction de l'atmosphère 
-		# h = -6 ° :	coucher de soleil civil (il devient impossible de lire dehors sans lumière artificielle)
-		# h = -12 ° :	coucher de soleil nautique (la navigation en utilisant l'horizon marin devient impossible)
-		# h = -18 ° :	coucher de soleil astronomique (le ciel est complètement obscur, et les observations astronomiques peuvent commencer)
-		# h = - 8.5 : motsaei shabat	*/
 		CITY_LL = get_city_deg(_O) 
-		Time =  suntime(_D, 90 - 90.833 ,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
-		sunrise = Time.sr
-		sunset	= Time.ss
-		hanetz = timeadj(sunrise)
-		shkia = timeadj(sunset);
-		shaa_zmanit = ((sunset - sunrise) / 12); /// Time.sz //
-		chatzot		= timeadj(Time.md)
 		place = _O.place
-		if (place == "jerusalem")
-			xmns = (40.0/ 60.0)
-		else if(place == "haifa" || place == "be'er Sheva")
-			xmns = (30.0/ 60.0)
-		else if(place == "karnei Shomron" || place == "tel Aviv")
-			xmns = (22.0/ 60.0)
-		else{ 
-			xmns = (18.0/ 60.0)
-		}
-		knissatShabbat = timeadj(sunset  - xmns);
 		
-		Time =  suntime(_D, 90 - 106.1,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
-		alot = timeadj(Time.sr);
-		Time =  suntime(_D, 90 - 101,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
-		misheyakir = timeadj(Time.sr);
-		Time =  suntime(_D, 90 - 96,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
-		tzeit = timeadj(Time.ss);
-		shema    = timeadj(sunrise + shaa_zmanit * 3);
-		tefillah = timeadj(sunrise + shaa_zmanit * 4);
-		chatzot  = timeadj(sunrise + shaa_zmanit * 6);
-		minchag  = timeadj(sunrise + shaa_zmanit * 6.5);
-		minchak  = timeadj(sunrise + shaa_zmanit * 9.5);
-		plag     = timeadj(sunrise + shaa_zmanit * 10.75);
-		// motsaei shabt  90, 30
-		Time =  suntime(_D, 90 - 98.5,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
-		motzeiShabbat = timeadj(Time.ss);
-		return {
-			city:_O
-			,sunrise:sunrise,sunset:sunset
-			,hanetz:hanetz,	shkia:shkia ,shaa_zmanit:shaa_zmanit,alot:alot,misheyakir:misheyakir
-			,tzeit:tzeit,shema:shema,tefillah:tefillah,chatzot:chatzot,minchag:minchag
-			,minchak:minchak,plag:plag
-			,motzeiShabbat:motzeiShabbat
-			,knissatShabbat:knissatShabbat
+		if (place == "jerusalem"){									candle_offset = (40.0/ 60.0) }
+		else if(place == "haifa" || place == "be'er Sheva") {		candle_offset = (30.0/ 60.0) }
+		else if(place == "karnei Shomron" || place == "tel Aviv") {	candle_offset = (22.0/ 60.0) }
+		else{ 														candle_offset = (18.0/ 60.0) }
+		
+		Time 				=  suntime(_D, 90 - (/*0.8777*/90 + 50/60 ) ,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
+		sunrise 			= Time.sr
+		sunset				= Time.ss
+		midday				= sunrise + ((sunset-sunrise)/12) // Time.md
+		
+		//24 min 6.00° 	18:07  	tzet
+		//26 min 6.30° 	18:08 	tzet
+		
+		shaa_zmanit 		= Time.sz / 6 // (sunset - sunrise) / 12 ;
+
+		korbanot 			= sunrise - (shaa_zmanit/60*90)
+		mincha_gedola		= sunrise + (shaa_zmanit*6.5)
+		mincha_ketana		= sunrise + (shaa_zmanit*9.5)
+		plag_gra			= sunrise + (shaa_zmanit * 10.75)
+		plag_gra			= (sunset - (shaa_zmanit +(shaa_zmanit/ 4))) > 0 ?  +(sunset - (shaa_zmanit +(shaa_zmanit/4))) : plag_gra
+		plag_mga			= (sunset + (shaa_zmanit/60*13.5)) -(shaa_zmanit + (shaa_zmanit/4)) //+ (24)
+		end_shema_gra		= sunrise + (shaa_zmanit * 3)
+		end_bir_shema		= sunrise + (shaa_zmanit * 4)
+		alot_ovadia			= sunrise - (shaa_zmanit/60*72)
+		night_rat_ovadia	= sunset  + (shaa_zmanit/60*72)
+		misheyakir_ovadia	= alot_ovadia + shaa_zmanit / 60 * 6
+		end_shema_mga_ovadia= alot_ovadia 	+ 3*((night_rat_ovadia-alot_ovadia)/12)	
+		night_geonim13min	= sunset + shaa_zmanit /60 * 13.5
+		candlelight 		= sunset  - candle_offset;
+		Time 				= suntime(_D, 90 - (/*8.5*/98 + 30/60),CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
+		shabbat_end			= Time.ss;
+		Time				= suntime(_D, 90 - (/*16.1*/106 + 6/60 ) ,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
+		alot_posna			= Time.sr;
+		night_rat_posna		= midday + (midday - alot_posna)
+		end_shema_mga_posna	= alot_posna 	+ 3*((night_rat_posna-alot_posna)/12)						
+		Time				= suntime(_D, 90 - 101/*1*/,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
+		misheyakir_posna 	= Time.sr;
+		Time 				= suntime(_D, 7.5	 ,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
+		shema_night			= Time.ss
+		Time 				= suntime(_D, 90 - 96/*6*/,CITY_LL.lon,CITY_LL.lat,CITY_LL.gmt,CITY_LL.dst);
+		night_geonim6deg	= Time.ss;
+		
+		return {city:_O
+			,sunrise:sunrise,sunset:sunset,midday:midday
+			,korbanot:korbanot,mincha_gedola:mincha_gedola,mincha_ketana:mincha_ketana
+			,plag_gra:plag_gra,plag_mga:plag_mga,end_shema_gra:end_shema_gra,end_bir_shema:end_bir_shema
+			,alot_ovadia:alot_ovadia,night_rat_ovadia:night_rat_ovadia,misheyakir_ovadia:misheyakir_ovadia,end_shema_mga_ovadia:end_shema_mga_ovadia
+			,alot_posna:alot_posna,night_rat_posna:night_rat_posna,	misheyakir_posna:misheyakir_posna,	end_shema_mga_posna:end_shema_mga_posna
+			,shema_night:shema_night,night_geonim6deg:night_geonim6deg,night_geonim13min:night_geonim13min
+			,candlelight:candlelight,shabbat_end:shabbat_end
+			,shaa_zmanit:shaa_zmanit
 		}
 	function timeadj(_time) {
 			var _hour = Math.floor(_time);
-			var _min  = Math.floor((_time - _hour) * 60.0 + 0.5);
+			var _min  = Math.floor((_time - _hour) * 60.0 + 0.4 );
 			if(_min >= 60) { _hour += 1;  _min  -= 60;  }
 			if(_hour < 0){	_hour += 24;}
+			//console.log(_time)
 			return _hour + ':' + ((_min < 10) ? '0' : '') + _min ;
 	}
 	function suntime( date , h, longitude,latitude ,gmt,dst ){
@@ -89,9 +92,11 @@ JDate.prototype.getZmanim = function(_O,_timedmc){
 			function atan2(y, x) { return Math.atan2(y, x); }
 			function acos(x) { return Math.acos(x); }
 			var pi = Math.PI; //3.141592653589793
-			var UT = 12.0;
+			var UT = -1 //12.0;
 			/********** XSL.math.B2 =MOD(B1*0.985647359584+278.9875998,360) **************/			
-			var d = 367*y - parseInt(7 * ( y + parseInt((m+9)/12) ) / 4) + parseInt(275*m/9) + D - 730530 + UT/24.0; 	
+			var d = (367*y) - parseInt(7 * ( y + parseInt((m+9)/12) ) / 4) + parseInt(275*m/9) + D - 730530 + UT/24.0; 	
+			//console.info("-2em",d)
+			//return
 			/* XSL.math.B1 =367*Zemanim!B9-INT(7*(Zemanim!B9+INT((Zemanim!B10+9)/12))/4)+INT(275*Zemanim!B10/9)+Zemanim!B11-730530-(Zemanim!B14/24) */			
 			var w = (282.9404 + 4.70935E-5 * d) % 360.0;		//deg 
 			var e = 0.016709 - 1.151E-9 * d; /* XSL.math.B5   =MOD(0.0167082208-B1*0.0000000012,360) */		
@@ -111,7 +116,6 @@ JDate.prototype.getZmanim = function(_O,_timedmc){
 			var RA  = ( atan2( ye, xe ) / pi*180 ) % 360; if(RA < 0) RA += 360; //deg
 			var Decl = ( atan2( ze, sqrt(xe*xe+ye*ye) ) /pi*180 ) % 360; if(Decl < 0) Decl += 360;	//deg		
 			//////////////		
-			
 			var L = (M + w) % 360.0;
 			var GMST0 = (L + 180) % 360.0;
 			var UT_Sun_in_south = ( RA - GMST0 - longitude ) / 15.0;		

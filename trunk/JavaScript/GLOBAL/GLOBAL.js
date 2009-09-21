@@ -1,3 +1,27 @@
+/*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.*/
+// taken from xinha editor optimized by tlissak 
+// usage Event._addEvent(window,"load",myFunction) //:: IMPORTENT the function cennot use litteral or arguments "()"
+var Event = new Object()
+if(document.addEventListener){
+	Event._addEvent =function(el,_eventType1,func){el.addEventListener(_eventType1,func,true);};
+	Event._removeEvent =function(el,_eventType2,func){el.removeEventListener(_eventType2,func,true);	};
+	Event._stopEvent =function(ev){	ev.preventDefault();	ev.stopPropagation();	};
+}else if(document.attachEvent){
+	Event._addEvent =function(el,_eventType3,func){	el.attachEvent("on"+_eventType3,func);};
+	Event._removeEvent =function(el,_eventType4,func){	el.detachEvent("on"+_eventType4,func);	};
+	Event._stopEvent =function(ev){	try{ ev.cancelBubble=true; ev.returnValue=false;}catch(ex){}};
+}else{
+	Event._addEvent =function(el,_eventType5,func){alert("_addEvent is not supported");};
+	Event._removeEvent =function(el,_eventType6,func){	alert("_removeEvent is not supported");	};
+	Event._stopEvent =function(ev){	alert("_stopEvent is not supported");};
+}
+Event.add = Event._addEvent
+Event.stop = Event._stopEvent
 function send_email(){
 	if ($('contact_data').value.length == 0){alert("Please spacify your request");return}
 	this.r = function(_s){if(_s	== "OK"){$("contact").style.display ='none';$("contact_form").reset(); return} ;	alert("Email cennot be sent ,server error");}
@@ -7,10 +31,10 @@ function send_email(){
 function ajax_load(pfx,callback){xmlHttp({url:"Ajax/"+pfx+".html",response:function(s){$(pfx).innerHTML = s;if(callback){callback()}}})}
 function setCitiesList(){
 	var OPT = ""
-	curr_group = CITY_LOCATION[0].group
+	curr_group = CITY[0].group
 	OPT		+= "<optgroup label='"+curr_group+"'>"
-	for (var i=0;i<CITY_LOCATION.length;i++){
-		oCity = CITY_LOCATION[i]
+	for (var i=0;i<CITY.length;i++){
+		oCity = CITY[i]
 		if(curr_group == oCity.group){
 			OPT	+= '<option value="'+i+'" >'+oCity.place +' (Chabat + '+oCity.chabat+')</option>'
 		}else{
@@ -28,7 +52,7 @@ function show_event_index(){
 	for (var i=0,out = '';i<arr.length;i++){
 		arr_ev = LNG[oPref.language][arr[i]]
 		out += "<li class='"+arr[i]+"' >"
-		out += "<a title=\""+arr_ev[1]+"\" href='"+arr_ev[2]+"' >"+ arr_ev[0] + "</a></li>"
+		out += "<a title=\""+arr_ev[1]+"\" href='../"+arr_ev[2]+"' >"+ arr_ev[0] + "</a></li>"
 	}
 	$("event-index").innerHTML = out
 }
