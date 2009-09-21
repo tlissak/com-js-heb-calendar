@@ -1,22 +1,3 @@
-function render_load(load_type,_oMonth){
-	if(load_type == "minhag"){
-		calc_event()	;return
-	}else if(load_type == "start_end"){
-		render_left_cal() ;	calc_event()	;return
-	}else if(load_type == "localisation" ||load_type == "dst"  ){
-		render_times();return
-	}else if(load_type == "render_big"){ // lng change
-		render_main_cal(_oMonth) ;render_times(_oMonth) ;calc_event() ; return
-	}else if(load_type == "load"){
-	render_main_cal(_oMonth)
-	render_left_cal()
-	calc_event()
-	show_event_index()	
-	render_times(_oMonth)
-	}else{
-	c("unknown type on render load ."+load_type)	
-	}
-}
 
 function getGCalObj(){
 	oPref = Pref() ; oy = new Array()	
@@ -93,7 +74,7 @@ function render_left_cal(){
 				tmcs = ""
 			}
 			x += '<li '+tmcs+' ><table align="center">'		
-			x += "<tr class='month'><th colspan='7' class='pointer' onclick=\"render_load('render_big',{m:"+(mm+1)+",y:"+yyyy+"})\">"
+			x += "<tr class='month'><th colspan='7' class='pointer' onclick=\"Render('big',{m:"+(mm+1)+",y:"+yyyy+"})\">"
 			x += _month_name + " "+ yyyy +"</th></tr><tr>"
 			for (var i_d=0;i_d<7;i_d++){
 			x += "<th>"+ LNG[oPref.language].dow_short[i_d] + "</th>"
@@ -121,32 +102,28 @@ function render_left_cal(){
 function render_times(oMonth){
   oM = getHMonthObj(oMonth.m,oMonth.y)	
   x = "" ; z_times = ""
+  oPref = Pref()
+  oCity = CITY[oPref.city]
   for (var j=0;j<oM.length;j++){
 	dd = oM[j]	
+	ZM	= (new GDate(dd.m_hdn)).getZmanim(oCity)
+	
+	
 	$("je_"+dd.m_hdn).innerHTML = ""
-	if (dd.dow==6){ $("je_"+dd.m_hdn).innerHTML += "<div class='shabat-s'>"+dd.zmanim.knissatShabbat+"</div>"	}
-	if (dd.dow==7){	$("je_"+dd.m_hdn).innerHTML += "<div class='parasha'>"+ dd.parasha+"</div>"	+ "<div class='shabat-e'>"+dd.zmanim.motzeiShabbat+"</div>"	}
+	if (dd.dow==6){ $("je_"+dd.m_hdn).innerHTML += "<div class='shabat-s'>"+timeadj1(ZM.candlelight)+"</div>"	}
+	if (dd.dow==7){	$("je_"+dd.m_hdn).innerHTML += "<div class='parasha'>"+ dd.parasha+"</div>"	+ "<div class='shabat-e'>"+timeadj1(ZM.shabbat_end)+"</div>"	}
 	if (dd.holiday){$("je_"+dd.m_hdn).innerHTML += "<div class='j-holiday'>" +LNG[oPref.language].moadim[dd.holiday] +"</div>"	}
 	if (dd.rosh_hodesh){	$("je_"+dd.m_hdn).innerHTML += "<div class='rosh-hodesh'>"+LNG[oPref.language].rosh_hodesh+"</div>"	}
 	
-	z_times = '<img src="images/spacer.gif" class="sunrise" />'+ dd.zmanim.hanetz
-	z_times += '<img src="images/spacer.gif" class="sunset" />'+dd.zmanim.shkia
-	z_times += '<img src="images/spacer.gif" class="threestars" />'+dd.zmanim.motzeiShabbat
-	
-	$("jt_"+dd.m_hdn).innerHTML = z_times
+	$("jt_"+dd.m_hdn+"_0").innerHTML = '<img src="../images/spacer.gif" class="sunrise" />'+ timeadj1(ZM.alot_posna)
+	$("jt_"+dd.m_hdn+"_1").innerHTML = '<img src="../images/spacer.gif" class="sunset" />'+timeadj1(ZM.sunset)
+
   } 
-	//x += LNG[oPref.language].alot +' : '+dd.zmanim.alot+' <br />'
-	//x += LNG[oPref.language].shaa_zmanit +' : '+dd.zmanim.shaa_zmanit+' <br />'
-	//x += LNG[oPref.language].misheyakir + ' : '+dd.zmanim.misheyakir+' <br />' // mishayakir ben tchelet le karti
-	//x += '<img src="images/spacer.gif" class="stars" />'+dd.zmanim.tzeit
-	//x += LNG[oPref.language].shema + ' : '+dd.zmanim.shema+' <br />'
-	//x += LNG[oPref.language].tefillah + ' : '+dd.zmanim.tefillah+' <br />'
-	//x += LNG[oPref.language].chatzot + ' : '+dd.zmanim.chatzot+' <br />'
-	//x += LNG[oPref.language].mincha_g + ' : '+dd.zmanim.minchag+' <br />'
-	//x += LNG[oPref.language].mincha_k + ' : '+dd.zmanim.minchak+' <br />'
-	//x += LNG[oPref.language].plag + ' : '+dd.zmanim.plag+' <br />'
+ // alert("render times done")
 }
 function render_main_cal(oMonth){
+	RENDER_MONTH = oMonth
+	oPref = Pref()
 	h_x = '<table width="100%" border="0" cellspacing="0" cellpadding="0" ><tr>'
 	for (var i=0;i<7;i++){
 		 h_x += '<td>'+ LNG[oPref.language].dow[i] +'</td>'
@@ -171,10 +148,11 @@ function render_main_cal(oMonth){
 		x += '</span><span class="cal-dt-civil">'
 		x += (j+1)
 		x += '</span></div>'
-  		x += '<div class="cal-ona-0" id="jm_'+dd.m_hdn+'_0"></div>' 
+  		x += '<div class="cal-ona-0" id="jm_'+dd.m_hdn+'_0"></div>'
+		x += '<div class="times times-0" id="jt_'+dd.m_hdn+'_0" ></div>'
 		x += '<div class="cal-ona-1" id="jm_'+dd.m_hdn+'_1"></div>'	
 		x += '<div id="je_'+dd.m_hdn+'" ></div>'
-		x += '<div class="times" id="jt_'+dd.m_hdn+'" ></div>'
+		x += '<div class="times" id="jt_'+dd.m_hdn+'_1" ></div>'
 		x += '</td>'		
 		if (dd.dow==7){	x += '</tr><tr>'} 
 	}	
@@ -197,15 +175,14 @@ function render_main_cal(oMonth){
   oMonthNext = {m:next_m,y:next_y}
   oMonthPreviews = {m:previews_m,y:previews_y}
 	$("cal-next").onclick = function(){
-		render_load("render_big",oMonthNext)
+		Render("big",oMonthNext)
 	}
 	$("cal-previews").onclick = function(){
-		render_load("render_big",oMonthPreviews)	
+		Render("big",oMonthPreviews)	
 	}
 }
-
 function getHMonthObj(m,y){
-	oPref = Pref()	//c("getHMonthObj",oPref)
+	oPref = Pref()
 	GD = new GDate(1,m,y)
 	HD = new HDate(GD.m_hdn-1)		
 	_gsize  = GD.getMonthLength()
@@ -214,7 +191,7 @@ function getHMonthObj(m,y){
 	var _holiday =  null;
 	var oLastHoliday = 1;
 	var nLastEventType = 0;		
-	
+	oCity = CITY[oPref.city]
 	for (var j=0;j<_gsize ;j++){
 		HD.add(1)
 		_hy 	= HD.getYear()
@@ -223,19 +200,11 @@ function getHMonthObj(m,y){
 		_m_hdn 	= HD.m_hdn
 		_mm 	= HD.getMonthName(oPref.language)	
 		_dow	= HD.getDayOfWeek() +1
-		_zmanim = HD.getZmanim(oPref.city,oPref.time_adj)
-		_parasha = _dow == 7 ? HD.getParashaName(oPref.city.bIsrael,oPref.language == "he") : ""
+		//_zmanim = HD.getZmanim(oCity,oPref.DST)
+		_parasha = _dow == 7 ? HD.getParashaName(oPref.language == "he",oPref.language == "he") : ""
 		_rosh_hodesh = (_hd == 30 || _hd == 1) ? true : false
-		/*bYomTov = false;_holiday = "";holiday = HOLIDAYS.currentHoliday(HD, nLastEventType);		
-		if(holiday){_holiday = new JEvent(holiday.type).name;oLastHoliday = holiday;	nLastEventType = holiday.type;			
-			bYomTov = (holiday.arrYomTov.length > 0)? holiday.arrYomTov[HD.minus(holiday.hStartDate)] : false;
-		}else if(oLastHoliday){	++nLastEventType;	oLastHoliday = null;}	*/
 		_holiday = HD.getMoadim()
-		od[j] = {m_hdn:_m_hdn,d:_hd,m:_hm,y:_hy,hm:_mm,gm:_gm,dow:_dow,zmanim:_zmanim,parasha:_parasha,holiday:_holiday,rosh_hodesh:_rosh_hodesh}
+		od[j] = {m_hdn:_m_hdn,d:_hd,m:_hm,y:_hy,hm:_mm,gm:_gm,dow:_dow,parasha:_parasha,holiday:_holiday,rosh_hodesh:_rosh_hodesh}
 	}
 	return od
 }
-
-		
-		
-		

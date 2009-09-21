@@ -52,12 +52,12 @@ LNG["en"].btn_delete_event 		= "Delete this event"
 LNG["fr"].btn_delete_event 		= "Supprime cet event"
 LNG["he"].btn_delete_event 		= "מחק את האירוע"
 
-LNG["en"].btn_create_raia 		= "Create raia"
-LNG["fr"].btn_create_raia 		= "Ajouter un debut de se.. pour aujourdui"
+LNG["en"].btn_create_raia 		= "Begin of flow"
+LNG["fr"].btn_create_raia 		= "Début des saignements"
 LNG["he"].btn_create_raia 		= "הוסף התחלת ראיה"
 
-LNG["en"].btn_create_hefsek 	= "Create hefsek thara"
-LNG["fr"].btn_create_hefsek 	= "Ajouter hefsek tahara"
+LNG["en"].btn_create_hefsek 	= "Hefsek thara"
+LNG["fr"].btn_create_hefsek 	= "Hefsek tahara"
 LNG["he"].btn_create_hefsek 	= "הוסף הפסק טהרה"
 
 LNG["en"].t_user_guide 		= "User guide"

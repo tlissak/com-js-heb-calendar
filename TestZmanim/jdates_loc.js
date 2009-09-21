@@ -1,44 +1,20 @@
-
 /***************************************
- *          jdates_loc.js              *
- ***************************************
- * Hebrew / Gregorian french names     *
- ***************************************
- * June 19, 2003 - Sivan 19, 5763      *
- *  v2.0                               *
- *                                     *
- * (c) Gabriel Zerbib,                 *
- *   gabriel@bumpt.net                 *
- *   http://www.bumpt.net              *
- *                                     *
- * It is strictly forbidden to use or  *
- * reproduce all or parts of this      *
- * program without author's explicit   *
- * permission.                         *
- * Commercial use of this program is   *
- * subject to purchase. Please contact *
- * the author.                         *
+ *          jdates_loc.js              Hebrew / Gregorian french names     
+ * June 19, 2003 - Sivan 19, 5763      v2.0    
+ * (c) Gabriel Zerbib,                 gabriel@bumpt.net http://www.bumpt.net           
+ *  It is strictly forbidden to use or  reproduce all or parts of this  program without author's explicit
+ * permission. Commercial use of this program is subject to purchase. Please contact the author.  
  ***************************************/
-
-/*
- * In JavaScript, the .toString method of any object
- * implements the implicit cast to String.
- */
-GDate.prototype.toString = function ()
-{
+/* In JavaScript, the .toString method of any object
+ * implements the implicit cast to String.*/
+GDate.prototype.toString = function (){
 	return this.getDay() + (this.getDay() == 1 ? "<sup>er</sup>" : "") + " " + this.MonthName() + " " + this.getYear();
 }
-HDate.prototype.toString = function ()
-{
+HDate.prototype.toString = function (){
 	return this.getDay() + " " + this.MonthName() + " " + this.getYear();
 }
-
-
-
-GDate.MonthName = function(GM)
-{
-	switch(GM)
-	{
+GDate.MonthName = function(GM){
+	switch(GM){
 		case 1: return "janvier";
 		case 2: return "février";
 		case 3: return "mars";
@@ -53,10 +29,8 @@ GDate.MonthName = function(GM)
 		case 12: return "décembre";
 	}
 }
-GDate.MonthNameShort = function(GM)
-{
-	switch(GM)
-	{
+GDate.MonthNameShort = function(GM){
+	switch(GM)	{
 		case 1: return "JAN";
 		case 2: return "FEV";
 		case 3: return "MAR";
@@ -71,10 +45,8 @@ GDate.MonthNameShort = function(GM)
 		case 12: return "DEC";
 	}
 }
-GDate.WeekdayNameShortest = function(d)
-{
-	switch(d)
-	{
+GDate.WeekdayNameShortest = function(d){
+	switch(d){
 		case 0: return "D";
 		case 1: return "L";
 		case 2: return "M";
@@ -84,10 +56,8 @@ GDate.WeekdayNameShortest = function(d)
 		case 6: return "S";
 	}
 }
-GDate.WeekdayNameShort = function (d)
-{
-	switch(d)
-	{
+GDate.WeekdayNameShort = function (d){
+	switch(d){
 		case 0: return "dim";
 		case 1: return "lun";
 		case 2: return "mar";
@@ -97,10 +67,8 @@ GDate.WeekdayNameShort = function (d)
 		case 6: return "sam";
 	}
 }
-GDate.WeekdayName = function (d)
-{
-	switch(d)
-	{
+GDate.WeekdayName = function (d){
+	switch(d){
 		case 0: return "dimanche";
 		case 1: return "lundi";
 		case 2: return "mardi";
@@ -110,13 +78,8 @@ GDate.WeekdayName = function (d)
 		case 6: return "samedi";
 	}
 }
-
-
-
-HDate.MonthName = function (hm)
-{
-	switch(hm)
-	{
+HDate.MonthName = function (hm){
+	switch(hm){
 		case 1: return "Nissan";
 		case 2: return "Iyar";
 		case 3: return "Sivan";
@@ -132,12 +95,9 @@ HDate.MonthName = function (hm)
 		case 13: return "Adar II";
 	}
 }
-
 HDate.MonthNameShort = HDate.MonthName;
-HDate.WeekdayNameShortest = function (d)
-{
-	switch(d)
-	{
+HDate.WeekdayNameShortest = function (d){
+	switch(d){
 		case 0: return "&#1488;";
 		case 1: return "&#1489;";
 		case 2: return "&#1490;";
@@ -147,52 +107,35 @@ HDate.WeekdayNameShortest = function (d)
 		case 6: return "&#1513;";
 	}
 }
-
-
-JDate.prototype.MonthName = function()
-{
+JDate.prototype.MonthName = function(){
 	return (this.Class.MonthName)(this.getMonth());
 }
-JDate.prototype.MonthNameShort = function()
-{
+JDate.prototype.MonthNameShort = function(){
 	return (this.Class.MonthNameShort)(this.getMonth());
 }
-JDate.prototype.WeekdayNameShortest = function()
-{
+JDate.prototype.WeekdayNameShortest = function(){
 	return (this.Class.WeekdayNameShortest)(this.getDayOfWeek());
 }
-JDate.prototype.WeekdayNameShort = function()
-{
+JDate.prototype.WeekdayNameShort = function(){
 	return (this.Class.WeekdayNameShort)(this.getDayOfWeek());
 }
-JDate.prototype.WeekdayName = function()
-{
+JDate.prototype.WeekdayName = function(){
 	return (this.Class.WeekdayName)(this.getDayOfWeek());
 }
-
-
-
-
-HDate.LeapName = function (bLeap)
-{
+HDate.LeapName = function (bLeap){
 	if(bLeap) return "embolismique";
 	return "commune";
 }
-HDate.prototype.LeapName = function()
-{
+HDate.prototype.LeapName = function(){
 	return HDate.LeapName(this.isLeap());
 }
-
-HDate.YearTypeName = function (type)
-{
-	switch(type)
-	{
+HDate.YearTypeName = function (type){
+	switch(type){
 		case HDate.CHASERA: return "d&eacute;ficiente";
 		case HDate.SDURA: return "normale";
 		case HDate.SHLEMA: return "compl&egrave;te";
 	}
 }
-HDate.prototype.YearTypeName = function()
-{
+HDate.prototype.YearTypeName = function(){
 	return HDate.YearTypeName(this.getYearType());
 }
