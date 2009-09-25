@@ -1,21 +1,18 @@
-/* jdates.js  http://www.calj.net  Hebrew / Gregorian date conversion  
- * December 13, 2004 - Tevet 1st, 5765  v4.67        (c) Gabriel Zerbib,  gabriel@bumpt.net    http://www.bumpt.net     
+/* jdates.js  
+* http://www.calj.net
+ * Hebrew / Gregorian date conversion  
+ *
+ * December 13, 2004 - Tevet 1st, 5765  v4.67               	           
+ * (c) Gabriel Zerbib,  gabriel@bumpt.net    http://www.bumpt.net     
  * It is strictly forbidden to use or  reproduce all or parts of this program without author's explicit permission.
- * Commercial use of this program is subject to purchase. Please contact the author.abstract class JDate is the base class for GDate and HDate.
- * Do not instanciate JDate. usage : GD = new GDate(17,7,1984) Dont forget new ; HD = new HDate(GD) */
+ * Commercial use of this program is subject to purchase. Please contact the author.
+ * abstract class JDate is the base class for GDate and HDate.
+ * Do not instanciate JDate. usage :
+ * GD = new GDate(17,7,1984) Dont forget new
+ * HD = new HDate(GD) */
 function JDate(){
 	/* runtime class info. Subclasses must implement (ptr to subclass construction function) */
 	this.Class = null;
-	
-	/*******************************/
-	// from my mik obj // check work
-	/*********************************/
-	this._d = getDay()
-	this._m = getMonth()
-	this._y = getYear()
-	this.clone	=	clone 
-	/*******************************/
-	
 	/* * public methods */
 	this.getDay = getDay;			/* () */
 	this.getMonth = getMonth;		/* () */
@@ -61,9 +58,6 @@ function JDate(){
 	this.setDate_JDate = setDate_JDate;
 	/* Implementation */
 	/* private methods */
-	function clone(){
-		return new this(this)
-	}
 	function setHdn(hdn){
 		hdn = parseInt(hdn);
 		if(hdn < 1) hdn = 1;
@@ -152,12 +146,6 @@ function JDate(){
 		return this;
 	}
 }
-/**********************************
-HDate.prototype._d;
-HDate.prototype._m;
-HDate.prototype._y;
-HDate.prototype.clone=function(){ return new HDate(this)}
-**********************************/
 /******** class GDate *********/
 GDate.prototype = new JDate; /* extends JDate */
 GDate.isLeapYear = function (year){
@@ -413,4 +401,5 @@ function HDate(){
 		if(this.m_hdn < 1) this.setHdn(this.m_hdn);
 		return this;
 	}
+	
 }
