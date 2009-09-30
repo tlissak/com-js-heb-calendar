@@ -84,13 +84,19 @@ form{display:inline}
 .cal-dt{height:14px; background-color:#E8EEF7; }
 .cal-dt-civil{color:#777777; float:right;}
 .cal-dt-hebrew{color:#009/*#B7CDF3*/; font-weight:bold; float:left; }
+
+
+.cal-ona-0{ height:100%; width:50%; background-color:#f7f7f7; color:#666; font-weight:bold;}
+.cal-ona-1{ height:100%; width:50%;  color:#666; font-weight:bold; }
+/*
 .cal-ona-0{ clear:both; min-height:30px; height:35%; background-color:#f7f7f7; color:#666; font-weight:bold}
 .cal-ona-1{ clear:both; min-height:5px; color:#666; font-weight:bold}
-
+*/
 
 
 .today{background-color:#FFC; }
-.times{ color:#666  }
+.times{ color:#666 ;}
+
 .times img{margin-left:2px;height:13px; width:13px; background-repeat:no-repeat;visibility:hidden}
 
 .times:hover{ color:#666 }

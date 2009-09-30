@@ -1,4 +1,13 @@
 /* http://www.calj.net */
+
+function get_city_deg(oCity){
+		ew = ((oCity.ew == 0) ? -1 : 1);
+		ns = ((oCity.ns == 0) ? 1 : -1);
+		var lon = ew * (1 *  oCity.lond +  oCity.lonm/60);
+		var lat = ns * (1 *  oCity.latd + oCity.latm/60);
+		/*	calculate auto dst		*/
+		return {lon:lon,lat:lat,gmt: oCity.gmt,dst:1/****************** get Auto DST **********************/}
+}
 function timeadj1(_time) {
 	var _hour = Math.floor(_time);
 			var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
@@ -23,23 +32,10 @@ JDate.prototype.getZmanim = function(_O){
 			_O = CITY[0] ;c("getZmanim(_O) _O is!object set Jerusalem ")
 		}
 		var sunrise,sunset,hanetz,shkia,shaa_zmanit,alot,misheyakir,tzeit,shema,tefillah,chatzot,minchag,minchak,plag,motzeiShabbat,knissatShabbat
-		
 		var place = _O.place.toLowerCase()
-		
 		var  _D	=  (this.Class == GDate) ? 	this : new GDate(this)//alwayes convert this to gregorien date
-	
-		ew = ((_O.ew == 0) ? -1 : 1);
-		ns = ((_O.ns == 0) ? 1 : -1);
-		var lon = ew * (1 *  _O.lond +  _O.lonm/60);
-		var lat = ns * (1 *  _O.latd + _O.latm/60);
-		
-		
-		/*	calculate auto dst	by client date	*/
-		_DST = (-1*(this.toDate().getTimezoneOffset()/60)) - _O.gmt;	
-		/***********************************************/
-		
-		CITY_LL = {lon:lon,lat:lat,gmt: _O.gmt,dst:_DST}
-	
+		CITY_LL = get_city_deg(_O) 
+		place = _O.place
 		
 		if (place == "jerusalem"){									candle_offset = (40.0/ 60.0) }
 		else if(place == "haifa" || place == "be'er Sheva") {		candle_offset = (30.0/ 60.0) }
@@ -101,9 +97,6 @@ JDate.prototype.getZmanim = function(_O){
 			return _hour + ':' + ((_min < 10) ? '0' : '') + _min ;
 	}
 	function suntime( oDate , h, longitude,latitude ,gmt,dst ){
-		
-			//console.log(oDate)
-			
 			//console.log(arguments)
 			var D = oDate.getDay()
 			var _m = oDate.getMonth()
