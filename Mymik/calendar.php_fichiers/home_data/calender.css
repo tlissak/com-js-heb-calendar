@@ -1,0 +1,56 @@
+body, td, th{font:Lucida Sans Unicode,Arial,sans-serif; font-size:9px}
+
+H1{font-family:Lucida Sans Unicode; color:#8F8F8F; text-transform:none; font-weight:100; font-size:18px; margin-bottom:0}
+
+H2{font-family:Arial; font-size:12px; font-weight:Regular}
+
+/* buttons */
+.btn, .btn2, .btn3{    color:#FFF; cursor:default;     display:block;     float:left;     font:normal 15px arial;     height:24px; width:86px; text-align:center; padding-top:3px}
+.btn{background:transparent url('./images/btn.png') no-repeat scroll top left}
+.btn2{background:transparent url('./images/btn.png') no-repeat scroll top center}
+.btn3{background:transparent url('./images/btn.png') no-repeat scroll top right; padding-top:4px}
+
+/* end of buttons*/
+/* -------------------------- TABLE VIEW---------------------------------------------*/
+#table_view body{font:76%/160% "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif}
+#table_view p{text-align:center}
+#table_view a:link{color:#d42945; text-decoration:none; border-bottom:1px dotted #ffbac8}
+#table_view a:visited{color:#d42945; border-bottom:none; text-decoration:none}
+#table_view a:hover, 
+#table_view a:focus{color:#f03b58; border-bottom:1px solid #f03b58; text-decoration:none}
+#table_view table a, 
+#table_view table a:link, 
+#table_view table a:visited{border:none}
+#table_view img{border:0; margin-top:.5em}
+#table_view table{width:100%; border-top:1px solid #e3f1fe; border-right:1px solid #e3f1fe; margin:1em auto; border-collapse:collapse}
+#table_view caption{color:#9ba9b4; padding:0; margin:1em 0 0 0; margin-bottom:0; caption-side:top; text-align:center}
+#table_view tr.odd td, 
+#table_view tr.odd .column1{background:#f4f9fe url(./images/background.gif) no-repeat}
+#table_view .column1{background:#f9fcfe}
+#table_view td{color:#678197; border-bottom:1px solid #e3f1fe; border-left:1px solid #e5eff8; padding:.3em 1em; text-align:center; font-size:14px}
+#table_view th{font-weight:normal; color:#678197; text-align:left; border-bottom:1px solid #e3f1fe; border-left:1px solid #e5eff8; padding:.3em 1em}
+#table_view thead th{background:#f4f9fe; text-align:center; font:bold 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif; color:#66a3d3}
+#table_view tfoot th{background:#f4f9fe; text-align:center}
+#table_view tfoot th strong{font:bold 1.2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif; margin:.5em .5em .5em 0; color:#66a3d3}
+#table_view tfoot th em{color:#f03b58; font-weight:bold; font-size:1.1em; font-style:normal}
+
+/* Generic context menu styles */
+.contextMenu{position:absolute; width:120px; z-index:99999; border:solid 1px #CCC; background:#EEE; padding:0px; margin:0px; display:none; font-size:10px}
+
+.contextMenu LI{list-style:none; padding:0px; margin:0px}
+
+.contextMenu A{color:#333; text-decoration:none; display:block; line-height:20px; height:20px; background-position:6px center; background-repeat:no-repeat; outline:none; padding:1px 5px; padding-left:28px}
+
+.contextMenu LI.hover A{color:#FFF; background-color:#39F}
+
+.contextMenu LI.disabled A{color:#AAA; cursor:default}
+
+.contextMenu LI.hover.disabled A{background-color:transparent}
+
+.contextMenu LI.separator{border-top:solid 1px #CCC}
+
+.contextMenu LI.reeyah A{background-image:url(./images/icons/pencil.png)}
+.contextMenu LI.memo A{background-image:url(./images/icons/note.png)}
+.contextMenu LI.trip A{background-image:url(./images/icons/world.png)}
+.contextMenu LI.properties A{background-image:url(./images/icons/date.png)}
+

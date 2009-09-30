@@ -10,12 +10,11 @@ function JDate(){
 	/*******************************/
 	// from my mik obj // check work
 	/*********************************/
-	this._d = getDay()
-	this._m = getMonth()
-	this._y = getYear()
 	this.clone	=	clone 
-	/*******************************/
-	
+	function clone(){
+		return new this.Class(this.m_hdn)
+	}
+	/*******************************/	
 	/* * public methods */
 	this.getDay = getDay;			/* () */
 	this.getMonth = getMonth;		/* () */
@@ -38,7 +37,7 @@ function JDate(){
 	this.prevMonth = prevMonth;	/* () */
 	this.nextDay = nextDay;		/* () */
 	this.setDate = setDate;		/* (), (int), (JDate), (int, int, int) */
-	
+
 	/****************/
 	this.getDayOfYear = getDayOfYear;
 	/***************/
@@ -55,14 +54,17 @@ function JDate(){
 	this.m_day = 0;
 	this.m_month = 0;
 	this.m_year = 0;
+		
+	this.toString = tostring
+	
 	/* protected methods Do not call these methods outside the class hierarchy. */
 	this.setHdn = setHdn;
 	this.setDate_int = setDate_int;
 	this.setDate_JDate = setDate_JDate;
 	/* Implementation */
 	/* private methods */
-	function clone(){
-		return new this(this)
+	function tostring(){
+		return this.getDay() + " " + this.getMonth() +" " + this.getYear()
 	}
 	function setHdn(hdn){
 		hdn = parseInt(hdn);
@@ -152,17 +154,24 @@ function JDate(){
 		return this;
 	}
 }
+JDate.Sort = function Sort(_a,_b){
+	if(_a[0].gt(_b[0]))
+		return 1;
+	if(_a[0].eq(_b[0]))
+		return 0;
+	return-1;	
+}
 /**********************************
 HDate.prototype._d;
 HDate.prototype._m;
 HDate.prototype._y;
-HDate.prototype.clone=function(){ return new HDate(this)}
 **********************************/
 /******** class GDate *********/
 GDate.prototype = new JDate; /* extends JDate */
 GDate.isLeapYear = function (year){
 	return (year % 400 == 0) || ( (year % 4 == 0) && (year % 100 != 0) );
 };
+
 function GDate(){
 	/* runtime class info */
 	this.Class = GDate;

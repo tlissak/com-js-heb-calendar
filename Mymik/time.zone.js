@@ -1,5 +1,78 @@
-// JavaScript Document
-fleegixDate=function(){
+var fleegix={};
+fleegix.xhr=new function(){
+	this.maxXhrs=5;this.lastReqId=0;this.debug=false;
+	this.defaultTimeoutSeconds=300;this.useDefaultErrHandlerForSync=true;
+	this.responseFormats={TXT:'text',XML:'xml',OBJ:'object'};
+	this.get=function(){var o={};var hand=null;var args=Array.prototype.slice.apply(arguments);
+	if(typeof args[0]=='function'){o.async=true;hand=args.shift();}
+else{o.async=false;}
+var url=args.shift();if(typeof args[0]=='object'){var opts=args.shift();
+for(var p in opts){o[p]=opts[p];}}
+else{o.responseFormat=args.shift()||'text';}
+o.handleSuccess=hand;o.url=url;return this.doReq(o);};
+this.doGet=function(){return this.get.apply(this,arguments);}
+this.post=function(){var o={};var hand=null;var args=Array.prototype.slice.apply(arguments);if(typeof args[0]=='function'){o.async=true;hand=args.shift();}
+else{o.async=false;}
+var url=args.shift();var data=args.shift();if(typeof args[0]=='object'){var opts=args.shift();for(var p in opts){o[p]=opts[p];}}
+else{o.responseFormat=args.shift()||'text';}
+o.handleSuccess=hand;o.url=url;o.data=data;o.method='POST';return this.doReq(o);};this.doPost=function(){return this.post.apply(this,arguments);}
+this.doReq=function(opts){return this.send(opts);}
+this.send=function(o){var opts=o||{};var req=new fleegix.xhr.Request();var xhrId=null;for(var p in opts){if(opts.hasOwnProperty(p)){req[p]=opts[p];}}
+req.method=req.method.toUpperCase();req.id=this.lastReqId;this.lastReqId++;if(req.async){if(_idleXhrs.length){xhrId=_idleXhrs.shift();}
+else if(_xhrs.length<this.maxXhrs){xhrId=_spawnXhr();}
+if(xhrId!==null){_processReq(req,xhrId);}
+else{if(req.uber){_requestQueue.unshift(req);}
+else{_requestQueue.push(req);}}
+return req.id;}
+else{return _processReq(req);}};this.abort=function(reqId){var r=_processingMap[reqId];var t=_xhrs[r.xhrId];if(t){t.onreadystatechange=function(){};t.abort();r.aborted=true;_cleanup(r);return true;}
+else{return false;}};this.isReqSuccessful=function(obj){var stat=obj.status;if(!stat){return false;}
+if(document.all&&stat==1223){stat=204;}
+if((stat>199&&stat<300)||stat==304){return true;}
+else{return false;}};var _this=this;var _msProgId=null;var _UNDEFINED_VALUE;var _xhrs=[];var _requestQueue=[];var _idleXhrs=[];var _processingMap={};var _processingArray=[];var _syncXhr=null;var _syncRequest=null;_processingWatcherId=null;var _spawnXhr=function(isSync){var i=0;var t=['Msxml2.XMLHTTP.6.0','MSXML2.XMLHTTP.3.0','Microsoft.XMLHTTP'];var xhrObj=null;if(window.XMLHttpRequest){xhrObj=new XMLHttpRequest();}
+else if(window.ActiveXObject){if(_msProgId){xhrObj=new ActiveXObject(_msProgId);}
+else{for(var i=0;i<t.length;i++){try{xhrObj=new ActiveXObject(t[i]);_msProgId=t[i];break;}
+catch(e){}}}}
+if(xhrObj){if(isSync){return xhrObj;}
+else{_xhrs.push(xhrObj);var xhrId=_xhrs.length-1;return xhrId;}}
+else{throw new Error('Could not create XMLHttpRequest object.');}};var _processReq=function(req,t){var xhrId=null;var xhrObj=null;var url='';var resp=null;if(req.async){xhrId=t;xhrObj=_xhrs[xhrId];_processingMap[req.id]=req;_processingArray.unshift(req);req.xhrId=xhrId;}
+else{if(!_syncXhr){_syncXhr=_spawnXhr(true);}
+xhrObj=_syncXhr;_syncRequest=req;}
+if(req.preventCache){var dt=new Date().getTime();url=req.url.indexOf('?')>-1?req.url+'&preventCache='+dt:req.url+'?preventCache='+dt;}
+else{url=req.url;}
+if(document.all){xhrObj.abort();}
+if(req.username&&req.password){xhrObj.open(req.method,url,req.async,req.username,req.password);}
+else{xhrObj.open(req.method,url,req.async);}
+if(req.mimeType&&navigator.userAgent.indexOf('MSIE')==-1){xhrObj.overrideMimeType(req.mimeType);}
+var headers=req.headers;for(var h in headers){if(headers.hasOwnProperty(h)){xhrObj.setRequestHeader(h,headers[h]);}}
+if(req.method=='POST'||req.method=='PUT'){req.data=req.data||req.dataPayload;if(!req.data){req.data='';}
+var contentLength=typeof req.data=='string'?req.data.length:0;xhrObj.setRequestHeader('Content-Length',contentLength);if(typeof req.headers['Content-Type']=='undefined'){xhrObj.setRequestHeader('Content-Type','application/x-www-form-urlencoded');}}
+console.log(req.url)
+xhrObj.send(req.data);if(_processingWatcherId===null){_processingWatcherId=setTimeout(_watchProcessing,10);}
+if(!req.async){var ret=_handleResponse(xhrObj,req);_syncRequest=null;if(_processingArray.length){_processingWatcherId=setTimeout(_watchProcessing,10);}
+else{_processingWatcherId=null;}
+return ret;}};var _watchProcessing=function(){var proc=_processingArray;var d=new Date().getTime();if(_syncRequest!==null){return;}
+else{for(var i=0;i<proc.length;i++){var req=proc[i];var xhrObj=_xhrs[req.xhrId];var isTimedOut=((d-req.startTime)>(req.timeoutSeconds*1000));switch(true){case(req.aborted||!xhrObj.readyState):_processingArray.splice(i,1);break;case isTimedOut:_processingArray.splice(i,1);_timeout(req);break;case(xhrObj.readyState==4):_processingArray.splice(i,1);_handleResponse.call(_this,xhrObj,req);break;}}}
+clearTimeout(_processingWatcherId);if(_processingArray.length){_processingWatcherId=setTimeout(_watchProcessing,10);}
+else{_processingWatcherId=null;}};var _handleResponse=function(xhrObj,req){var resp;switch(req.responseFormat){case'xml':resp=xhrObj.responseXML;break;case'object':resp=xhrObj;break;case'text':default:resp=xhrObj.responseText;break;}
+if(req.handleAll){req.handleAll(resp,req.id);}
+else{try{switch(true){case _this.isReqSuccessful(xhrObj):if(req.async){if(!req.handleSuccess){throw new Error('No response handler defined '+'for this request');}
+else{req.handleSuccess(resp,req.id);}}
+else{return resp;}
+break;case(xhrObj.status==0):if(_this.debug){throw new Error('XMLHttpRequest HTTP status is zero.');}
+break;case(xhrObj.status==_UNDEFINED_VALUE):if(_this.debug){throw new Error('XMLHttpRequest HTTP status not set.');}
+break;default:if(!req.async&&!_this.useDefaultErrHandlerForSync){return resp;}
+else{if(req.handleErr){req.handleErr(resp,req.id);}
+else{_handleErrDefault(xhrObj);}}
+break;}}
+catch(e){throw e;}}
+if(req.async){_cleanup(req);}
+return true;};var _timeout=function(req){if(_this.abort.apply(_this,[req.id])){if(typeof req.handleTimeout=='function'){req.handleTimeout();}
+else{alert('XMLHttpRequest to '+req.url+' timed out.');}}};var _cleanup=function(req){delete _processingMap[req.id];if(_requestQueue.length){var nextReq=_requestQueue.shift();nextReq.startTime=new Date().getTime();_processReq(nextReq,req.xhrId);}
+else{_idleXhrs.push(req.xhrId);}};var _handleErrDefault=function(r){var errorWin;try{errorWin=window.open('','errorWin');errorWin.document.body.innerHTML=r.responseText;}
+catch(e){alert('An error occurred, but the error message cannot be'+' displayed because of your browser\'s pop-up blocker.\n'+'Please allow pop-ups from this Web site.');}};};fleegix.xhr.Request=function(){this.id=0;this.xhrId=null;this.url=null;this.status=null;this.statusText='';this.method='GET';this.async=true;this.data=null;this.readyState=null;this.responseText=null;this.responseXML=null;this.handleSuccess=null;this.handleErr=null;this.handleAll=null;this.handleTimeout=null;this.responseFormat=fleegix.xhr.responseFormats.TXT;this.mimeType=null;this.username='';this.password='';this.headers=[];this.preventCache=false;this.startTime=new Date().getTime();this.timeoutSeconds=fleegix.xhr.defaultTimeoutSeconds;this.uber=false;this.aborted=false;};fleegix.xhr.Request.prototype.setRequestHeader=function(headerName,headerValue){this.headers.push(headerName+': '+headerValue);};;if(typeof fleegix=='undefined'){var fleegix={};}
+
+fleegix.date = {}
+fleegix.date.Date=function(){
 	var args=Array.prototype.slice.apply(arguments);
 	var t=null;var dt=null;var tz=null;var utc=false;
 	if(args.length==0){dt=new Date();}
@@ -13,7 +86,7 @@ fleegixDate=function(){
 	this.month=0;this.date=0;this.hours=0;this.minutes=0;this.seconds=0;
 	this.milliseconds=0;this.timezone=tz||null;this.utc=utc||false;this.setFromDateObjProxy(dt);}
 	
-fleegixDate.prototype={getDate:function(){return this.date;}
+fleegix.date.Date.prototype={getDate:function(){return this.date;}
 		,getDay:function(){},getFullYear:function(){return this.year;}
 		,getMonth:function(){return this.month;},getYear:function(){return this.year;}
 		,getHours:function(){return this.hours;},getMilliseconds:function(){return this.milliseconds;}
@@ -80,7 +153,7 @@ fleegixDate.prototype={getDate:function(){return this.date;}
 		,getLocalOffset:function(){var dt=this;var d=new Date(dt.getYear(),dt.getMonth(),dt.getDate(),dt.getHours(),dt.getMinutes(),dt.getSeconds());
 			return d.getTimezoneOffset();}}
 			
-fleegixDate.timezone=new function(){
+fleegix.date.timezone=new function(){
 	var _this=this;var monthMap={'jan':0,'feb':1,'mar':2,'apr':3,'may':4,'jun':5,'jul':6,'aug':7,'sep':8,'oct':9,'nov':10,'dec':11}
 var dayMap={'sun':0,'mon':1,'tue':2,'wed':3,'thu':4,'fri':5,'sat':6}
 var regionMap={'EST':'northamerica','MST':'northamerica','HST':'northamerica','EST5EDT':'northamerica','CST6CDT':'northamerica'
@@ -171,7 +244,11 @@ function getAbbreviation(zone,rule){
 		if(typeof def=='string'){this.loadZoneFile(this.defaultZoneFile);}
 		else{for(var i=0;i<def.length;i++){this.loadZoneFile(def[i]);}}};
 	this.loadZoneFile=function(fileName,sync){if(typeof this.zoneFileBasePath=='undefined'){
-		throw new Error('Please define a base path to your zone file directory -- fleegix.date.timezone.zoneFileBasePath.');}
+		
+		this.zoneFileBasePath = "/cal/mymik/calendar.php_fichiers/src/lib/date/tz"
+		
+		//throw new Error('Please define a base path to your zone file directory -- fleegix.date.timezone.zoneFileBasePath.');
+		}
 	this.loadedZones[fileName]=true;return builtInLoadZoneFile(fileName,sync);};
 	this.loadZoneJSONData=function(url,sync){
 		var processData=function(data){data=eval('('+data+')');for(var z in data.zones){_this.zones[z]=data.zones[z];}
