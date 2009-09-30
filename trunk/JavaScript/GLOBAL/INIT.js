@@ -28,21 +28,24 @@ Event.add(window,"load",function(){
 
 		Pref.load() // to set seleted things		
 		
+		/*
 		ajax_load("change_log")
 		ajax_load("contact")
 		ajax_load("guide_"+oPref.language)
 		ajax_load("mikveh-list")
 		ajax_load("glossery")
+		*/
 		ajax_load("dialog")
 		
 		setCitiesList()	
 		
 		$("refresh").href = "?rnd="+Math.random()		
-		
+		/*
 		if (Cookie.get("init") != "true"){
 			$("welcome").style.display = "block"
 			$("menu").style.display = "block"
 		}
+		*/
 		
 		Render("load",RENDER_MONTH)
 		

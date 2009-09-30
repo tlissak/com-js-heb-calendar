@@ -148,11 +148,12 @@ function render_main_cal(oMonth){
 		x += '</span><span class="cal-dt-civil">'
 		x += (j+1)
 		x += '</span></div>'
-  		x += '<div class="cal-ona-0" id="jm_'+dd.m_hdn+'_0"></div>'
-		x += '<div class="times times-0" id="jt_'+dd.m_hdn+'_0" ></div>'
-		x += '<div class="cal-ona-1" id="jm_'+dd.m_hdn+'_1"></div>'	
 		x += '<div id="je_'+dd.m_hdn+'" ></div>'
-		x += '<div class="times" id="jt_'+dd.m_hdn+'_1" ></div>'
+		x += '<table  width="100%" height="95%" border="0" cellspacing="0" cellpadding="0"  >'
+		x += '<tr><th  class="cal-ona-0"  ><div id="jm_'+dd.m_hdn+'_0"></div><div class="times times-0" id="jt_'+dd.m_hdn+'_0" ></div></th>'
+		x += '<th  class="cal-ona-1"  ><div id="jm_'+dd.m_hdn+'_1" ></div><div class="times" id="jt_'+dd.m_hdn+'_1" ></div></th></tr>'
+		x += '</table>'
+
 		x += '</td>'		
 		if (dd.dow==7){	x += '</tr><tr>'} 
 	}	

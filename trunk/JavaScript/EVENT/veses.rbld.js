@@ -1,21 +1,10 @@
-function calender(){
-	this._events = new Array();
-	this._veses = new Array();
-	this.vestos_db = new Array()
-}
+function calender(){	this._events = new Array();	this._veses = new Array();	this.vestos_db = new Array()}
 calender.prototype._events;
 calender.prototype._veses;
 calender.prototype.vestos_db;
-
 var kavuah_reeyahs;
 var kavuah_text;
 var last_veses,before_last_veses;
-
-var _RED_=0;
-var _YELLOW_=1;
-var _GREEN_=2;
-var _WHITE_=3;
-var _BLUE_=4;
 var _EVENT_=0;
 var _REEYAH_=1;
 var _HEFSEK_=2;
@@ -31,16 +20,15 @@ var _DAY_=2;
 var _NIGHT_AND_DAY_=3;
 var _ONAH_NAMES_=new Array('','night onah','day onah','night and day onahs');
 var _ONAH_TYPES_=new Array('','sunrise','sunset','sunset and sunrise');
-
-cause_start   = 0 // 
-cause_start_1 = 7 // 
-cause_stain   = 1
-cause_medical = 2
-cause_unclean = 3
-cause_birth_s = 4
-cause_birth_d = 5
-cause_preglost= 6
-
+var Cause ={}
+Cause.start   = 0
+Cause.start_1 = 7
+Cause.stain   = 1
+Cause.medical = 2
+Cause.unclean = 3
+Cause.birth_s = 4
+Cause.birth_d = 5
+Cause.preglost= 6
 Veses.prototype._id;
 Veses.prototype._reeyah;
 Veses.prototype._time;
@@ -128,9 +116,7 @@ Veses.prototype.set_haflagas=function(cal,last_veses){
 		}else{
 			veses=this;
 		}
-		
 		date.add(Math.floor(count/2));
-		
 		if(count%2==0){
 			var event=new Event(date,_HAFLAGAH_,veses);
 			event._misc=count;
@@ -177,15 +163,7 @@ Veses.prototype.getEarliestHefsekTaharaDate=function(){
 	var earliest_ht_date=v._reeyah.clone().add(min_ht);
 	return earliest_ht_date;
 }
-var Cause ={}
-Cause.start   = 0
-Cause.start_1 = 7
-Cause.stain   = 1
-Cause.medical = 2
-Cause.unclean = 3
-Cause.birth_s = 4
-Cause.birth_d = 5
-Cause.preglost= 6
+
 Veses.prototype.confirm_hefsek=function(cal){
 	// check if hefsek is future date return false
 	//if(this._hefsek.gt(now)){popup("Please ensure the Hefsek Taharah is not a future date");return false;}
@@ -199,24 +177,18 @@ Veses.prototype.confirm_hefsek=function(cal){
 			this._mikvah=earliest_mikvah;
 		}
 	}
-	//store it in vestos_db top.frame[1]
-	//vestos_db=new Array();
-	// add 7 nequiim reminder !	
-	//---------------------
+	//store it in vestos_db top.frame[1].vestos_db=new Array();
+		
+	add_reminder("7 nekiim")
 	
-	//get bad mikve and add reminder
 	var bad_mikvah=this.check_for_bad_mikvah(cal);
 	if (bad_mikvah != ''){
-		// reminder for bad mikveh at this._mikvah,_NIGHT_
 		add_reminder("Veses.confirm_hefsek ::  BAD MIKVEH reminder-------------------")
 		this._mikvah_confirmed=false
 	}else{
-		//add good mikveh reminder
-		// ------------
 		this._mikvah_confirmed=true
 		add_reminder("Veses.prototype.confirm_hefsek :: add reminder for the mikveh")
 	}
-	// get the last veses
 	var last_veses=this.get_prev_veses(cal);
 	/*******************************************/
 	//			BUGY
@@ -229,8 +201,6 @@ Veses.prototype.confirm_hefsek=function(cal){
 	
 	// find older chashashot inside bleeding days
 	
-	//allways add chashshot yom hodesh 
-	//if(Settings.getInstance()._carry_chodesh){
 	var date=this._reeyah.clone();
 	// if raia < hefsek == its sure
 	if(!date.gt(this._hefsek)){	
@@ -285,7 +255,6 @@ Veses.prototype.confirm_hefsek=function(cal){
 		cal._events.push(event);
 	}
 }
-
 Veses.prototype.set_haflagah_list=function(haflagah){
 	if(haflagah!=undefined&&haflagah!=''&&haflagah!=null){
 		this._haflagas=new Array();

@@ -11,8 +11,12 @@ function JDate(){
 	// from my mik obj // check work
 	/*********************************/
 	this.clone	=	clone 
+	this.toDate = toDate
 	function clone(){
 		return new this.Class(this.m_hdn)
+	}
+	function toDate(){
+		return new Date(this.m_year,this.m_month -1,this.m_day)	
 	}
 	/*******************************/	
 	/* * public methods */
@@ -423,3 +427,13 @@ function HDate(){
 		return this;
 	}
 }
+HDate.prototype.isShabbosOrMoed=function(){
+	if(this.get_dow()==7)return true;
+	if(this.equals(getJewishHolidayDate(0,this._y))||this.equals(getJewishHolidayDate(1,this._y))
+			||this.equals(getJewishHolidayDate(2,this._y))||this.equals(getJewishHolidayDate(9,this._y))
+			||this.equals(getJewishHolidayDate(11,this._y))||this.equals(getJewishHolidayDate(17,this._y))
+			||this.equals(getJewishHolidayDate(26,this._y))||this.equals(getJewishHolidayDate(42,this._y)))
+	return true;
+	if(isDiaspora()&&(this.equals(getJewishHolidayDate(3,this._y))||this.equals(getJewishHolidayDate(10,this._y))
+			||this.equals(getJewishHolidayDate(12,this._y))||this.equals(getJewishHolidayDate(39,this._y))
+			||this.equals(getJewishHolidayDate(40,this._y)))) return true;return false;};
