@@ -7,6 +7,13 @@ LNG.he ={}
 
 LNG["Available"] = ["Hebrew","English","Francais"]
 
+LNG["en"].dow_s = ["S","M","T","W","T","F","S"]
+LNG["fr"].dow_s = ["D","L","M","M","J","V","S"]
+LNG["he"].dow_s = ["א","ב","ג","ד","ה","ו","ז"]
+
+LNG["en"].dow_short = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+LNG["fr"].dow_short = ["Dim","Lun","Mar","Mer","Jue","Ven","Sam"]
+LNG["he"].dow_short = ["א","ב","ג","ד","ה","ו","ז"]
 
 LNG["en"].dow 		= ["Sunday","Monday","Tuesday","Wendsday","Thursday","Friday","Saterday"]
 LNG["fr"].dow 		= ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]
@@ -81,9 +88,7 @@ LNG["fr"].minhag_sfarad = "Minhag sefarad / achkenaz"
 LNG["he"].minhag_sfarad = "מנהג ספרד אשכנז"
 
 
-LNG["en"].dow_short = ["S","M","T","W","T","F","S"]
-LNG["fr"].dow_short = ["D","L","M","M","J","V","S"]
-LNG["he"].dow_short = ["א","ב","ג","ד","ה","ו","ז"]
+
 
 LNG["en"].month 	= ["","January","February","March","April","May","June","July","August","September","October","November","December"]
 LNG["fr"].month 	= ["","Janvier","F&eacute;vrier","Mars","Avril","Mai","Juin","Juillet","Ao&ucirc;t","Septembre","Octobre","Novembre","D&eacute;cembre"]

@@ -1,13 +1,13 @@
 /* http://www.calj.net */
 function timeadj1(_time) {
 	var _hour = Math.floor(_time);
-			var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
-			if(_min >= 60) { _hour += 1;  _min  -= 60;  }
-			if(_hour < 0){	_hour += 24;}
-			//console.log(_time)
-			return _hour + ':' + ((_min < 10) ? '0' : '') + _min ;
+	var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
+	if(_min >= 60) { _hour += 1;  _min  -= 60;  }
+	if(_hour < 0){	_hour += 24;}
+	//console.log(_time)
+	return _hour + ':' + ((_min < 10) ? '0' : '') + _min ;
 	
-		if (!(parseFloat(_time) )){return "-"}
+	if (!(parseFloat(_time) )){return "-"}
 			function format(_i){	return (_i < 10) ? "0"+ _i : _i	}
 			var _hour 	= _time  ;
 			var _ihour	= Math.floor(_hour)
@@ -22,8 +22,6 @@ JDate.prototype.getZmanim = function(_O){
 		if( typeof(_O) != "object" ){ 
 			_O = CITY[0] ;c("getZmanim(_O) _O is!object set Jerusalem ")
 		}
-		var sunrise,sunset,hanetz,shkia,shaa_zmanit,alot,misheyakir,tzeit,shema,tefillah,chatzot,minchag,minchak,plag,motzeiShabbat,knissatShabbat
-		
 		var place = _O.place.toLowerCase()
 		
 		var  _D	=  (this.Class == GDate) ? 	this : new GDate(this)//alwayes convert this to gregorien date
@@ -35,7 +33,7 @@ JDate.prototype.getZmanim = function(_O){
 		
 		
 		/*	calculate auto dst	by client date	*/
-		_DST = (-1*(this.toDate().getTimezoneOffset()/60)) - _O.gmt;	
+		_DST = (-1*(this.toDate().getTimezoneOffset()/60)) - _O.gmt +1;	
 		/***********************************************/
 		
 		CITY_LL = {lon:lon,lat:lat,gmt: _O.gmt,dst:_DST}

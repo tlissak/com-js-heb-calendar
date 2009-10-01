@@ -1,11 +1,11 @@
 // JavaScript Document
 function Pref(){ if (arguments.length == 0){return Pref.get()}}
 
-Pref.load			= function(){
+Pref.load	= function(){
 	oPref = Pref.get()
 	_city	= $("sCity")
 	for (var i=0;i<_city.options.length;i++){
-		if (parseInt(oPref.city) == parseInt(_city.options[i].value)){ _city.selectedIndex = i ;	break ;	}
+		if (parseInt(oPref.city) == parseInt(_city.options[i].value)){ _city.selectedIndex = i ; 	break ;	}
 	}
 	_language = $("sLanguage")
 	for (var i=0;i<_language.options.length;i++){
@@ -23,7 +23,7 @@ Pref.printLanguage 	= function(language){
 	if (language=="he"){document.body.dir = "rtl" ; }else{	document.body.dir = "ltr" ; }		
 	$("t_cal_start").innerHTML = LNG[language].t_cal_begin
 	$("t_cal_end").innerHTML = LNG[language].t_cal_end
-	$("t_dailight_st").innerHTML = LNG[language].t_dst
+	//$("t_dailight_st").innerHTML = LNG[language].t_dst
 	$("refresh").innerHTML = LNG[language].refresh
 	$("t_setting").innerHTML = LNG[language].setting
 	$("t_mikve_france").innerHTML = LNG[language].t_mikveh_france
@@ -73,7 +73,7 @@ Pref.get			= function(){
 	var cal_start 	= (new Date()).getFullYear()
 	var	cal_end		= cal_start
 	var	iCity		= 0
-	var DST			= $("DST").checked ? 1 : 0 
+	//var DST			= $("DST").checked ? 1 : 0 
 	var iCity 		= parseInt($("sCity").value)
 	var Language	= $("sLanguage").value
 	var Minhag		= $("sMinhag")
@@ -82,12 +82,12 @@ Pref.get			= function(){
 	Minhag		= Cookie.get("minhag") ? Cookie.get("minhag") : Minhag
 	Language	= Cookie.get("language") ? Cookie.get("language") : Language
 	iCity 		= (!(isNaN(parseInt(Cookie.get("city"))))) ? parseInt(Cookie.get("city")) : iCity
-	DST 		= Cookie.get("dst") ? parseInt(Cookie.get("dst")) : DST
+	//DST 		= Cookie.get("dst") ? parseInt(Cookie.get("dst")) : DST
 	cal_start	= Cookie.get("cal_start") ? parseInt(Cookie.get("cal_start")) : cal_start
 	cal_end		= Cookie.get("cal_end")	? parseInt(Cookie.get("cal_end"))	 : cal_end
 	Range		= Pref.rangeCheck(cal_end,cal_start)
-	//alert(iCity)
-	return {	minhag:Minhag,language:Language,DST:DST,cal_start:Range.start,cal_end:Range.end,years:Range.years,city:iCity }
+	//DST:DST,
+	return {	minhag:Minhag,language:Language,cal_start:Range.start,cal_end:Range.end,years:Range.years,city:iCity }
 }
 Pref.del		= function(){
 	Cookie.del("city");Cookie.del("years");	Cookie.del("cal_end");

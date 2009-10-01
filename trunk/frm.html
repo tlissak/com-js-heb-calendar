@@ -20,6 +20,7 @@
 <script src="JavaScript/EVENT/veses.rbld.js" type="text/javascript"></script>
 <script src="JavaScript/EVENT/veses.new.js" type="text/javascript"></script>
 <script src="JavaScript/EVENT/kavua.js" type="text/javascript"></script>
+<script src="JavaScript/EVENT/event.js" type="text/javascript"></script>
 
 <script src="JavaScript/EVENT/calev.js" type="text/javascript"></script>
 
@@ -45,8 +46,7 @@
         onblur="Pref.setDateRange($('sCal_end').value,this.value)"  /></li>
         <li><span id="t_cal_end">Calendars end at</span> :<input type="text" id="sCal_end" size="5" 
         onblur="Pref.setDateRange(this.value,$('sCal_start').value)"/></li>
-        <li><span id="t_dailight_st">Daylight saving time (+1 hr)</span> : <input type="checkbox" id="DST" 
-        onclick="var __tqdj=this.checked?1:0;Pref.setManualDST(__tqdj)" /></li>
+        <li>Auto DST </li>
         <li><span id="t_location">Your location</span><select id="sCity" onchange="Pref.setCity(this.value)"></select></li>
        
     </ul>
