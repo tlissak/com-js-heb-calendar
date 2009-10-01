@@ -8,12 +8,15 @@ var last_veses,before_last_veses;
 var _EVENT_=0;
 var _REEYAH_=1;
 var _HEFSEK_=2;
-var _REPEATING_=3;
-var _MEMO_=4;
+
+//var _REPEATING_=3;
+//var _MEMO_=4;
+
 var _CHODESH_=5;
 var _BENONIS_=6;
 var _HAFLAGAH_=7;
 var _KAVUAH_=8;
+
 var _EVENT_NAMES_=new Array('Generic Event','Flow','Hefsek Taharah','Repeating Memo','Memo','Chodesh','Beinonit','Haflagah','Kavuah');
 var _NIGHT_=1;
 var _DAY_=2;
@@ -44,9 +47,9 @@ Veses.prototype._goesOnCal;
 Veses.prototype._leadup_cause;
 Veses.prototype._leadup_date;
 Veses.prototype._leadup_onah;
-function Veses(reeyah_date,hours,minutes,onah,cause){
+function Veses(reeyah_date,_time,onah,cause){
 	this._reeyah=reeyah_date;
-	this._time=time2min({hr:hours,min:minutes});
+	this._time=time2time(_time);
 	if(onah==undefined){
 		var reeyah_day=new Day(reeyah_date);
 		this._onah=reeyah_day.get_onah(this._time);
@@ -133,7 +136,7 @@ Veses.prototype.set_haflagas=function(cal,last_veses){
 }
 Veses.prototype.getEarliestHefsekTaharaNumber=function(){
 	var v=this;
-	if(v.StartedInWhiteWeek(oCal)||v._cause==cause_birth_s){
+	if(v.StartedInWhiteWeek(oCal)||v._cause==Cause.birth_s){
 		min_ht=0;
 	}else if(v._leadup_date!==undefined){
 		days_already_red=1;
@@ -148,9 +151,9 @@ Veses.prototype.getEarliestHefsekTaharaNumber=function(){
 		if(min_ht<0){
 			mint_ht=0;
 		}
-	}else if(v._cause==cause_birth_d){
+	}else if(v._cause==Cause.birth_d){
 		min_ht=6;
-	}else if(v._cause==cause_preglost/*&&!v.goesOnCalendar()*/){
+	}else if(v._cause==Cause.preglost/*&&!v.goesOnCalendar()*/){
 		min_ht=6;
 	}else{
 		min_ht=4;
@@ -166,6 +169,7 @@ Veses.prototype.getEarliestHefsekTaharaDate=function(){
 
 Veses.prototype.confirm_hefsek=function(cal){
 	// check if hefsek is future date return false
+	//store it in vestos_db top.frame[1].vestos_db=new Array();
 	//if(this._hefsek.gt(now)){popup("Please ensure the Hefsek Taharah is not a future date");return false;}
 	this._hefsek_confirmed=true;
 	var mikvah=this._hefsek.clone().add(8);
@@ -177,30 +181,27 @@ Veses.prototype.confirm_hefsek=function(cal){
 			this._mikvah=earliest_mikvah;
 		}
 	}
-	//store it in vestos_db top.frame[1].vestos_db=new Array();
+	
 		
-	add_reminder("7 nekiim")
+	//add_reminder("7 nekiim")
 	
 	var bad_mikvah=this.check_for_bad_mikvah(cal);
 	if (bad_mikvah != ''){
-		add_reminder("Veses.confirm_hefsek ::  BAD MIKVEH reminder-------------------")
+	//	add_reminder("Veses.confirm_hefsek ::  BAD MIKVEH reminder-------------------")
 		this._mikvah_confirmed=false
 	}else{
 		this._mikvah_confirmed=true
-		add_reminder("Veses.prototype.confirm_hefsek :: add reminder for the mikveh")
+	//	add_reminder("Veses.prototype.confirm_hefsek :: add reminder for the mikveh")
 	}
 	var last_veses=this.get_prev_veses(cal);
-	/*******************************************/
-	//			BUGY
-	/*********************************************/
+	/******************************************		BUGY */
 	//while(last_veses!=null/*&&!last_veses.goesOnCalendar()*/)		last_veses=last_veses.get_prev_veses(cal);
-		
-	//set haflaga for the last veses
-	this.set_haflagas(cal,last_veses);
+	
+	this.set_haflagas(cal,last_veses);//set haflaga for the last veses
 	var chashashot=new Array();
 	
-	// find older chashashot inside bleeding days
 	
+	// find older chashashot inside bleeding days
 	var date=this._reeyah.clone();
 	// if raia < hefsek == its sure
 	if(!date.gt(this._hefsek)){	

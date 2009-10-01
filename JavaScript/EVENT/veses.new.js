@@ -1,120 +1,92 @@
-function new_veses(date,time,cause,cal,location,onah){
-	// check oDate - oTime
-	live_input = true
-	var now= new GDate();
-	//if(date.gt(now)){popup('You may not enter future dates, please either enter a valid jewish or secular date');return false;}	
-	var veses;
-	if(location!=undefined&&location!=null){
-		var t=time2min(time);
-		var end_shkiah		=	get_zman(date,3,location);
-		var netz			=	get_zman(date,2,location);
-		var onah;
-		onah=_NIGHT_;
-		if(t>netz&&t<end_shkiah){				onah=_DAY_;}
+function time2min(_otime){
+	hr=parseInt(_otime.hr);
+	minute=parseInt(_otime.mn);
+	return parseFloat(hr +"."+ parseInt(	(minute*100	)/60));
+}
+function time2time(_time){
+	_hour=parseInt(_time.hr);
+	_min=parseInt(_time.mn);
+	return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min) 	
+}
+function fixzman(_time){
+		var _hour = Math.floor(_time);
+		var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
+		if(_min >= 60) { _hour += 1;  _min  -= 60;  }
+		if(_hour < 0){	_hour += 24;}
+		return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min) ;
 	}
-	hr = time.hr
-	min = time.min
-	veses=new Veses(date,hr,min,onah,cause);
+function new_veses(date,time,cause,cal,location,onah){
 	
+	var now= new GDate(); //if(date.gt(now)){	popup("no_future_date");	return false;}	
+	var veses;
+	var t=time2time(time);
+	
+	var end_shkiah		=	fixzman(date.getZmanim(location).sunset)
+	var netz			=	fixzman(date.getZmanim(location).alot_posna)	
+	var onah=_NIGHT_;		//
+	if(t>netz&&t<end_shkiah){		
+		onah=_DAY_;
+	}	
+	//console.log("ona",onah-1,"t>netz && t<end_shkiah","t",t,"netz",netz,"shkia",end_shkiah)
+	
+	veses=new Veses(date,time,onah,cause);	
 	for(i in cal._veses){
 		if(cal._veses[i]._reeyah.gt(veses._reeyah)){
-			popup('A new flow for '+veses._reeyah+' can not be added since there is a later flow recorded on the '+cal._veses[i]._reeyah);	return false;
+			popup("A new flow for",veses._reeyah,"later_raia_ex",cal._veses[i]._reeyah);	return false;
 		}
-	}
-	
+	}	
 	var last_veses=veses.get_prev_veses(cal);
 	if(last_veses!=undefined)	{
-		if(last_veses._hefsek_confirmed==false)	{
-			/* adding new flow without confirmation of the last flow hefsek */
-			popup("<p>You are attempting to add a New Flow without confirming that a Hefsek Taharah has been done for a flow start on the "
-				  ,last_veses._reeyah
-				  ,". Please close this box and confirm the date of your Hefesk Taharah before adding a new flow.</p><br><p>If this is not "
-				  +" an error and you are doing this on the advice and permission of your Orthodox rabbi, please email us or call our toll free "
-				  +" number (1-866-908-2468) for detailed instructions on how to enter this information into the calendar and allow the program "
-				  +" to function accordingly.</p>");
-			return false;
+		if(last_veses._hefsek_confirmed==false)	{	/* adding new flow without confirmation of the last flow hefsek */
+			popup("last_confirm" ,last_veses._reeyah ,"please_confirm"  ,"onerror_call");	return false;
 		}else if(!veses._reeyah.gt(last_veses._hefsek)){
-			popup('A new flow ('
-				,veses._reeyah
-				,') can not be recorded for a day inbetween another flow ('
-				,last_veses._reeyah
-				,') and Hefsek Taharah('
-				,last_veses._hefsek
-				,').');
-			return false;
+			popup("A new flow ("	,veses._reeyah,"inbetween_another"	,last_veses._reeyah	,') and Hefsek Taharah(',last_veses._hefsek,').');	return false;
 		}
 		
 		iterator=last_veses._reeyah.clone();
 		count=1;
-		//******************************************************
+		
 		while(count<5000&&!iterator.eq(veses._reeyah)){
 			count++;
 			iterator.nextDay();
 		}
-		//********************************************************/
-		if(live_input&&cause==Cause.unclean&&count>7&&!veses._reeyah.gt(last_veses._mikvah)){
-			popup("<h1 align='center'>Please read the following carefully</h1><br><p>You have entered an Unclean Bedikah during your Seven "
-			  +"Preparatory days (after completing your Hefsek Taharah) on a date that is <b>after</b> seven days from the onset of your period ."
-			  +" There is a difference of halachic opionion on how the calendar should be kept.</p><Br><p>Some Rabbanim maintain the opinion that an"
-			  +" unclean bedikah occuring at this time is considered a New Flow. New calculations must then be made on the calendar. If you follow this "
-			  +"opinion, please select \"Start of menstrual cycle\" from the drop down list of causes and the program will calculate accordingly."
-			  +"</p><br><p>Other Rabbanim maintain the opinion that only an actual New Flow during this time requires new calculations."
-			  +"  If you follow this opinion, please choose \"Stain found on white garment or body\" from the drop down list of causes and the"
-			  +" program will calculate accordingly.</p><br><p align='center'>Please consult your rabbi to determine which opinion he wishes you "
-			  +"to follow.</p>","Important Note");
-			return false;
+		if(cause==Cause.unclean&&count>7&&!veses._reeyah.gt(last_veses._mikvah)){
+			popup("read_carfuly","unclean_bedikah");return false;
 		}
 	}else if(last_veses!=undefined&&!last_veses._hefsek_confirmed){
-		
 		veses._leadup_cause=last_veses._cause;
 		veses._leadup_onah=last_veses._onah;
 		veses._leadup_date=last_veses._reeyah;
 		days_already_red=1;
 		kessem=last_veses._reeyah.clone();
-		//*******************************************
 		while(veses._reeyah.gt(kessem)){
 			days_already_red++;
 			kessem.nextDay();
 		}
-		//**********************************************/
 		veses._hefsek=veses._reeyah.clone();
 		days_till_min_ht=5-days_already_red;
 		if(days_till_min_ht>0){
 			veses._hefsek.add(days_till_min_ht);
 		}
-		/*
-		$.post("ajax.php",{delVeses:last_veses._id});
-		*/
-		cal.vestos_db.pop();
-		rebuild_vestos(cal);
-	}
-	
+		cal.vestos_db.pop();// rebuild_vestos(cal);
+	}	
 	veses._cause=cause;
 	var last_veses=veses.get_prev_veses(cal);
-	/******************************************************
-	//			BUGY
-	/*******************************************************
-	while(last_veses!=null /*&&!veses.goesOnCalendar()*//*){
-		last_veses=last_veses.get_prev_veses(cal);
-	}
-	**********************************************************/
+	/***********************	BUGY	********************************/
+	//while(last_veses!=null ){last_veses=last_veses.get_prev_veses(cal);}
 	if(last_veses!=undefined&&last_veses!=null&&last_veses._haflagas!=undefined){
 		veses._haflagas=new Array();
 		var c=-2;
 		var d=last_veses._hefsek.clone();
-		//*******************************************
 		while(!d.eq(veses._reeyah)){
 			c+=2;
 			d.nextDay();
 		}
-		//**********************************************/
 		if(veses._onah==_NIGHT_){
 			c+=1;
 		}else if(veses._onah==_DAY_){
 			c+=2;
-		}else {
-			alert('There was an error building your calendar, please report a bug with bug code 832 to My Mikvah Calendar');
-		}
+		}else {	throw('There was an error building your calendar, please report a bug with bug code 832')}
 		var current_repeats=1;
 		var check_for_haflagas_not_passed_clean_due_to_kessem=false;
 		var last_veses_from_any_cause=veses.get_prev_veses(cal);
@@ -130,29 +102,16 @@ function new_veses(date,time,cause,cal,location,onah){
 			}
 		}
 		veses._haflagas.push(new Array(c,current_repeats,veses));
-	}else if(veses._cause!=Cause.birth_s&&veses._cause!=Cause.birth_d&&(veses._cause!=Cause.preglost/*||veses.goesOnCalendar()*/)){
+	}else if(veses._cause!=Cause.birth_s&&veses._cause!=Cause.birth_d&&(veses._cause!=Cause.preglost)){
 		veses._haflagas=new Array();
 	}
-	
 	last_nidah=veses.get_prev_veses(cal);
 	if(last_nidah!=null&&last_nidah._cause>Cause.unclean&&last_nidah._cause<Cause.start_1){	
 		veses._haflagas=new Array();	
 	}
 	cal._veses.push(veses);
-	if(live_input){
-		cal.vestos_db.push(new Array(
-					veses._id
-					,veses._reeyah
-					,veses._time
-					,veses._onah
-					,veses._hefsek
-					,veses._cause
-					,cal
-					,veses._leadup_cause
-					,veses._leadup_date
-					,veses._leadup_onah));
-	}
-	
+	//veses_dbx = new Array(veses._id,veses._reeyah,veses._time,veses._onah,veses._hefsek,veses._cause,cal,veses._leadup_cause,veses._leadup_date,veses._leadup_onah)
+	//cal.vestos_db.push(ceses_dbx);
 	var events=new Array();
 		for(i in cal._events){		
 			if((cal._events[i]._type==_HAFLAGAH_)
@@ -170,43 +129,24 @@ function new_veses(date,time,cause,cal,location,onah){
 	}else{ 
 		cal._events.push(new Event(chodesh,_CHODESH_,veses));
 	}
-		
-	//if(live_input)refresh();
-	//if(!isNew)	{	veses.confirm_hefsek(cal,false);	}else {
-	if(live_input)	{
-		var new_kavuah=find_kavuah(veses,cal);
-		
-		var popup_sent=false;
-			if(!new_kavuah&&(veses._cause==Cause.start||veses._cause==Cause.start_1)&&last_veses!=undefined&&last_veses!=null){
-				var last_r=last_veses._reeyah.clone();
-				last_r.add(90);
-				last_nidah=veses.get_prev_veses(cal);
-					if(veses._reeyah.gt(last_r)&&last_nidah._cause!=Cause.birth_s&&last_nidah._cause!=Cause.birth_d&&last_nidah._cause!=Cause.preglost){
-						popup_sent=true;
-						str="<div align='center'><div class='title' style='margin-top:0px;margin-left:-20px'>New flow after large gap</div><Br>"
-						str += "<table  width='98%' style='margin-left: -18px; margin-top: -18px;'><tr><td align='left' style='font-size:12px'>"
-						str +="You have entered a New Flow that is 90 days or more from your last flow. If you are in the menopausal "
-						str +=" years you are not required to keep the Onot Haveset until you have three New Flows. Once you have had three New Flows," 
-						str +=" the laws of Onot Haveset must again be kept. If you are not in the menopausal years please consult a qualified rabbi "
-						str +="to determine how your calendar should be kept.<br><br>Please note that it is recommended that a woman during the menopausal years,"
-						str +="who is uncertain when her next New Flow will be, do a bedikah prior to intimacy until six months have passed with no cycle.";
-						str += "</td></tr></table>";
-						//str+=buttons(new Array('OK'),new Array("this.blur();top.frames[1].Hide_Windows();"),235);
-						//setTimeout("new_popup_win(\""+str.replace(/"/g,"\\\"")+"\",'265','400')",2700);
-					}
+	var new_kavuah=find_kavuah(veses,cal);		
+	var popup_sent=false;
+	if(!new_kavuah&&(veses._cause==Cause.start||veses._cause==Cause.start_1)&&last_veses!=undefined&&last_veses!=null){
+		var last_r=last_veses._reeyah.clone();
+		last_r.add(90);
+		last_nidah=veses.get_prev_veses(cal);
+			if(veses._reeyah.gt(last_r)&&last_nidah._cause!=Cause.birth_s&&last_nidah._cause!=Cause.birth_d&&last_nidah._cause!=Cause.preglost){
+				popup_sent=true;
+				popup("distance_90")
 			}
-		if(!popup_sent){
-			if(veses.StartedInWhiteWeek(cal)){
-				//reeyah_in_white_week_popup(veses);
-				consoele.log(reeyah_in_white_week_popup(veses))
-			}else if(!new_kavuah){ //Settings.getInstance()._explain&&
-				//setTimeout("new_popup_win_explainer('R')",2700);
-				// nada happening
-				//
-			}else if(new_kavuah){
-				console.log("new_veses - new_kavua establish : ---",kavuah_text)
-				//setTimeout("new_popup_win_explainer('kavuah')",2700);
-			}
+	}	
+	if(!popup_sent){
+		if(veses.StartedInWhiteWeek(cal)){		//reeyah_in_white_week_popup(veses);
+			//console.log(reeyah_in_white_week_popup(veses))
+		}else if(!new_kavuah){ 
+			// nada happening
+		}else if(new_kavuah){
+			popup("new_kavua establish",kavuah_text)
 		}
 	}
 	return true;

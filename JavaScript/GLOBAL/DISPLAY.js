@@ -77,14 +77,14 @@ function render_left_cal(){
 			x += "<tr class='month'><th colspan='7' class='pointer' onclick=\"Render('big',{m:"+(mm+1)+",y:"+yyyy+"})\">"
 			x += _month_name + " "+ yyyy +"</th></tr><tr>"
 			for (var i_d=0;i_d<7;i_d++){
-			x += "<th>"+ LNG[oPref.language].dow_short[i_d] + "</th>"
+			x += "<th>"+ LNG[oPref.language].dow_s[i_d] + "</th>"
 			}
 			x += '</tr><tr>'			
 			for (var of = 1;of < _d[yy][mm][0].dow;of++){	x += "<th>&nbsp;</th>"}		
 			for (var j=0;j<_d[yy][mm].length;j++){
 				dd = _d[yy][mm][j]			
 				tcs = ((mm+1)==tdm&&(j+1)==tdd&&tdy==yyyy)  ? " class='today'" : "" 	
-				x += '<td id="j_'+dd.m_hdn+'" '+tcs+'  onclick="_j(event,this)">'
+				x += '<td id="j_'+dd.m_hdn+'" '+tcs+'  onclick="_j(event,this.id)">'
 				x += '<div id="j_'+dd.m_hdn+'_0" class="ona-0" ></div>'
 				x += (j+1)
 				x += '<div id="j_'+dd.m_hdn+'_1" class="ona-1" ></div>'
@@ -126,7 +126,9 @@ function render_main_cal(oMonth){
 	oPref = Pref()
 	h_x = '<table width="100%" border="0" cellspacing="0" cellpadding="0" ><tr>'
 	for (var i=0;i<7;i++){
-		 h_x += '<td>'+ LNG[oPref.language].dow[i] +'</td>'
+		before = (i==0) ? 6 : i-1
+		 h_x += '<td >'+ LNG[oPref.language].dow_short[before] +' [night]</td>'
+		 h_x += '<td >'+ LNG[oPref.language].dow_short[i] +'</td>'
 	}
 	h_x += '</tr></table>'
 	$("cal-header").innerHTML = h_x
@@ -142,18 +144,15 @@ function render_main_cal(oMonth){
 	for (var j=0;j<oM.length;j++){
 		dd = oM[j]			
 		tcs = ((oMonth.m)==tdm&&(j+1)==tdd&&tdy==oMonth.y)  ? " class='today'" : "" 	
-		x += '<td id="jm_'+dd.m_hdn+'" '+tcs+'  onclick="_j(event,this)">' // ondblclick="_j(event,this)"
-		x += '<div class="cal-dt"><span class="cal-dt-hebrew">'
-		x += dd.d +' '+dd.hm 
-		x += '</span><span class="cal-dt-civil">'
-		x += (j+1)
-		x += '</span></div>'
-		x += '<div id="je_'+dd.m_hdn+'" ></div>'
-		x += '<table  width="100%" height="95%" border="0" cellspacing="0" cellpadding="0"  >'
+		x += '<td id="jm_'+dd.m_hdn+'" '+tcs+'  onclick="_j(event,this.id)">' // ondblclick="_j(event,this)"
+		x += '<table  width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"  >'
+		x += '<tr class="cal-dt"><th><span class="cal-dt-hebrew">' + dd.d +' '+dd.hm + '</span></th><th><span class="cal-dt-civil">' + (j+1) + '</span></th></tr>'
+		
+		x += '<tr><th colspan="2"><div class="cal-dt-box" id="je_'+dd.m_hdn+'" ></div></th></tr>'
+		
 		x += '<tr><th  class="cal-ona-0"  ><div id="jm_'+dd.m_hdn+'_0"></div><div class="times times-0" id="jt_'+dd.m_hdn+'_0" ></div></th>'
 		x += '<th  class="cal-ona-1"  ><div id="jm_'+dd.m_hdn+'_1" ></div><div class="times" id="jt_'+dd.m_hdn+'_1" ></div></th></tr>'
 		x += '</table>'
-
 		x += '</td>'		
 		if (dd.dow==7){	x += '</tr><tr>'} 
 	}	

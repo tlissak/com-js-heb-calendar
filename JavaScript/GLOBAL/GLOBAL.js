@@ -5,23 +5,23 @@ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRU
 CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.*/
 // taken from xinha editor optimized by tlissak 
-// usage Event._addEvent(window,"load",myFunction) //:: IMPORTENT the function cennot use litteral or arguments "()"
-var Event = new Object()
+// usage Ev._addEvent(window,"load",myFunction) //:: IMPORTENT the function cennot use litteral or arguments "()"
+var Ev = new Object()
 if(document.addEventListener){
-	Event._addEvent =function(el,_eventType1,func){el.addEventListener(_eventType1,func,true);};
-	Event._removeEvent =function(el,_eventType2,func){el.removeEventListener(_eventType2,func,true);	};
-	Event._stopEvent =function(ev){	ev.preventDefault();	ev.stopPropagation();	};
+	Ev._addEvent =function(el,_eventType1,func){el.addEventListener(_eventType1,func,true);};
+	Ev._removeEvent =function(el,_eventType2,func){el.removeEventListener(_eventType2,func,true);	};
+	Ev._stopEvent =function(ev){	ev.preventDefault();	ev.stopPropagation();	};
 }else if(document.attachEvent){
-	Event._addEvent =function(el,_eventType3,func){	el.attachEvent("on"+_eventType3,func);};
-	Event._removeEvent =function(el,_eventType4,func){	el.detachEvent("on"+_eventType4,func);	};
-	Event._stopEvent =function(ev){	try{ ev.cancelBubble=true; ev.returnValue=false;}catch(ex){}};
+	Ev._addEvent =function(el,_eventType3,func){	el.attachEvent("on"+_eventType3,func);};
+	Ev._removeEvent =function(el,_eventType4,func){	el.detachEvent("on"+_eventType4,func);	};
+	Ev._stopEvent =function(ev){	try{ ev.cancelBubble=true; ev.returnValue=false;}catch(ex){}};
 }else{
-	Event._addEvent =function(el,_eventType5,func){alert("_addEvent is not supported");};
-	Event._removeEvent =function(el,_eventType6,func){	alert("_removeEvent is not supported");	};
-	Event._stopEvent =function(ev){	alert("_stopEvent is not supported");};
+	Ev._addEvent =function(el,_eventType5,func){alert("_addEvent is not supported");};
+	Ev._removeEvent =function(el,_eventType6,func){	alert("_removeEvent is not supported");	};
+	Ev._stopEvent =function(ev){	alert("_stopEvent is not supported");};
 }
-Event.add = Event._addEvent
-Event.stop = Event._stopEvent
+Ev.add = Ev._addEvent
+Ev.stop = Ev._stopEvent
 function send_email(){
 	if ($('contact_data').value.length == 0){alert("Please spacify your request");return}
 	this.r = function(_s){if(_s	== "OK"){$("contact").style.display ='none';$("contact_form").reset(); return} ;	alert("Email cennot be sent ,server error");}

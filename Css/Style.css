@@ -78,10 +78,14 @@ form{display:inline}
 
 #log{height:250px; overflow:scroll; display:none}
 #cal-header{height:4%}
+/*
 #cal-header td{ text-align:center; color:#112abb;  width:14%;}
+*/
+#cal-header td{ text-align:center; color:#112abb;  width:7%;}
 .cal{border-collapse:collapse; border-spacing:0px;}
-.cal td{  border:#C3D9FF 1px solid; vertical-align:top; text-align:center;  width:14%; font-size:10px; white-space:nowrap}
+.cal td{  border:#C3D9FF 1px solid; vertical-align:top; text-align:center;  width:14%; font-size:10px; white-space:nowrap; min-height:16%}
 .cal-dt{height:14px; background-color:#E8EEF7; }
+.cal-dt-box{background-color:#fff; border-bottom:#E8EEF7 1px solid; }
 .cal-dt-civil{color:#777777; float:right;}
 .cal-dt-hebrew{color:#009/*#B7CDF3*/; font-weight:bold; float:left; }
 
@@ -96,14 +100,10 @@ form{display:inline}
 
 .today{background-color:#FFC; }
 .times{ color:#666 ;}
-
-.times img{margin-left:2px;height:13px; width:13px; background-repeat:no-repeat;visibility:hidden}
-
+.times img{margin-left:0px;height:13px; width:13px; background-repeat:no-repeat;display:none; visibility:hidden}
 .times:hover{ color:#666 }
 .times:hover img{ visibility:visible }
-
 .times-0{background:#f7f7f7}
-
 .sunrise{background:url(../images/sun.png);}
 .sunset{background:url(../images/sunset.png) ;}
 .stars{background:url(../images/1star.png);}
@@ -154,6 +154,9 @@ form{display:inline}
 .veset_hodesh{ background-image:url(../Images/p-yellow.png)}
 .ona_benonit{background-image:url(../Images/p-orange.png) }
 .veset_haflaga{background-image:url(../Images/p-blue.png) }
+.kevuah{background-image:url(../Images/p-orange.png) }
 .hefsek{background-image:url(../Images/p-purple.png)}
+.hefsek_un{background-image:url(../Images/p-purple.png)}
 .seven_nekiaim{background-image:url(../Images/p-green.png)}
 .mikve{background-image:url(../Images/p-lightblue.png) }
+.mikve_un{background-image:url(../Images/p-lightblue.png) }
