@@ -98,13 +98,20 @@ Ev.add(window,"load",function(){
 		}
 		*/
 		
-		Render("load",RENDER_MONTH)
+		
 		
 		Ev.add($("t_today"),"click",function(){	Render("big",{m:(new Date()).getMonth()+1,y:(new Date()).getFullYear()})	})
 		//*
 		e_add((new GDate(28,3,2009)).m_hdn,0,8,30)
+		
+		console.log("adding new event --------------- \n")
+		
 		e_add((new GDate(24,4,2009)).m_hdn,0,8,30)
+		
+		console.log("adding new event --------------- \n")
+		
 		e_add((new GDate(21,5,2009)).m_hdn,0,8,30)
+		/*
 		e_add((new GDate(18,6,2009)).m_hdn,0,8,30)
 		e_add((new GDate(14,7,2009)).m_hdn,0,8,30)
 		e_add((new GDate(9,8,2009)).m_hdn,0,8,30)
@@ -114,6 +121,41 @@ Ev.add(window,"load",function(){
 		e_add((new GDate(6,9,2009)).m_hdn,0,8,30)
 		
 		e_add((new GDate(11,9,2009)).m_hdn,3,15,30)
+		move_unconfirmed_ht()
+		
+		Render("load",RENDER_MONTH)
+		
 		calc_event()
+		*/
 		//*/
+		console.log("results ----------------------- \n",oCal._events)
 })
+function move_unconfirmed_ht(){
+	cal=oCal;
+	if(cal._veses.length>0&&!cal._veses[cal._veses.length-1]._hefsek_confirmed){
+		v=cal._veses[cal._veses.length-1];
+		var date=v._hefsek.clone();
+		date._m=cal._selected_month;
+		date._y=cal._selected_year;
+		date._d=1;
+		earliest_ht_date=v.getEarliestHtDate();
+		if(date.is_later_then(v._reeyah)){
+			if(earliest_ht_date.gt(date))
+				date=earliest_ht_date;
+			var mikvah=date.clone().add(8);
+			v._hefsek=date;
+			v._mikvah=mikvah;
+			refresh();
+			return true;
+		}
+		if(date._m==v._reeyah._m&&date._y==v._reeyah._y){
+			date=earliest_ht_date;
+			var mikvah=date.clone().add(8);
+			v._hefsek=date;
+			v._mikvah=mikvah;
+			refresh();
+			return true;
+		}
+	}
+	return false;
+};

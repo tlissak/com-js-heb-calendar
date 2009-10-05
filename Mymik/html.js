@@ -169,8 +169,12 @@ function plot(cal){
 function table_view(cal){
 	output="<div  id = 'table_view' style='width:850px; height:565px;' ><table align='center'><thead><tr class='odd'><th scope='col'>Hebrew Date </th><th scope='col'>English Date </th><th scope='col'>Event</th><th scope='col'>Notes</th></tr></thead> <tbody>";
 	if(cal._veses.length==0)
-	return output+"</tbody></table></div>";update_table();odd='<tr>';if((cal._page_num-1)*20>=rows.length-1)
-	cal._page_num--;var end=Math.min((cal._page_num*20)-1,rows.length-1);for(i=0+(cal._page_num-1)*20;i<=end;i++)
+		return output+"</tbody></table></div>";
+	update_table();odd='<tr>';
+	if((cal._page_num-1)*20>=rows.length-1)
+		cal._page_num--;
+	var end=Math.min((cal._page_num*20)-1,rows.length-1);
+	for(i=0+(cal._page_num-1)*20;i<=end;i++)
 	{output+=odd+"<td>"+rows[i][0]+"</td><td>"+
 	rows[i][1]+"</td><td>"+
 	rows[i][2]+"</td><td>"+rows[i][3]+"</td></tr>";swap_odd();}

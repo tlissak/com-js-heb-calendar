@@ -6,11 +6,13 @@ Event.prototype._type;
 Event.prototype._misc;
 Event.prototype._veses;
 function Event(date,type,vesses){
+	//console.log(Event.caller,date,type,vesses)
 	this._date=date;
 	this._type=type;
 	this._deletable=true;
 	this._veses=vesses;
-	this._misc=null;}
+	this._misc=null;
+}
 Event.prototype.toString=function(){
 	return" "+_EVENT_NAMES_[this._type]+" event on "+this._date;}
 Event.prototype.chodesh_onah=function(){
