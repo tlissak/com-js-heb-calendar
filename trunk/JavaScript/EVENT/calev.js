@@ -113,10 +113,10 @@ function e_add(_hdn,_cause,_h,_m){
 	if (oLocation && oCal  ){
 		if (new_veses(oDate,oTime,Cause,oCal,oLocation)){
 			
-			if (confirm("confirm this hefsek")){
-				confirm_all_hfseks(oCal)	
-			}
-			calc_event()
+			//if (confirm("confirm this hefsek")){
+			confirm_all_hfseks(oCal)	
+			//}
+			//calc_event()
 		}	
 	}
 }

@@ -1,7 +1,13 @@
-function calender(){	this._events = new Array();	this._veses = new Array();	this.vestos_db = new Array()}
+function calender(){	
+	this._events = new Array();
+	this._veses = new Array();	
+	this.vestos_db = new Array()
+}
 calender.prototype._events;
 calender.prototype._veses;
 calender.prototype.vestos_db;
+
+
 var kavuah_reeyahs;
 var kavuah_text;
 var last_veses,before_last_veses;
@@ -110,30 +116,35 @@ Veses.prototype.StartedInWhiteWeek=function(cal){
 }
 Veses.prototype.info=function(){
 	return "Vesos starting on "+this._reeyah+", ht on "+this._hefsek+", mikvah night iy\"h on "+this._mikvah;}
+	
+	
 Veses.prototype.set_haflagas=function(cal,last_veses){
 	for(i in this._haflagas){
-		var date=this._hefsek.clone();
-		var count=this._haflagas[i][0];
-		if(this._haflagas[i][2]!=null){
-			var veses=this._haflagas[i][2];
+		var _date=this._hefsek.clone();
+		var _count=this._haflagas[i][0];
+		if(this._haflagas[i][2]!=null)
+			var _veses=this._haflagas[i][2];
+		else
+			_veses=this;
+		_date.add(Math.floor(_count/2));
+		if(_count%2==0){
+			var _event=new Event(_date,_HAFLAGAH_,_veses);
+			_event._misc=_count;
+			_event._onah=_DAY_;
+			cal._events.push(_event);
 		}else{
-			veses=this;
-		}
-		date.add(Math.floor(count/2));
-		if(count%2==0){
-			var event=new Event(date,_HAFLAGAH_,veses);
-			event._misc=count;
-			event._onah=_DAY_;
-			cal._events.push(event);
-		}else{
-			date.nextDay();
-			var event=new Event(date,_HAFLAGAH_,veses);
-			event._misc=count;
-			event._onah=_NIGHT_;
-			cal._events.push(event);
+			_date.nextDay();
+			var _event=new Event(date,_HAFLAGAH_,_veses);
+			_event._misc=_count;
+			_event._onah=_NIGHT_;
+			cal._events.push(_event);
 		}
 	}
 }
+
+
+
+
 Veses.prototype.getEarliestHefsekTaharaNumber=function(){
 	var v=this;
 	if(v.StartedInWhiteWeek(oCal)||v._cause==Cause.birth_s){
@@ -175,7 +186,7 @@ Veses.prototype.confirm_hefsek=function(cal){
 	var mikvah=this._hefsek.clone().add(8);
 	this._mikvah=mikvah;
 	
-	if(this._cause==Cause.birth_d||(this._cause==Cause.preglost/*&&!this.goesOnCalendar()*/)){
+	if(this._cause==Cause.birth_d||(this._cause==Cause.preglost&&!this.goesOnCalendar())){
 		var earliest_mikvah=this._reeyah.clone().add(14);
 		if(earliest_mikvah.gt(this._mikvah)){
 			this._mikvah=earliest_mikvah;
@@ -195,7 +206,7 @@ Veses.prototype.confirm_hefsek=function(cal){
 	}
 	var last_veses=this.get_prev_veses(cal);
 	/******************************************		BUGY */
-	//while(last_veses!=null/*&&!last_veses.goesOnCalendar()*/)		last_veses=last_veses.get_prev_veses(cal);
+	while(last_veses!=null&&!last_veses.goesOnCalendar()){		last_veses=last_veses.get_prev_veses(cal);}
 	
 	this.set_haflagas(cal,last_veses);//set haflaga for the last veses
 	var chashashot=new Array();
@@ -228,8 +239,9 @@ Veses.prototype.confirm_hefsek=function(cal){
 	for(i in chashashot){
 		var next_month=chashashot[i]._date.clone().nextMonth();
 		// if the next month dosent have a 30 days so movenext chashash
-		lastDayOfHebrewMonth = next_month.getMonthLength()
-		if(chashashot[i]._date.getDay()==30&&lastDayOfHebrewMonth==29) {				
+		
+		if(chashashot[i]._date.getDay()==30&&next_month.getMonthLength()==29) {
+			//console.log("innnnn- 30")
 			continue;
 		}
 		//*********** to better understand
@@ -238,10 +250,10 @@ Veses.prototype.confirm_hefsek=function(cal){
 		// so copy the chashash to next month with this caller
 		// else copy the chashsh to next month without caller of this bot with the same ona
 		if(chashashot[i]._veses!=null){
-			var event=new Event(next_month,_CHODESH_,this);
+			var _event=new Event(next_month,_CHODESH_,this);
 		}else {
-			var event=new Event(next_month,_CHODESH_,null);
-			event._onah=chashashot[i]._onah;
+			var _event=new Event(next_month,_CHODESH_,null);
+			_event._onah=chashashot[i]._onah;
 		}
 		
 		//if the chashsh has caller veses but not misc
@@ -249,11 +261,11 @@ Veses.prototype.confirm_hefsek=function(cal){
 		// else the misc is the same misc of chashsh
 		
 		if(chashashot[i]._misc==null&&chashashot[i]._veses!=null){
-			event._misc=chashashot[i]._veses;
+			_event._misc=chashashot[i]._veses;
 		}else{
-			event._misc=chashashot[i]._misc;
+			_event._misc=chashashot[i]._misc;
 		}
-		cal._events.push(event);
+		cal._events.push(_event);
 	}
 }
 Veses.prototype.set_haflagah_list=function(haflagah){
@@ -264,5 +276,84 @@ Veses.prototype.set_haflagah_list=function(haflagah){
 			this._haflagas.push(new Array(h[i].replace(" ",""),1,this._reeyah.clone()));
 		}
 	}
+}
+
+Veses.prototype.goesOnCalendar=function(){
+	if(this._goesOnCal!==undefined){ return this._goesOnCal;}
+	if(this._cause==1||this._cause==2||this._cause==4||this._cause==5){
+		this._goesOnCal=false;
+		return false;
+	}
+	if(this._cause==3){
+		last_v=this.get_prev_veses(oCal);
+		if(this.StartedInWhiteWeek(oCal)&&(last_v==null||last_v.goesOnCalendar())){
+			this._goesOnCal=false;
+			return false;
+		}else {
+			this._goesOnCal=true;
+			return true;
+		}
+	}
+	last_v=this.get_prev_veses(oCal);
+	if(last_v==null){
+		this._goesOnCal=true;
+		return true;
+	}
+	while(!last_v.goesOnCalendar()){
+		last_v=last_v.get_prev_veses(oCal);
+		if(last_v==null){
+			return true;
+		}
+	}
+	if(last_v==null){ return true};
+	if(this._cause==0){
+		var last_r=last_v._reeyah.clone().add(6);
+		var last_ht=last_v._hefsek.clone().nextDay();
+		if(this._reeyah.gt(last_r)){
+			this._goesOnCal=true;
+			return true;
+		}
+		if(this._reeyah.gt(last_ht))	{
+			this._goesOnCal=true;
+			return true;
+		}
+		this._goesOnCal=false;
+		return false;
+	}
+	if(this._cause==6)
+		gap=40;
+	else if(this._cause==7)
+		gap=90;
+	var last_r=last_v._reeyah.clone().add(gap);
+	if(this._reeyah.gt(last_r)){
+		this._goesOnCal=false;
+		return false;
+	}else {
+		this._goesOnCal=true;
+		return true;
+	}
+	this._goesOnCal=false;
+	return false;
+}
+Veses.prototype.cause_str=function(leadup){
+	if(leadup===undefined) 
+		cause=this._cause;	
+	else if(leadup)
+		cause=this._leadup_cause;
+	if(cause==0||cause==7)
+		return"Your flow started ";
+	if(cause==1)
+		return"A stain was discovered ";
+	if(cause==2)
+		return"A womans medical prodedure was done ";
+	if(cause==3)
+		return"An unclean bedikah was made ";
+	if(cause==4)
+		return"You gave birth to a son ";
+	if(cause==5)
+		return"You gave birth to a daughter ";
+	if(cause==6)
+		return"A pregnancy was lost ";
+	return"You became nidah ";
 }
 

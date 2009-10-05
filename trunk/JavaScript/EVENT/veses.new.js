@@ -1,20 +1,10 @@
-function time2min(_otime){
-	hr=parseInt(_otime.hr);
-	minute=parseInt(_otime.mn);
-	return parseFloat(hr +"."+ parseInt(	(minute*100	)/60));
-}
-function time2time(_time){
-	_hour=parseInt(_time.hr);
-	_min=parseInt(_time.mn);
-	return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min) 	
-}
+function time2min(_otime){	hr=parseInt(_otime.hr);	minute=parseInt(_otime.mn);	return parseFloat(hr +"."+ parseInt(	(minute*100	)/60));}
+function time2time(_time){_hour=parseInt(_time.hr);_min=parseInt(_time.mn);return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min)}
 function fixzman(_time){
-		var _hour = Math.floor(_time);
-		var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
-		if(_min >= 60) { _hour += 1;  _min  -= 60;  }
-		if(_hour < 0){	_hour += 24;}
+		var _hour = Math.floor(_time);	var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
+		if(_min >= 60) { _hour += 1;  _min  -= 60;  }	if(_hour < 0){	_hour += 24;}
 		return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min) ;
-	}
+}
 function new_veses(date,time,cause,cal,location,onah){
 	
 	var now= new GDate(); //if(date.gt(now)){	popup("no_future_date");	return false;}	
@@ -36,11 +26,13 @@ function new_veses(date,time,cause,cal,location,onah){
 		}
 	}	
 	var last_veses=veses.get_prev_veses(cal);
-	if(last_veses!=undefined)	{
+	if(last_veses!=undefined&&last_veses.goesOnCalendar())	{
 		if(last_veses._hefsek_confirmed==false)	{	/* adding new flow without confirmation of the last flow hefsek */
-			popup("last_confirm" ,last_veses._reeyah ,"please_confirm"  ,"onerror_call");	return false;
+			popup("last_confirm" ,last_veses._reeyah ,"please_confirm"  ,"onerror_call");	
+			return false;
 		}else if(!veses._reeyah.gt(last_veses._hefsek)){
-			popup("A new flow ("	,veses._reeyah,"inbetween_another"	,last_veses._reeyah	,') and Hefsek Taharah(',last_veses._hefsek,').');	return false;
+			popup("A new flow ("	,veses._reeyah,"inbetween_another"	,last_veses._reeyah	,') and Hefsek Taharah(',last_veses._hefsek,').');	
+			return false;
 		}
 		
 		iterator=last_veses._reeyah.clone();
@@ -50,10 +42,10 @@ function new_veses(date,time,cause,cal,location,onah){
 			count++;
 			iterator.nextDay();
 		}
-		if(cause==Cause.unclean&&count>7&&!veses._reeyah.gt(last_veses._mikvah)){
+		if(cause==Cause.unclean&&last_veses.goesOnCalendar()&&count>7&&!veses._reeyah.gt(last_veses._mikvah)){
 			popup("read_carfuly","unclean_bedikah");return false;
 		}
-	}else if(last_veses!=undefined&&!last_veses._hefsek_confirmed){
+	}else if(last_veses!=undefined&&!last_veses.goesOnCalendar()&&!last_veses._hefsek_confirmed){
 		veses._leadup_cause=last_veses._cause;
 		veses._leadup_onah=last_veses._onah;
 		veses._leadup_date=last_veses._reeyah;
@@ -69,12 +61,13 @@ function new_veses(date,time,cause,cal,location,onah){
 			veses._hefsek.add(days_till_min_ht);
 		}
 		cal.vestos_db.pop();// rebuild_vestos(cal);
+		//rebuild_vestos(top.frames[1].cal) ;
 	}	
 	veses._cause=cause;
 	var last_veses=veses.get_prev_veses(cal);
 	/***********************	BUGY	********************************/
-	//while(last_veses!=null ){last_veses=last_veses.get_prev_veses(cal);}
-	if(last_veses!=undefined&&last_veses!=null&&last_veses._haflagas!=undefined){
+	while(last_veses!=null&&!last_veses.goesOnCalendar() ){last_veses=last_veses.get_prev_veses(cal);}
+	if(last_veses!=undefined&&last_veses!=null&&last_veses._haflagas!=undefined&&veses.goesOnCalendar()){
 		veses._haflagas=new Array();
 		var c=-2;
 		var d=last_veses._hefsek.clone();
@@ -102,33 +95,65 @@ function new_veses(date,time,cause,cal,location,onah){
 			}
 		}
 		veses._haflagas.push(new Array(c,current_repeats,veses));
-	}else if(veses._cause!=Cause.birth_s&&veses._cause!=Cause.birth_d&&(veses._cause!=Cause.preglost)){
+	}else if(veses._cause!=Cause.birth_s&&veses._cause!=Cause.birth_d&&(veses._cause!=Cause.preglost||veses.goesOnCalendar())){
 		veses._haflagas=new Array();
 	}
 	last_nidah=veses.get_prev_veses(cal);
 	if(last_nidah!=null&&last_nidah._cause>Cause.unclean&&last_nidah._cause<Cause.start_1){	
 		veses._haflagas=new Array();	
 	}
+	
 	cal._veses.push(veses);
+
 	//veses_dbx = new Array(veses._id,veses._reeyah,veses._time,veses._onah,veses._hefsek,veses._cause,cal,veses._leadup_cause,veses._leadup_date,veses._leadup_onah)
 	//cal.vestos_db.push(ceses_dbx);
-	var events=new Array();
-		for(i in cal._events){		
-			if((cal._events[i]._type==_HAFLAGAH_)
-			&&(!veses._reeyah.gt(cal._events[i]._date)
-			||(veses._reeyah.eq(cal._events[i]._date)&&(veses._onah==_NIGHT_||cal._events[i]._onah==_DAY_)))
-			&&cal._events[i]._deletable){;}
-			else if(cal._events[i]._type==_BENONIS_&&cal._events[i]._veses!=veses&&!veses._reeyah.gt(cal._events[i]._date));
-			else events.push(cal._events[i]);
+	
+	
+	
+	// get older events 
+	
+	// dont take benonit
+	
+	if(veses.goesOnCalendar()){
+		var events=new Array();
+			for(i in cal._events){		
+				if((cal._events[i]._type==_HAFLAGAH_)
+				&&(!veses._reeyah.gt(cal._events[i]._date)
+				||(veses._reeyah.eq(cal._events[i]._date)&&(veses._onah==_NIGHT_||cal._events[i]._onah==_DAY_)))
+				&&cal._events[i]._deletable){;}
+				else if(cal._events[i]._type==_BENONIS_&&cal._events[i]._veses!=veses&&!veses._reeyah.gt(cal._events[i]._date));
+				else{ 
+					
+					events.push(cal._events[i]);
+					
+				}
+			}
+		cal._events=events;
+		
+		console.log("older existing",events)
+		
+		var benonis=date.clone().add(29);
+		ben_ev = new Event(benonis,_BENONIS_,veses)
+		
+		console.log("new benonit event " ,ben_ev)
+		
+		cal._events.push(ben_ev);
+		var chodesh=date.clone().nextMonth();
+		if(date.getDay()==30&&	chodesh.getMonthLength()==29){;
+			
+		}else{ 
+			chodesh_ev = new Event(chodesh,_CHODESH_,veses)
+			
+			console.log("new chodesh event",chodesh_ev)
+			
+			cal._events.push(chodesh_ev);
 		}
-	cal._events=events;
-	var benonis=date.clone().add(29);
-	cal._events.push(new Event(benonis,_BENONIS_,veses));
-	var chodesh=date.clone().nextMonth();
-	if(date.getDay()==30&&	date.getMonthLength()==29){;
-	}else{ 
-		cal._events.push(new Event(chodesh,_CHODESH_,veses));
 	}
+	/*
+	if(!isNew){
+		veses.confirm_hefsek(cal,false);
+	}
+	*/
 	var new_kavuah=find_kavuah(veses,cal);		
 	var popup_sent=false;
 	if(!new_kavuah&&(veses._cause==Cause.start||veses._cause==Cause.start_1)&&last_veses!=undefined&&last_veses!=null){

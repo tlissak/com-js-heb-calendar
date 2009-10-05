@@ -80,7 +80,8 @@ Veses.prototype.check_for_bad_mikvah=function(){
 	var mikvah_day=new Day(this._mikvah);var chag=mikvah_day.chag();
 	if(chag=="Yom Kippur")	badMikvah_reason='since relations are prohibited on Yom Kippur,';
 	if(chag=="Tisha B'Av") badMikvah_reason='since relations are prohibited on Tisha B\'Av,';
-	for(i in cal._events){var e=cal._events[i];if(e._date.equals(mikvah_day._date))
+	for(i in cal._events){var e=cal._events[i];
+	if(e._date.equals(mikvah_day._date))
 	{if(e._type==_BENONIS_)
 	badMikvah_reason+='since you have an onah beinonit that night, ';
 	else if(e._type==_CHODESH_&&e.chodesh_onah()==_NIGHT_)
