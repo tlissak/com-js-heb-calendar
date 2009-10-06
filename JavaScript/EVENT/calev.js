@@ -21,11 +21,6 @@ function _j(e,elm_id){
 function add_reminder(x){
 	console.log("add_rreminder",x)
 }
-function confirm_all_hfseks(cal){
-	for (ves in cal._veses){
-		cal._veses[ves].confirm_hefsek(cal)
-	}
-}
 
 function print_ves(cal){
 	for (ves in cal._veses){
@@ -102,23 +97,18 @@ function delete_ev(){
 			}
 		}	
 }
-function e_add(_hdn,_cause,_h,_m){
+function e_add(_hdn,_cause,_h,_m,conf){
 	oLocation 	= CITY[$("sCity").value]
 	oDate		= new HDate(_hdn)
 	oTime		= {hr:parseInt(_h),mn:parseInt(_m)}
-	oCal		= Cal_Veses
 	Cause		= parseInt(_cause)
 	
 	
-	if (oLocation && oCal  ){
-		if (new_veses(oDate,oTime,Cause,oCal,oLocation)){
-			
-			//if (confirm("confirm this hefsek")){
-			confirm_all_hfseks(oCal)	
-			//}
-			//calc_event()
-		}	
-	}
+	
+	new_veses(oDate,oTime,Cause,oLocation)
+	Cal_Veses._veses[Cal_Veses._veses.length-1].confirm_hefsek(Cal_Veses)
+	
+	
 }
 DEVENT = new Array()
 function calc_event(){

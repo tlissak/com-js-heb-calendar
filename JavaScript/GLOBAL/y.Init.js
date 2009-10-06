@@ -102,34 +102,54 @@ Ev.add(window,"load",function(){
 		
 		Ev.add($("t_today"),"click",function(){	Render("big",{m:(new Date()).getMonth()+1,y:(new Date()).getFullYear()})	})
 		//*
-		e_add((new GDate(28,3,2009)).m_hdn,0,8,30)
-		
-		console.log("adding new event --------------- \n")
-		
-		e_add((new GDate(24,4,2009)).m_hdn,0,8,30)
-		
-		console.log("adding new event --------------- \n")
-		
-		e_add((new GDate(21,5,2009)).m_hdn,0,8,30)
-		/*
-		e_add((new GDate(18,6,2009)).m_hdn,0,8,30)
-		e_add((new GDate(14,7,2009)).m_hdn,0,8,30)
-		e_add((new GDate(9,8,2009)).m_hdn,0,8,30)
-		
+		e_add((new GDate(28,3,2009)).m_hdn,0,9,30,true)
+		e_add((new GDate(24,4,2009)).m_hdn,0,9,30,true)
+		e_add((new GDate(21,5,2009)).m_hdn,0,9,30,true)		
+		e_add((new GDate(18,6,2009)).m_hdn,0,9,30,true)
+		e_add((new GDate(14,7,2009)).m_hdn,0,9,30,true)
+		e_add((new GDate(9,8,2009)).m_hdn,0,9,30,true)		
+		//console.error("confirmed",print_x())		
 		e_add((new GDate(14,8,2009)).m_hdn,3,15,30)
-		
 		e_add((new GDate(6,9,2009)).m_hdn,0,8,30)
-		
 		e_add((new GDate(11,9,2009)).m_hdn,3,15,30)
+		//console.warn("results",print_x())
+		/*
+		/*
 		move_unconfirmed_ht()
-		
-		Render("load",RENDER_MONTH)
+		*/
+		/*Render("load",RENDER_MONTH)
 		
 		calc_event()
-		*/
+		
+		ev = top.frames[1].cal._events;
+			for (d in ev){
+				console.log(ev[d]) ;
+			}
+					/**/
 		//*/
-		console.log("results ----------------------- \n",oCal._events)
+		//console.log("results ----------------------- \n",Cal_Veses._events)
 })
+function get_type(dd){
+	if (dd._type == 6){
+		xtp =  " BN " 
+	}else if(dd._type==5){
+		xtp = " CH " 
+	}else if(dd._type == 7){
+		xtp = " HF "  
+	}
+	return xtp + dd._date.getDay() + " " + dd._date.getMonthName()	
+}
+function print_x(psd){
+	ev = Cal_Veses._events
+	str_o =""
+	psd = psd ? " ["+psd+"]" : ""
+	for (sd in ev){
+		str_o += "(" +get_type(ev[sd]) +" ). "
+	}
+	return psd +str_o
+	
+	
+}
 function move_unconfirmed_ht(){
 	cal=oCal;
 	if(cal._veses.length>0&&!cal._veses[cal._veses.length-1]._hefsek_confirmed){
