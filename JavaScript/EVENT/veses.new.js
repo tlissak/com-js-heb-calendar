@@ -1,16 +1,18 @@
 function time2min(_otime){	hr=parseInt(_otime.hr);	minute=parseInt(_otime.mn);	return parseFloat(hr +"."+ parseInt(	(minute*100	)/60));}
 function time2time(_time){_hour=parseInt(_time.hr);_min=parseInt(_time.mn);return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min)}
 function fixzman(_time){
-		var _hour = Math.floor(_time);	var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
-		if(_min >= 60) { _hour += 1;  _min  -= 60;  }	if(_hour < 0){	_hour += 24;}
-		return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min) ;
+	var _hour = Math.floor(_time);	var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
+	if(_min >= 60) { _hour += 1;  _min  -= 60;  }	if(_hour < 0){	_hour += 24;}
+	return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min) ;
 }
 function new_veses(date,time,cause,location,onah){
+	msg = "new_veses_added"
+	
 	var now= new GDate(); //if(date.gt(now)){	popup("no_future_date");	return false;}	
 	var veses;
 	var t=time2time(time);	
 	var end_shkiah		=	fixzman(date.getZmanim(location).sunset)
-	var netz			=	fixzman(date.getZmanim(location).alot_posna)	
+	var netz			=	fixzman(date.getZmanim(location).sunrise)	
 	var onah=_NIGHT_;		//
 	if(t>netz&&t<end_shkiah){		
 		onah=_DAY_;
@@ -30,15 +32,12 @@ function new_veses(date,time,cause,location,onah){
 			popup("A new flow ("	,veses._reeyah,"inbetween_another"	,last_veses._reeyah	,') and Hefsek Taharah(',last_veses._hefsek,').');	
 			return false;
 		}
+		iterator=last_veses._reeyah.clone();count=1;max_count = 100 /* 5000 */
+		while(count<max_count&&!iterator.eq(veses._reeyah)){	count++;iterator.nextDay();	}
 		
-		iterator=last_veses._reeyah.clone();
-		count=1;
-		
-		while(count<5000&&!iterator.eq(veses._reeyah)){
-			count++;iterator.nextDay();
-		}
 		if(cause==Cause.unclean&&last_veses.goesOnCalendar()&&count>7&&!veses._reeyah.gt(last_veses._mikvah)){
-			popup("read_carfuly","unclean_bedikah");return false;
+			popup("read_carefuly","unclean_bedikah");	
+			return false;
 		}
 	}else if(last_veses!=undefined&&!last_veses.goesOnCalendar()&&!last_veses._hefsek_confirmed){
 		veses._leadup_cause=last_veses._cause;
@@ -71,9 +70,10 @@ function new_veses(date,time,cause,location,onah){
 		}
 		if(veses._onah==_NIGHT_){
 			c+=1;
-		}else if(veses._onah==_DAY_){
+		}else/* if(veses._onah==_DAY_)*/{
 			c+=2;
-		}else {	throw('There was an error building your calendar, please report a bug with bug code 832')}
+		}
+		//else {	throw('There was an error building your calendar, please report a bug with bug code 832')}
 		var current_repeats=1;
 		var check_for_haflagas_not_passed_clean_due_to_kessem=false;
 		var last_veses_from_any_cause=veses.get_prev_veses(Cal_Veses);
@@ -126,24 +126,24 @@ function new_veses(date,time,cause,location,onah){
 		}
 	}
 	// if(!isNew){	veses.confirm_hefsek(Cal_Veses,false);}
-	var new_kavuah=find_kavuah(veses,Cal_Veses);		
-	var popup_sent=false;
-	if(!new_kavuah&&(veses._cause==Cause.start||veses._cause==Cause.start_1)&&last_veses!=undefined&&last_veses!=null){
+	var new_kavuah=find_kavuah(veses,Cal_Veses);
+	
+	if(!new_kavuah&&
+	   (veses._cause==Cause.start||veses._cause==Cause.start_1)
+	   &&last_veses!=undefined&&last_veses!=null){
 		var last_r=last_veses._reeyah.clone().add(90);
 		last_nidah=veses.get_prev_veses(Cal_Veses);
 			if(veses._reeyah.gt(last_r)&&last_nidah._cause!=Cause.birth_s&&last_nidah._cause!=Cause.birth_d&&last_nidah._cause!=Cause.preglost){
-				popup_sent=true;
-				popup("distance_90")
+				msg = "distance_90"
 			}
 	}	
-	if(!popup_sent){
-		if(veses.StartedInWhiteWeek(Cal_Veses)){		//reeyah_in_white_week_popup(veses);
-			//console.log(reeyah_in_white_week_popup(veses))
-		}else if(!new_kavuah){ 
-			// nada happening
-		}else if(new_kavuah){
+	if(veses.StartedInWhiteWeek(Cal_Veses)){		//reeyah_in_white_week_popup(veses);
+			popup("the raia is inside 7 nequiim !")
+	}else if(!new_kavuah){ 
+			popup(msg)
+	}else if(new_kavuah){
 			popup("new_kavua establish",kavuah_text)
-		}
 	}
+
 	return true;
 }

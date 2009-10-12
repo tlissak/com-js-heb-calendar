@@ -1,6 +1,63 @@
 // JavaScript Document
+var LNG = {}
+function _(str) {
+	if (!(str in window.LNG)) { return str; }
+	return window.LNG[str];
+}
 function Pref(){ if (arguments.length == 0){return Pref.get()}}
-
+Pref.printLanguage 	= function(language){
+	xmlHttp({url:"Local/"+language+".xml",xml:Pref.loadResponse})
+}
+Pref.language = ""
+Pref.loadResponse = function(xmlDoc){
+	if (xmlDoc) {
+		var strings = xmlDoc.getElementsByTagName("string");
+		for (var i=0;i<strings.length;i++) {
+			var n = strings[i].getAttribute("name");
+			var v = strings[i].firstChild.nodeValue.replace(/\*(.*?)\*/g,"<$1>");
+			window.LNG[n] = v;
+		}
+		var arrays = xmlDoc.getElementsByTagName("array");
+		for (var i=0;i<arrays.length;i++) {
+			var n = arrays[i].getAttribute("name");
+			var v = arrays[i].firstChild.nodeValue;
+			window.LNG[n] = v.split(",");
+		}
+		var objects = xmlDoc.getElementsByTagName("object");
+		for (var i=0;i<objects.length;i++) {
+			var n = objects[i].getAttribute("name");
+			var v = objects[i].firstChild.nodeValue;
+			window.LNG[n] = {} //v.split(",");
+			var items = objects[i].getElementsByTagName("item")
+			for (var j=0;j<items.length;j++) {
+				var _n = items[j].getAttribute("name");
+				var _v = items[j].firstChild.nodeValue;
+				window.LNG[n][_n] = _v ;
+			}
+		}
+	}else{
+		throw("unable to get language xml data")	
+	}
+	
+	Render("load",RENDER_MONTH)
+	
+	document.body.dir = (Pref.language=="he") ? "rtl" : "ltr" 		
+	$("t_cal_start").innerHTML = _("cal_begin")
+	$("t_cal_end").innerHTML = _("cal_end")
+	$("refresh").innerHTML = _("refresh")
+	$("t_setting").innerHTML = _("setting")
+	$("t_mikve_france").innerHTML = _("list_mikveh_france")
+	$("t_mikve_world").innerHTML = _("mikveh_world")
+	$("support_us").innerHTML = _("support_us")
+	$("t_select_minhag").innerHTML = _("select_minhag")
+	$("t_today").innerHTML = _("today")
+	$("t_user_guide").innerHTML = _("user_guide")
+	$("t_location").innerHTML   = _("location")
+	$("t_contact").innerHTML   = _("contact")
+	x_s = '<option value="ch">'+_("chabad")+'</option>'
+	x_s += '<option value="sef">'+_("sefarad")+'</option>'
+	$("sMinhag").innerHTML = x_s
+}
 Pref.load	= function(){
 	oPref = Pref.get()
 	_city	= $("sCity")
@@ -19,29 +76,10 @@ Pref.load	= function(){
 	Pref.printRange(oPref.cal_end,oPref.cal_start)
 }
 Pref.MAX_DISP_YEARS = 2
-Pref.printLanguage 	= function(language){
-	if (language=="he"){document.body.dir = "rtl" ; }else{	document.body.dir = "ltr" ; }		
-	$("t_cal_start").innerHTML = LNG[language].t_cal_begin
-	$("t_cal_end").innerHTML = LNG[language].t_cal_end
-	//$("t_dailight_st").innerHTML = LNG[language].t_dst
-	$("refresh").innerHTML = LNG[language].refresh
-	$("t_setting").innerHTML = LNG[language].setting
-	$("t_mikve_france").innerHTML = LNG[language].t_mikveh_france
-	$("t_mikve_world").innerHTML = LNG[language].t_mikveh_world
-	$("t_warning").innerHTML = LNG[language].warning
-	$("t_select_minhag").innerHTML = LNG[language].t_select_minhag
-	$("t_today").innerHTML = LNG[language].today
-	$("t_user_guide").innerHTML = LNG[language].t_user_guide
-	$("t_location").innerHTML   = LNG[language].t_location
-	x_s = '<option value="ch">'+LNG[language].minhag_chabad+'</option>'
-	x_s += '<option value="sef">'+LNG[language].minhag_sfarad+'</option>'
-	$("sMinhag").innerHTML = x_s
-}
 Pref.setLanguage 	= function(lng){
 	if (lng != "he" && lng != "en" && lng != "fr"){lng = "fr" }
 	Cookie.set("language",lng,365)
 	Pref.printLanguage(lng)
-	Render("load",RENDER_MONTH)
 }
 Pref.setManualDST	= function( BT /*0|1*/){
 	time_adj 	= parseInt(o.time_adj)  >-1 ?  parseInt(o.time_adj) : time_adj	
@@ -87,6 +125,7 @@ Pref.get			= function(){
 	cal_end		= Cookie.get("cal_end")	? parseInt(Cookie.get("cal_end"))	 : cal_end
 	Range		= Pref.rangeCheck(cal_end,cal_start)
 	//DST:DST,
+	Pref.language = Language
 	return {	minhag:Minhag,language:Language,cal_start:Range.start,cal_end:Range.end,years:Range.years,city:iCity }
 }
 Pref.del		= function(){

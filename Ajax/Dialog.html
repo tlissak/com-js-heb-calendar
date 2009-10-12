@@ -2,7 +2,7 @@
 <div class="bar-b"></div>
 <div class="bar-c">
 <div onmousedown="Move(event,$('dialog'))"  id="dialog-date">dialog-date</div>
-<div class="box-btn" onclick="$('dialog').style.display='none'" >Close</div>
+<div class="box-btn" onclick="$('dialog').style.display='none'" ><img src="images/close.gif" /></div>
 <div style="clear:both"></div>
 </div>
 <div class="border">
@@ -22,8 +22,8 @@
         <option value="5">05</option>
         <option value="6">06</option>
         <option value="7">07</option>
-        <option value="8" selected="selected">08</option>
-        <option value="9">09</option>
+        <option value="8">08</option>
+        <option value="9" selected="selected">09</option>
         <option value="10">10</option>
         <option value="11">11</option>
         <option value="12">12</option>
@@ -70,7 +70,7 @@
 		</select>
 	
     <div class="spacer"></div>
-    <input type="button" value="Apply" onclick="e_add($('sHdn').value,$('sCause').value,$('sTime_h').value,$('sTime_m').value)" />
+    <input type="button" value="Apply" onclick="add_veses($('sHdn').value,$('sCause').value,$('sTime_h').value,$('sTime_m').value)" />
 </div>
 <div class="bar-c"></div>
 <div class="bar-b"></div>

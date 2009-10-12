@@ -13,7 +13,7 @@ var _CHODESH_=5;
 var _BENONIS_=6;
 var _HAFLAGAH_=7;
 var _KAVUAH_=8;
-var _EVENT_NAMES_=new Array('Generic Event','Flow','Hefsek Taharah','Repeating Memo','Memo','Chodesh','Beinonit','Haflagah','Kavuah');
+var _EVENT_NAMES_=new Array('Generic Event','Flow','Hefsek Taharah','-------','---------','Chodesh','Beinonit','Haflagah','Kavuah');
 var _NIGHT_=1;
 var _DAY_=2;
 var _NIGHT_AND_DAY_=3;
@@ -66,11 +66,11 @@ function Veses(reeyah_date,_time,onah,cause){
 	this._leadup_onah = ""
 }
 Veses.prototype.check_for_bad_mikvah=function(cal){
-	var day;
 	var badMikvah_reason='';
 	var mikvah_day= new HDate(this._mikvah);
+	
 	if(mikvah_day.getDay()==10 && mikvah_day.getMonth() == 7)	
-		badMikvah_reason='since relations are prohibited on Yom Kippur,';
+		badMikvah_reason='since relations are prohibited on Yom kippur';
 	if(mikvah_day.getDay()==9 && mikvah_day.getMonth() == 5) 
 		badMikvah_reason='since relations are prohibited on Tisha B\'Av,';
 	for(i in cal._events){

@@ -98,7 +98,8 @@ JDate.prototype.getParashaName = function(bIsrael, bHebrew){
 				//////////////////////////////////////////////////
 				///			JEvent , LNG ,
 				////////////////////////////////////////////////
-				return (jEvent ? LNG[oPref.language].moadim[jEvent.lng] : '');
+				
+				return (jEvent ? _("moadim")[jEvent.lng] : '');
 			}else{			return refLookupParshiot[arrParshiot[0]];}
 		}else if(refLookupParshiot[arrParshiot[0]]){
 			return refLookupParshiot[arrParshiot[0]] + " - " + refLookupParshiot[arrParshiot[1]];

@@ -4,11 +4,14 @@ var last_veses
 var before_last_veses;
 
 function find_kavuah(veses,cal){
-	if(	cal._veses.length<3)
+	_msg = _("k_you_may")
+	
+	if(	cal._veses.length<3){
 		return false;
+	}
 	last_veses=veses.get_prev_veses(cal,true);
 	before_last_veses=last_veses.get_prev_veses(cal,true);
-	kavuah_text="****You may have a Fixed Cycle!***\n";
+		
 	kavuah_reeyahs=new Array();
 	var result=false;
 	if(find_chodesh_kavuah(veses,cal)){
@@ -22,21 +25,18 @@ function find_kavuah(veses,cal){
 	}
 	for(i in veses._haflagas){
 		if(veses._haflagas[i][1]>2&&veses._haflagas[i][2]==veses){
-			kavuah_text+="A Fixed cycle (veses kavuah) has been  established by three flows all having haflagah number "+veses._haflagas[i][0];
-			kavuah_text+=".\n";
+			_msg += _("k_new_gaps")
+			_msg += veses._haflagas[i][0];
 			result=true;
 		}
 	}
 	if(result){
-		kavuah_text+="\nPlease have a rabbi review your calendar in order to confirm this and instruct you how to keep";
-		kavuah_text+=" a calendar with a <strong>fixed</strong> cycle. You should inform the rabbi if you have given birth in the past 24 months. If the rabbi";
-		kavuah_text+=" confirms that you do have a fixed cycle then your online calendar will no longer calculate your onot of anticipation";
-		kavuah_text+=" correctly until you have completely uprooted the fixed cycle. Until that time you may enter your flows and manually enter the " 
-		+" dates of separation according to the dates the rav has given you using the memos. You will be reminded of the onot of separation in the "
-		+" manner you choose by clicking the \"Remind Me\" option when entering the memo.";
-		kavuah_text+="</div>";
-		//kavuah_text+=buttons(new Array('OK'),new Array("this.blur();top.frames[1].Hide_Windows();"),460);
+		_msg += _("k_new_msg")
+		
 	}
+	
+	console.info("what to do with kevua message")
+	
 	return result;
 }		
 function weeks_inbetween(r1,r2,r3){

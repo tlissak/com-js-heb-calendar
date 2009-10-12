@@ -22,6 +22,8 @@ Event.prototype.chodesh_onah=function(){
 		else{	return this._veses._onah;}
 	}else {	return this._misc._onah;}
 }
+/*
+RECREATE
 Event.prototype.reeyah_time=function(){
 	try{
 		found=false;
@@ -51,3 +53,4 @@ Event.prototype.reeyah_time=function(){
 			rtime=rtime+60;return rtime;
 	}catch(err){return-1;}
 };
+*/

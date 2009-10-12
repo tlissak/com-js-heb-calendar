@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locale>
+	<array name="dow_s">D,L,M,M,J,V,S</array>
+	<array name="dow_short">Dim,Lun,Mar,Mer,Jue,Ven,Sam</array>
+	<array name="dow">Dimanche,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi</array>
+	
+	<string name="night">Veille du</string>	
+	<string name="select_period">Selectionez votre period</string>
+	<string name="before">Avant</string>
+	<string name="early_morning">avant la levai de solail</string>
+	<string name="dialogday">dans la journee</string>
+	<string name="between">entre les</string>
+	<string name="morning_and">matin et</string>
+	<string name="evening">soir</string>
+	<string name="location">Localisation</string>
+	
+	<string name="create_event_attention">1. Faire attantion pour les heuraires (Votre localization et Heur dete )*BR* 
+	2. en case des minute pre consulte votre calendarier *B* et consulte votre RAV*B* </string>
+	<string name="delete_event">Supprime cet event</string>
+	<string name="begin_flow">Début des saignements</string>
+	
+	<string name="contact">Contact</string>
+	
+	<string name="hefsek_tahara">Hefsek tahara</string>
+	<string name="user_guide">Guide d'utilisation</string>
+	<string name="today">Aojurdhi</string>
+	<string name="minhag">Minhag</string>
+	<string name="chabad">Minhag habad (Lubavitch)</string>
+	<string name="sefarad">Minhag sfarad / achkenaz </string>
+	
+	<array name="month">,Janvier,Février,Mars,Avril,Mai,Juin,Juillet,Août,Septembre,Octobre,Novembre,Décembre</array>
+	<array name="month_short">,Jan,Fév,Mar,Avr,Mai,Jun,Jul,Aug,Sep,Oct,Nov,Dec</array>
+	<array name="heb_month">,Nissan,Iyar,Sivan,Tamouz,Av,Elul,Tichri,Hechvan,Kislev,Tevet,Chevat,Adar,Adar 1,Adar 2</array>
+		
+	<object name="moadim">
+		<item name="isru_chag">Isrou hag</item>
+		<item name="rosh_hashana">Roch hachana</item>
+		<item name="fast_gedalia">Jeûne de gedalia</item>
+		<item name="yom_kipur">Yom kipour</item>
+		<item name="sukot">Soukot</item>
+		<item name="hoshana_raba">Hochana raba</item>
+		<item name="shmini_atseret">Chemini atseret</item>
+		<item name="shmini_atseret_simchat_tora">Chemini - S.T</item>		
+		<item name="simchat_tora">Simhat torah</item>
+		<item name="chanuka">Hannouka</item>
+		<item name="fast_tevet">Jeûne du 10 tevet</item>
+		<item name="tu_bishvat">Tou Bichvat</item>
+		<item name="fast_esther">Jeûne de Esther</item>
+		<item name="purim">Pourim</item>
+		<item name="shushan_purim">Chouchan pourim</item>
+		<item name="fast_bechorot">Jeûne des premiers-nés</item>
+		<item name="pesach">Pessah</item>
+		<item name="yom_haatsmaut">Yom haatsmaout</item>
+		<item name="yom_hashoa">Yom hachoa</item>
+		<item name="pesach_sheni">Pessah cheni</item>
+		<item name="lag_baomer">Lag baomer</item>
+		<item name="yom_yerushalaim">Yom Jerusalem</item>
+		<item name="shavuot">Chavouot</item>
+		<item name="fast_tamuz">Jeûne du 17 Tamouz</item>
+		<item name="tisha_beav">Jeûne du 9 beav</item>
+		<item name="tu_beav">Tou Beav</item>
+	</object>
+	
+	<string name="rosh_hodesh">Roch hodech</string>
+	<string name="refresh">Actualiser</string>
+	<string name="setting">paramètres</string>
+	<string name="parasha">paracha</string>
+	<string name="warning">Attention</string>
+	<string name="list_mikveh_france">Liste des mikvés en france</string>
+	<string name="mikveh_world">Trouver un mikvé partout dans le monde</string>
+	<string name="cal_begin">Année de début</string>
+	<string name="cal_end">Année de fin</string>
+	<string name="dst">Heure d'été(+1 hr)</string>
+	
+	<string name="alot">ALOT.....posna ovadia etc</string>	
+	
+	
+	
+	
+	
+	<array name="a_flow_s">Début des saignements,La ona pendant laquelle le saignement a été vu,#flow-s</array>
+	<array name="a_flow_in">Période des règles,Le minimum de jours du règles à compter du début des règles,#flow-in</array>
+	<array name="a_hefsek">Hefsek tahara,La bedika 'Mokh dakhuk' à la fin des règles,#hefsek</array>
+	<array name="a_seven_nekiaim">7 nekiim,Sept jours pendant lesquels on vérifie deux fois par jours l'absence du sang,#7-nekim</array>
+	<array name="a_mikve">Mikve,Le mikvéà la fin des 7 nekiim,#mikveh</array>
+	<array name="a_veset_hodesh">Veset hahodech,'Ona' pendant laquelle il est possible de voir le début des 
+	règles en raison du jour du mois hébraïque,#veset-hodesh</array>
+	<array name="a_veset_haflaga">Veset haflaga,'Ona' pendant laquelle il est possible de voir le début des règles en raison
+	 de la distance entre le hefsek tahara et le début des rèles,#veset-haflaga</array>
+	<array name="a_ona_benonit">Ona benonit,Jour entier correspondant à un cycle présent chez la plupart des femmes,#ona-benonit</array>
+	
+	<string name="support_us">Contribuer à l'amélioration du site</string>
+	
+	
+	<string name="sunrise">Lever du soleil</string>
+	<string name="sunset">Coucher du soleil</string>
+	
+	<string name="civil_date">Date civil</string>
+	<string name="hebrew_date">Date hébraïque</string>
+	
+	
+	<string name="flow_1">règles *1</string>
+	<string name="flow_2">règles *2</string>
+	<string name="flow">règles</string>
+	<string name="ht_0">Hefsek ??</string>
+	<string name="ht_1">Hefsek *1</string>
+	<string name="ht_2">Hefsek *2</string>
+	<string name="ht">Hefsek</string>
+	<string name="white_week">7. nequiim</string>
+	
+	<string name="mikve_prep">Mikveh la nuit</string>
+	<string name="mikve">Mikveh ona</string>
+	
+	<string name="ona_benonit">O.Moyen (B)</string>
+	<string name="veset_hodesh">V.Mois (M)</string>
+	<string name="veset_haflaga">V.Intervalle (F)</string>
+	<string name="kevuaa">V.Fixe (K)</string>
+		
+	
+	<string name="confirm_hefsek_sucseed">Le hefsek a réussir ?</string>
+	
+	
+	
+	
+	
+	
+	<string name="k_you may">
+		You may have a Fixed Cycle!
+	</string>
+		<string name="k_new_gaps">
+		A Fixed cycle (veses kavuah) has been  established by three flows all having haflagah number 
+	</string>
+	<string name="k_new_msg">
+		Please have a rabbi review your calendar in order to confirm this and instruct you how to keep
+		a calendar with a *B*fixed*/B* cycle. You should inform the rabbi if you have given birth in the past 24 months. 
+		If the rabbi confirms that you do have a fixed cycle then your online calendar will no longer calculate your onot of anticipation
+		correctly until you have completely uprooted the fixed cycle. 
+	</string>
+	<string name="new_veses_added">new veses has been created !</string>
+	<string name="no_future_date">You may not enter future dates, please either enter a valid jewish or secular date</string>
+	<string name="later_raia_ex"> can not be added since there is a later flow recorded on the </string>
+	<string name="last_confirm">You are attempting to add a New Flow without confirming that a Hefsek Taharah has been done for a flow start on the </string>
+	<string name="please_confirm">. Please close this box and confirm the date of your Hefesk Taharah before adding a new flow.</string>
+	<string name="onerror_call">If this is not  an error and you are doing this on the advice and permission of your Orthodox rabbi, please email us or call our toll free 
+	 number (1-866-908-2468) for detailed instructions on how to enter this information into the calendar and allow the program to function accordingly.</string>
+	<string name="inbetween_another">) can not be recorded for a day inbetween another flow (</string>
+	<string name="read_carefuly"> *H1* Please read the following carefully */H1*</string>
+	<string name="unclean_bedikah">You have entered an Unclean Bedikah during your Seven Preparatory days (after completing your Hefsek Taharah) on a date that is 
+	*B*after*/B* seven days from the onset of your period .
+	 There is a difference of halachic opionion on how the calendar should be kept.*BR* Some Rabbanim maintain the opinion that an
+	  unclean bedikah occuring at this time is considered a New Flow. New calculations must then be made on the calendar. If you follow this 
+	  opinion, please select "Start of menstrual cycle" from the drop down list of causes and the program will calculate accordingly.
+	  *BR* Other Rabbanim maintain the opinion that only an actual New Flow during this time requires new calculations.
+	   If you follow this opinion, please choose "Stain found on white garment or body" from the drop down list of causes and the
+	   program will calculate accordingly. *BR* Please consult your rabbi to determine which opinion he wishes you 
+	   to follow.</string>
+	<string name="distance_90">*H1*New flow after large gap */H1*
+	You have entered a New Flow that is 90 days or more from your last flow. If you are in the menopausal 
+	 years you are not required to keep the Onot Haveset until you have three New Flows. Once you have had three New Flows,
+	  the laws of Onot Haveset must again be kept. If you are not in the menopausal years please consult a qualified rabbi 
+	  to determine how your calendar should be kept.*BR* Please note that it is recommended that a woman during the menopausal years,
+	  who is uncertain when her next New Flow will be, do a bedikah prior to intimacy until six months have passed with no cycle.</string>
+</locale>
