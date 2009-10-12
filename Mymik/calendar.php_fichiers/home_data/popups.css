@@ -1,0 +1,66 @@
+.clear{    overflow:hidden;     width:100%}
+
+.popup, .tallpopup{background-attachment:fixed; background-repeat:no-repeat; position:absolute; left:0px; top:0px; width:400px; background-color:transparent}
+
+.popup{height:265px; background-image:url(images/window.jpg)}
+.tallpopup{height:500px; background-image:url(images/window2.jpg)}
+
+.title{cursor:default; font-family:Georgia,serif; color:#F4F4F4; text-transform:none; font-weight:100; font-size:21px; margin-bottom:0; text-align:center; margin-top:9px; margin-bottom:15px}
+
+.btn, .btn2, .btn3{    color:#FFF; cursor:default;     display:block;     float:left;     font:normal 15px arial;     height:24px; width:86px; text-align:center; padding-top:3px}
+.btn{background:transparent url('./images/btn.png') no-repeat scroll top left}
+.btn2{background:transparent url('./images/btn.png') no-repeat scroll top center}
+.btn3{background:transparent url('./images/btn.png') no-repeat scroll top right; padding-top:4px}
+
+    #tabsD{      float:left;       width:100%;       font-size:93%;       line-height:normal;   border-bottom:1px solid #33A9D9}
+    #tabsD ul{  margin:0;   padding:10px 10px 0 23px;   list-style:none}
+    #tabsD li{      display:inline;       margin:0;       padding:0}
+    #tabsD a{      float:left;       background:url("./images/tabs/tableftD.gif") no-repeat left top;       margin:0;       padding:0 0 0 4px;       text-decoration:none}
+    #tabsD a span{      float:left;       display:block;       background:url("./images/tabs/tabrightD.gif") no-repeat right top;  padding:5px 15px 4px 6px;  color:#597D98}
+ 
+ #tabsD a span{float:none}
+ 
+ #tabsD a:hover span{ color:#597D98}
+ #tabsD a:hover{ background-position:0% -42px}
+ #tabsD a:hover span{ background-position:100% -42px}
+ 
+#tabsD a:hover span, #tabsD a#activetab span{background-position:100% -42px; color:#597D98}
+#tabsD a:link#activetab, #tabsD a:visited#activetab, #tabsD a:hover{background-position:0% -42px}
+
+label.checkbox span.holder{height:61px; background:url(./images/checkbox.png) 0 -1px no-repeat}
+
+label.radio span.holder{height:61px; background:url(./images/radio.png) 0 -1px no-repeat}
+
+html>body label.checkbox:hover span.holder, 
+html>body label.radio:hover span.holder{top:-21px}
+
+label.checked span.holder, 
+label.checked span.holder{top:-42px !important}
+
+label.list{float:left; clear:left; margin:0 0 5px 0}
+
+label.inline{float:left; margin:0 10px 0 0}
+
+input.hiddenCheckbox{position:absolute; left:-10000px}
+
+label.prettyCheckbox span.holderWrap{display:block; float:left; position:relative; margin-right:5px; overflow:hidden}
+
+label.prettyCheckbox span.holder{display:block; position:absolute; top:0; left:0}
+
+#popup_container{font-family:Lucida Sans Unicode; font-size:12px; min-width:300px; max-width:600px; background:#FFF; border:solid 3px #33A9D9; color:#000; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px}
+
+#popup_title{font-size:14px; font-weight:regular; text-align:center; line-height:1.55em; color:black; background:#CCC url(src/lib/alerts/images/title.gif) top repeat-x; border:solid 0px #FFF; border-bottom:solid 1px #33A9D9; cursor:default; padding:0em; margin:0em}
+
+#popup_content{background:16px 16px no-repeat url(src/lib/alerts/images/important.gif  ); padding:1em 1.75em; margin:0em}
+
+#popup_content.alert{background-image:url(src/lib/alerts/images/important.gif)}
+#popup_content.alert2{background-image:url(src/lib/alerts/images/help.gif)}
+#popup_content.confirm{background-image:url(src/lib/alerts/images/important.gif)}
+
+#popup_content.prompt{background-image:url(src/lib/alerts/images/help.gif)}
+
+#popup_message{padding-left:48px}
+
+#popup_panel{text-align:center; margin:1em 0em 0em 1em}
+
+#popup_prompt{margin:.5em 0em}
