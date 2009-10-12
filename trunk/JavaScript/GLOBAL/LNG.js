@@ -1,10 +1,6 @@
 // JavaScript Document
 
-var LNG = new Array("he","en","fr")
-LNG.en ={}
-LNG.fr ={}
-LNG.he ={}
-
+/*
 LNG["Available"] = ["Hebrew","English","Francais"]
 
 LNG["en"].dow_s = ["S","M","T","W","T","F","S"]
@@ -298,3 +294,4 @@ LNG["he"].mikve		= ["מקווה","מקווה בסוף שבעת נקיים","#mik
 LNG["he"].veset_hodesh = ["ווסת החודש","'עונה' של חשש ראיה בגלל חשש שיום חודש עיברי גורם","#veset-hodesh"]
 LNG["he"].veset_haflaga = ["ווסת הפלגה","'עונה' של חשש ראיה בגלל מרחק בין תחלת ראיה להפסק טהרה","#veset-haflaga"]
 LNG["he"].ona_benonit = ["עונה בנונית","יום שלם של חשש מחמת רגילות רוב נשים לראות בו","#ona-benonit"]
+*/

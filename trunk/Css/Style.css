@@ -1,5 +1,8 @@
 @charset "utf-8";
 /* ATTENTION body height % */
+
+.cfm{background:#639; width:20px; height:20px; position:absolute; top:0; left:0}
+
 html,body{height:100%}
 body{padding:0; margin:0; font-family:Arial, Helvetica, sans-serif; font-size:11px; background:#fff url(../Images/bg.png) bottom repeat-x}
 img {border:0 none}a{text-decoration:none; color:#777777} .pointer{cursor:pointer}
@@ -9,13 +12,17 @@ h2{font-size:14px; font-weight:bold}h3{font-size:12px; font-weight:bold}
 .link{color:#0F29BB; text-decoration:underline; font-size:14px; cursor:pointer}
 ul{padding:0; margin:0;}ul li a{display:block}
 .spacer{ height:18px; clear:both}.clear{clear:both; height:1px}
-.msg { color:#009; background:#e0ecff; border:#6694e3 3px  double; padding:10px}
+
 input:focus {	outline: 0;	outline-offset: 0;}
 input, select {font-size: 12px;vertical-align: top;outline: none;}
 
 form{display:inline}
 
 .nav li{ padding:3px 5px;}
+
+#message{ width:400px; font-weight:bold;  font-size:13px; text-align:justify ; z-index:9999; left:30%; position:absolute; display:none}
+.msg { color:#009; background:#e0ecff; border:#6694e3 3px  double; padding:10px}
+.error{color:#fff; background:#600; border:#FCF 3px double;padding:7px;}
 
 .left-border{border-left:#c3d9ff 10px solid;  position:relative; }
 
@@ -46,7 +53,7 @@ form{display:inline}
 .box-btn:hover{ color:#900}
 
 
-#mikveh-list{ font-size:10px; position:absolute; top:30px; padding-left:10px; background:#FFF}
+#mikveh-list{ font-size:10px; position:absolute; padding-left:10px; background:#FFF}
 #mikveh-list h3{font-size:14px; margin:3px;}
 #mikveh-list label{ font-size:10px; font-weight:bold }
 #mikveh-list li{list-style:none;}
@@ -99,8 +106,8 @@ form{display:inline}
 
 
 .today{background-color:#FFC; }
-.times{ color:#666 ;}
-.times img{margin-left:0px;height:13px; width:13px; background-repeat:no-repeat;display:none; visibility:hidden}
+.times{ color:#ccc ;}
+.times img{margin-left:0px;height:13px; width:13px; background-repeat:no-repeat;/*display:none;*/ visibility:hidden}
 .times:hover{ color:#666 }
 .times:hover img{ visibility:visible }
 .times-0{background:#f7f7f7}
@@ -111,7 +118,9 @@ form{display:inline}
 
 .rosh-hodesh{background:url(../Images/roch-chodesh.png) no-repeat 5px}
 .j-holiday{background:url(../Images/magen-david.png) no-repeat left}
-.parasha{background:url(../Images/parasha.png) no-repeat left}
+.j-inter{background: #FCF}
+.j-cons{background:#FFC}
+.parasha{background:url(../Images/parasha.png) no-repeat left; color:#999}
 .shabat-s{background:url(../Images/shabat.png) no-repeat left}
 .shabat-e{background:url(../Images/havdala.png) no-repeat top left}
 

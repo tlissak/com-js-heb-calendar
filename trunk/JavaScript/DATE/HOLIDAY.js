@@ -6,6 +6,7 @@
  * It is strictly forbidden to use or reproduce all or parts of this program without the author's  explicit permission.                *
  * Commercial use of this program is subject to purchase. Please contact the author. 
  ***************************************/
+ /*
  JDate.prototype.getHoliday = function() {// American civil holidays and some major religious holiday
 	g 		= new GDate(this)//alwayes convert this to gregorien date
 	cday 	= g.getDay()
@@ -44,7 +45,6 @@
 		var days = civMonthLength(month, year);
 		return days - (DOW(days, month, year) - weekday + 7) % 7;
 	}
-
 	if (cmonth == 1 && cday == 1)
 		return "New Year's Day";
 	else if (cmonth == 2 && cday == 12)
@@ -87,7 +87,11 @@
 		
 	return "";
 }
+*/
 JDate.prototype.getMoadim = function() {
+	oPref = Pref()
+	bIsrael = CITY[oPref.city].bIsrael
+	bDispora = (!(bIsrael))
 	g 	= new GDate(this)// convert this to gregorien date
 	h 	= new HDate(g)// convert this to Hebrew date
 	
@@ -98,14 +102,21 @@ JDate.prototype.getMoadim = function() {
 	cmonth 	= g.getMonth()
 	cyear 	= g.getYear()	
 	dow		= g.getDayOfWeek() +1
-		
+	
 	if(hmonth == 6) {
 		if(hday == 1 || hday == 2){return "rosh_hashana"
 		}else if(hday == 3 && dow != 7){return "fast_gedalia" 
 		}else if(hday == 4 && dow == 1){return "fast_gedalia"
 		}else if(hday == 10){ return "yom_kipur"
-		}else if(hday >= 15 && hday <= 22){	return "sukot"
-		}else if(hday == 23) {	return "isru_chag" }
+		}else if(hday >= 15 && hday < 22){	
+			return "sukot"
+		}else if(hday == 22 && bIsrael ) {
+			return "shmini_atseret_simchat_tora"
+		}else if(hday == 22 && bDispora ){
+			return "shmini_atseret"
+		}else if(hday == 23 && bDispora ){
+			return "simchat_tora"
+		}
 	}else if(hmonth == 8) {
 		if(hday >= 25){	return "chanuka" }
 	}else if(hmonth == 9) {
@@ -127,17 +138,25 @@ JDate.prototype.getMoadim = function() {
 		if(hday == 12 && dow == 5){return "fast_bechorot"
 		}else if(hday == 14 && dow != 7){return "fast_bechorot"
 		}else if(hday >= 15 && hday <= 21){return "pesach"
-		}else if(hday == 22){return "isru_chag"}
+		}else if(hday == 22 && bIsrael){return "isru_chag"
+		}else if(hday == 22 && bDispora){ return "pesach"}
+		/*******
+		7th day of pessach 
+		8th day of pessach
+		/*******/
 	}else if(hmonth == 1) {
+		/*
 		if(hday == 3 && dow == 5){return "yom_haatsmaut"
 		}else if(hday == 4 && dow == 5){return "yom_haatsmaut"
 		}else if(hday == 5 && dow != 6 && dow != 7){return "yom_haatsmaut"}
+		*/
 		if(hday == 14){return "pesach_sheni"
 		}else if(hday == 18){return "lag_baomer"}
-		if(hday == 28){return "yom_yerushalaim"}
+		//if(hday == 28){return "yom_yerushalaim"}
 	}else if(hmonth == 2) {
 		if(hday == 6){return "shavuot"
-		}else if(hday == 7){return "isru_chag"}
+		}else if(hday == 7 && bIsrael){return "isru_chag"
+		}else if(hday == 7 && (!(bIsrael))){return "shavuot"}
 	}else if(hmonth == 3) {
 		if(hday == 17 && dow != 7){return "fast_tamuz"}
 		if(hday == 18 && dow == 1){return "fast_tamuz"}
@@ -146,7 +165,6 @@ JDate.prototype.getMoadim = function() {
 		if(hday == 10 && dow == 1){return "tisha_beav" }
 		if(hday == 15){return "tu_beav" }
 	}
-
 	return "";
 }
 

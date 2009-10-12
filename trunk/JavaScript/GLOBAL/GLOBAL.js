@@ -50,7 +50,7 @@ function show_event_index(){
 	oPref = Pref()
 	var arr = ["flow_s","flow_in","hefsek","seven_nekiaim","mikve","veset_hodesh","veset_haflaga","ona_benonit"]	
 	for (var i=0,out = '';i<arr.length;i++){
-		arr_ev = LNG[oPref.language][arr[i]]
+		arr_ev = _("a_"+arr[i])
 		out += "<li class='"+arr[i]+"' >"
 		out += "<a title=\""+arr_ev[1]+"\" href='../"+arr_ev[2]+"' >"+ arr_ev[0] + "</a></li>"
 	}
@@ -101,17 +101,29 @@ var Cookie = {
     Cookie.set(name,'',-1);
   }
 };
-function Move(e,elm){//Move by tlissak v 0.7 
+function Move(e,elm,dragDropHandler){//Move by tlissak v 0.7 
 	var elm = elm
 	elm.style.position = "absolute"
 	var process 	= true
-	var cursorPosition = function (ev){
+	/*
+	frm = $("cal")
+	x_left = findObjPos(frm).x
+	x_right = x_left + frm.offsetWidth
+	y_top = findObjPos(frm).y
+	y_bottom = y_top + frm.offsetHeight
+	*if (dragDropHandler){
+			range_x = in_range(cursorPosition(e).x - old_csr_y,x_left,x_right)
+			range_y = in_range(cursorPosition(e).y - old_csr_y,y_top,y_bottom)			
+			process = (range_x && range_y)			
+		}*/
+	
+	function cursorPosition(ev){
 		ev = ev || window.event;
 		if(ev.pageX || ev.pageY){			return {x:ev.pageX, y:ev.pageY};		}
 		return {x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
 				y:ev.clientY + document.body.scrollTop  - document.body.clientTop}
 	}
-	var findObjPos = function (obj) {
+	function findObjPos(obj) {
 		if (obj){var curleft = 0 ;var curtop = 0;
 			if (obj.offsetParent) {
 				curleft = obj.offsetLeft ; curtop = obj.offsetTop
@@ -127,20 +139,23 @@ function Move(e,elm){//Move by tlissak v 0.7
 	document.onmousemove= mousemove
 	document.body.onselectstart=function(){return false}//ie
 	document.body.onmousedown=function(){return false}//mozilla}
-	function mouseup(){
+	function mouseup(){		
 		process=false
 		document.onmouseup = null
 		document.onmousemove = null
 		document.body.onselectstart=function(){return true}//ie
 		document.body.onmousedown=function(){return true}//mozilla
 	}
+	function in_range(_a,_min,_max){
+		return (_a >= _min && _a <= _max )
+	}
 	function mousemove(e){
 		elm.onmouseup = mouseup
 		document.onmouseup = mouseup
+		
 		if(process){
 			elm.style.left = cursorPosition(e).x - old_csr_x +"px"
 			elm.style.top  = cursorPosition(e).y - old_csr_y +"px"
-			document.onmouseup = this.mouseup
 		}
 	}
 }
@@ -170,7 +185,8 @@ function xmlHttp(o){
 			xmlHttp.mask.hide()
 			if (request.status == 200) {
 				ctype = request.getResponseHeader("Content-Type")
-				if (ctype.indexOf('text/xml') > -1) {
+				//console.info(ctype)
+				if (ctype.indexOf('/xml') > -1) {
 					xml_handler(request.responseXML)
 				} else if (ctype.indexOf('text/plain') > -1 || ctype.indexOf('text/html' ) > -1 ) {
 					response_handler(request.responseText)
@@ -209,4 +225,32 @@ xmlHttp.mask = {
 		},hide:function(){
 			if (document.getElementById('mask')){document.getElementById('mask').style.display='none';}
 		}	
+}
+function loadXMLwXSL(xmlpath,xslpath,_elm_id){
+	var parseXml 
+	var parseXsl
+	/*if (window.ActiveXObject){_xmlDoc=new ActiveXObject("Microsoft.XMLDOM");_xmlDoc.async=false; _xmlDoc.load(xmlpath);
+	_xslDoc=new ActiveXObject("Microsoft.XMLDOM");_xslDoc.async=false; _xslDoc.load(xslpath);$(_elm_id).innerHTML=_xmlDoc.transformNode(_xslDoc);return	}*/
+	function marge(xmL,xsL){
+		if (window.ActiveXObject){
+			$(_elm_id).innerHTML=xmL.transformNode(xsL)			
+		}else if (document.implementation && document.implementation.createDocument){ 
+			XSLTProc = new XSLTProcessor();
+			XSLTProc.importStylesheet(xsL);
+			output = XSLTProc.transformToFragment(xmL, document);
+			$(_elm_id).appendChild(output)
+		}else{
+			throw("Browser does not support XSLT.");
+		}
+		return output
+	}
+	this._ba = function(xslRes){
+		parseXsl = xslRes //parser
+		return marge(parseXml,parseXsl)
+	}
+	this._aa = function(xmlRes){
+		parseXml = xmlRes // parser
+		xmlHttp({url:xslpath,xml:this._ba})
+	}
+	xmlHttp({url:xmlpath,xml:this._aa})	
 }

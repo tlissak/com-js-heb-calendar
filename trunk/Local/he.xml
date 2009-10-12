@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locale>
+	<array name="dow_s">א,ב,ג,ד,ה,ו,ז</array>
+	<array name="dow_short">ריאשון,שני,שלישי,רביעי,חמישי,שישי,שבת</array>
+	<array name="dow">ריאשון,שני,שלישי,רביעי,חמישי,שישי,שבת</array>
+	
+	<string name="night">ליל</string>	
+	<string name="select_period">בחר את העונה בה התחילה הראיה</string>
+	<string name="before">לפני</string>
+	<string name="early_morning">אחרי השקיעה</string>
+	<string name="dialogday">באותו היום</string>
+	<string name="between">בין</string>
+	<string name="morning_and">בבוקר ל:</string>
+	<string name="evening">ערב</string>
+	<string name="location">מקומך</string>
+	
+	<string name="create_event_attention">1. שים לב למיקומך בהגדרות ולשעון קיץ *BR*2. במקרה של קרוב של מספר דקות הסתכל בלוח השנה שבביתך *B*והתיעץ ברב שלך*B*</string>
+	<string name="delete_event">מחק את האירוע</string>
+	<string name="begin_flow">התחלת ראיה</string>
+	
+	<string name="contact">כתבו לנו</string>
+	
+	<string name="hefsek_tahara">הפסק טהרה</string>
+	<string name="user_guide">מדריך שימוש</string>
+	<string name="today">היום</string>
+	<string name="minhag">מנהג</string>
+	<string name="chabad">מנהג חבד</string>
+	<string name="sefarad">מנהג ספרד אשכנז </string>
+	
+	<array name="month">,ינואר,פברואר,מרץ,אפריל,מאי,יוני,יולי,אוגוסט,ספטמבר,אוקטובר,נובמבר,דצמבר</array>
+	<array name="month_short">,ינא,פבר,מרץ,אפר,מאי,יונ,יול,אוג,ספט,אוק,נוב,דצמ"</array>
+	<array name="heb_month">,ניסן,אייר,סיון,תמוז,אב,אלול,תישרי,חשוון,כסלו,טבת,שבט,אדר,אדר א,אדר ב</array>
+		
+	<object name="moadim">
+		<item name="isru_chag">איסרו חג</item>
+		<item name="rosh_hashana">ראש השנה</item>
+		<item name="fast_gedalia">צום גדליה</item>
+		<item name="yom_kipur">יום כפור</item>
+		<item name="sukot">סוכות</item>
+		<item name="hoshana_raba">הושענה רבה</item>
+		<item name="shmini_atseret">שמיני עצרת</item>
+		<item name="shmini_atseret_simchat_tora">Chemini - S.T</item>	
+		<item name="simchat_tora">שמחת תורה</item>
+		<item name="chanuka">חנוכה</item>
+		<item name="fast_tevet">צום 10 טבת</item>
+		<item name="tu_bishvat">טו בשבט</item>
+		<item name="fast_esther">תענית אסתר</item>
+		<item name="purim">פורים</item>
+		<item name="shushan_purim">שושן פורים</item>
+		<item name="fast_bechorot">תענית בכורות</item>
+		<item name="pesach">פסח</item>
+		<item name="yom_haatsmaut">יום העצמאות</item>
+		<item name="yom_hashoa">יום השואה</item>
+		<item name="pesach_sheni">פסח שני</item>
+		<item name="lag_baomer">לג בעומר</item>
+		<item name="yom_yerushalaim">יום ירושלים</item>
+		<item name="shavuot">שבועות</item>
+		<item name="fast_tamuz">צום 17 בתמוז</item>
+		<item name="tisha_beav">צום 9 באב</item>
+		<item name="tu_beav">טו באב</item>
+	</object>
+	
+	<string name="rosh_hodesh">ראש חדש</string>
+	<string name="refresh">רענן</string>
+	<string name="setting">הגדרות</string>
+	<string name="parasha">פרשה</string>
+	<string name="warning">שים לב</string>
+	<string name="list_mikveh_france">רשימת מקוואות בצרפת</string>
+	<string name="mikveh_world">רשימת מקוואות בעולם</string>
+	<string name="cal_begin">שנת התחלת הלוחות</string>
+	<string name="cal_end">שנת סיום הלוחות</string>
+	<string name="dst">שעון קיץ +1 שעה</string>
+	
+	<string name="alot">ALOT.....posna ovadia etc</string>	
+	
+	<array name="a_flow_s">התחלת ראייה,העונה בה התחילה הראייה,#flow-s</array>
+	<array name="a_flow_in">תקופת ראייה,מינימום ימי נדה מעת התחלת הראייה,#flow-in</array>
+	<array name="a_hefsek">הפסק טהרה,בדיקת [מוך דחוק] הנעשת בסוף ימי נידה,#hefsek</array>
+	<array name="a_seven_nekiaim">שבעה נקיים,שבעה ימים לבדיקה פעמיים ביום להעדר דם,#7-nekim</array>
+	<array name="a_mikve">מקווה,מקווה בסוף שבעת נקיים,#mikveh</array>
+	<array name="a_veset_hodesh">ווסת החודש,'עונה' של חשש ראיה בגלל חשש שיום חודש עיברי גורם,#veset-hodesh</array>
+	<array name="a_veset_haflaga">ווסת הפלגה,'עונה' של חשש ראיה בגלל מרחק בין תחלת ראיה להפסק טהרה,#veset-haflaga</array>
+	<array name="a_ona_benonit">עונה בנונית,יום שלם של חשש מחמת רגילות רוב נשים לראות בו,#ona-benonit</array>
+
+	
+	
+	<string name="support_us">Help us to improve this website</string>
+	
+	<string name="sunrise">Lever du solail</string>
+	<string name="sunset">Coucher du solail</string>
+	
+	<string name="civil_date">Date civil</string>
+	<string name="hebrew_date">Date hébraïque</string>
+	
+	
+	<string name="flow_1">règles *1</string>
+	<string name="flow_2">règles *2</string>
+	<string name="flow">règles</string>
+	<string name="ht_0">Hefsek ??</string>
+	<string name="ht_1">Hefsek *1</string>
+	<string name="ht_2">Hefsek *2</string>
+	<string name="ht">Hefsek</string>
+	<string name="white_week">7. nequiim</string>
+	
+	<string name="mikve_prep">Mikveh la nuit</string>
+	<string name="mikve">Mikveh ona</string>
+	
+	<string name="ona_benonit">O.Moyen (B)</string>
+	<string name="veset_hodesh">V.Mois (M)</string>
+	<string name="veset_haflaga">V.Intervalle (F)</string>
+	<string name="kevuaa">V.Fixe (K)</string>
+		
+	
+	<string name="confirm_hefsek_sucseed">Le hefsek reussir ?</string>
+	
+	
+	<string name="k_you may">
+		You may have a Fixed Cycle!
+	</string>
+		<string name="k_new_gaps">
+		A Fixed cycle (veses kavuah) has been  established by three flows all having haflagah number 
+	</string>
+	<string name="k_new_msg">
+		Please have a rabbi review your calendar in order to confirm this and instruct you how to keep
+		a calendar with a *B*fixed*/B* cycle. You should inform the rabbi if you have given birth in the past 24 months. 
+		If the rabbi confirms that you do have a fixed cycle then your online calendar will no longer calculate your onot of anticipation
+		correctly until you have completely uprooted the fixed cycle. 
+	</string>
+	<string name="new_veses_added">new veses has been created !</string>
+	<string name="no_future_date">You may not enter future dates, please either enter a valid jewish or secular date</string>
+	<string name="later_raia_ex"> can not be added since there is a later flow recorded on the </string>
+	<string name="last_confirm">You are attempting to add a New Flow without confirming that a Hefsek Taharah has been done for a flow start on the </string>
+	<string name="please_confirm">. Please close this box and confirm the date of your Hefesk Taharah before adding a new flow.</string>
+	<string name="onerror_call">If this is not  an error and you are doing this on the advice and permission of your Orthodox rabbi, please email us or call our toll free 
+	 number (1-866-908-2468) for detailed instructions on how to enter this information into the calendar and allow the program to function accordingly.</string>
+	<string name="inbetween_another">) can not be recorded for a day inbetween another flow (</string>
+	<string name="read_carefuly"> *H1* Please read the following carefully */H1*</string>
+	<string name="unclean_bedikah">You have entered an Unclean Bedikah during your Seven Preparatory days (after completing your Hefsek Taharah) on a date that is 
+	*B*after*/B* seven days from the onset of your period .
+	 There is a difference of halachic opionion on how the calendar should be kept.*BR* Some Rabbanim maintain the opinion that an
+	  unclean bedikah occuring at this time is considered a New Flow. New calculations must then be made on the calendar. If you follow this 
+	  opinion, please select "Start of menstrual cycle" from the drop down list of causes and the program will calculate accordingly.
+	  *BR* Other Rabbanim maintain the opinion that only an actual New Flow during this time requires new calculations.
+	   If you follow this opinion, please choose "Stain found on white garment or body" from the drop down list of causes and the
+	   program will calculate accordingly. *BR* Please consult your rabbi to determine which opinion he wishes you 
+	   to follow.</string>
+	<string name="distance_90">*H1*New flow after large gap */H1*
+	You have entered a New Flow that is 90 days or more from your last flow. If you are in the menopausal 
+	 years you are not required to keep the Onot Haveset until you have three New Flows. Once you have had three New Flows,
+	  the laws of Onot Haveset must again be kept. If you are not in the menopausal years please consult a qualified rabbi 
+	  to determine how your calendar should be kept.*BR* Please note that it is recommended that a woman during the menopausal years,
+	  who is uncertain when her next New Flow will be, do a bedikah prior to intimacy until six months have passed with no cycle.</string>
+</locale>

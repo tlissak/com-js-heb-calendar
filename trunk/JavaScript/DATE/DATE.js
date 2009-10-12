@@ -97,9 +97,8 @@ function JDate(){
 	/************** END *****************/
 	function getWeekDayName(lng){	
 		//return ["Sunday","Monday","Tuesday","Wendsay","Thursday","Friday","Sat.day"]
-		return LNG[lng].dow
-		[this.getDayOfWeek()]
-		}
+		return _("dow")[this.getDayOfWeek()]
+	}
 	
 	function setDate(){
 		var args = arguments;
@@ -201,8 +200,7 @@ function GDate(){
 	
 	function getMonthName(lng){
 		//return ["","January","February","March","April","May","June","July","August","September","October","November","December"][this.getMonth()] ;
-		if (!(lng)){lng="en"}
-		return LNG[lng].month[this.getMonth()] ;
+		return _("month")[this.getMonth()] ;
 	}
 	
 	function st_monthLength(month, year){
@@ -337,7 +335,7 @@ function HDate(){
 	function getMonthName(lng){
 		//return ["","Nisan","Iyar","Sivan","Tamuz","Av","Elul","Tishri","Cheshvan","Kislev","Tevet","Shvat","Adar","Adar a","Adar b"][this.getMonth()] ;
 		if (!(lng)){lng="en"}
-		return LNG[lng].heb_month[this.getMonth()] ;		
+		return _("heb_month")[this.getMonth()] ;		
 	}
 	function calculate(){
 		var jdn;
