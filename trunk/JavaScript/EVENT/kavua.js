@@ -3,24 +3,22 @@ var kavuah_text;
 var last_veses
 var before_last_veses;
 
-function find_kavuah(veses,cal){
+function check_kavuah(veses){
 	_msg = _("k_you_may")
+	if(	Cal_Veses._veses.length<3){		return false;	}
 	
-	if(	cal._veses.length<3){
-		return false;
-	}
-	last_veses=veses.get_prev_veses(cal,true);
-	before_last_veses=last_veses.get_prev_veses(cal,true);
+	last_veses=veses.get_prev_veses();
+	before_last_veses=last_veses.get_prev_veses();
 		
 	kavuah_reeyahs=new Array();
 	var result=false;
-	if(find_chodesh_kavuah(veses,cal)){
+	if(find_chodesh_kavuah(veses,Cal_Veses)){
 		result=true;
 	}
-	if(find_dilug(veses,cal)){
+	if(find_dilug(veses,Cal_Veses)){
 		result=true;
 	}
-	if(find_sirug(veses,cal)){
+	if(find_sirug(veses,Cal_Veses)){
 		result=true;
 	}
 	for(i in veses._haflagas){
@@ -56,15 +54,17 @@ function weeks_inbetween(r1,r2,r3){
 	return-1;
 }
 function get_min_haflagah(veses){
-	if(veses._haflagas===undefined||veses._haflagas.length==0)
+	if(veses._haflagas===undefined||veses._haflagas.length==0){
 		return null;
+	}
 	var min_i=null;
-	for(i in veses._haflagas)
-		if(min_i==null||veses._haflagas[i][0]<veses._haflagas[min_i][0])
+	for(i in veses._haflagas){
+		if(min_i==null||veses._haflagas[i][0]<veses._haflagas[min_i][0]){
 			min_i=i;
+		}			
+	}
 	return veses._haflagas[min_i];
 }
-	
 function find_chodesh_kavuah(veses,cal){
 	var this_reeyah=veses._reeyah;
 	var r=this_reeyah.clone().prevMonth();

@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <locale>
+	
+	<string name="veset_info_1">Vesos starting on </string>
+	<string name="veset_info_2">, ht on </string>
+	<string name="veset_info_3">, mikvah night iy"h on </string>
+	
+	<string name="later_raia_1">A new flow for </string>
+	<string name="later_raia_ex"> can not be added since there is a later flow recorded on the </string>
+	
+	<string name="bad_mik_start">Your mikvah night may have to be postponed until the following night </string>
+	<string name="bad_mik_end"> please ask a rabbi how to proceed. </string>
+	
+	<string name="bad_mik_kipur"> since relations are prohibited on Yom kippur </string>
+	<string name="bad_mik_9av"> since relations are prohibited on 9 Av </string>
+	<string name="bad_mik_benonit"> since you have an onah beinonit that night, </string>
+	<string name="bad_mik_chodesh"> since you have a veset hachodesh that night, </string>
+	<string name="bad_mik_haflaga"> since you have a veset haflagah that night, </string>
+	
+	<string name="inbet_1"> A new flow  </string>
+	<string name="inbet_2">  can not be recorded for a day inbetween another flow </string>
+	<string name="inbet_3">  and Hefsek Taharah </string>
+
+	
 	<array name="dow_s">D,L,M,M,J,V,S</array>
 	<array name="dow_short">Dim,Lun,Mar,Mer,Jue,Ven,Sam</array>
 	<array name="dow">Dimanche,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi</array>
@@ -138,14 +160,14 @@
 	</string>
 	<string name="new_veses_added">new veses has been created !</string>
 	<string name="no_future_date">You may not enter future dates, please either enter a valid jewish or secular date</string>
-	<string name="later_raia_ex"> can not be added since there is a later flow recorded on the </string>
+	
 	<string name="last_confirm">You are attempting to add a New Flow without confirming that a Hefsek Taharah has been done for a flow start on the </string>
 	<string name="please_confirm">. Please close this box and confirm the date of your Hefesk Taharah before adding a new flow.</string>
 	<string name="onerror_call">If this is not  an error and you are doing this on the advice and permission of your Orthodox rabbi, please email us or call our toll free 
 	 number (1-866-908-2468) for detailed instructions on how to enter this information into the calendar and allow the program to function accordingly.</string>
-	<string name="inbetween_another">) can not be recorded for a day inbetween another flow (</string>
-	<string name="read_carefuly"> *H1* Please read the following carefully */H1*</string>
-	<string name="unclean_bedikah">You have entered an Unclean Bedikah during your Seven Preparatory days (after completing your Hefsek Taharah) on a date that is 
+	
+	<string name="read_carefuly_unclean_b"> *H1* Please read the following carefully */H1*
+	You have entered an Unclean Bedikah during your Seven Preparatory days (after completing your Hefsek Taharah) on a date that is 
 	*B*after*/B* seven days from the onset of your period .
 	 There is a difference of halachic opionion on how the calendar should be kept.*BR* Some Rabbanim maintain the opinion that an
 	  unclean bedikah occuring at this time is considered a New Flow. New calculations must then be made on the calendar. If you follow this 
