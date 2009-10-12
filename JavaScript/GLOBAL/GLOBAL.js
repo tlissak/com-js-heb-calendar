@@ -1,11 +1,12 @@
-/*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.*/
 // taken from xinha editor optimized by tlissak 
-// usage Ev._addEvent(window,"load",myFunction) //:: IMPORTENT the function cennot use litteral or arguments "()"
+function time2min(_otime){	hr=parseInt(_otime.hr);	minute=parseInt(_otime.mn);	return parseFloat(hr +"."+ parseInt(	(minute*100	)/60));}
+function time2time(_time){_hour=parseInt(_time.hr);_min=parseInt(_time.mn);return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min)}
+function fixzman(_time){
+	var _hour = Math.floor(_time);	var _min  = Math.floor((_time - _hour) * 60.0 + 0.5 );
+	if(_min >= 60) { _hour += 1;  _min  -= 60;  }	if(_hour < 0){	_hour += 24;}
+	return parseFloat(_hour + '.' + ((_min < 10) ? '0' : '') + _min) ;
+}
+
 var Ev = new Object()
 if(document.addEventListener){
 	Ev._addEvent =function(el,_eventType1,func){el.addEventListener(_eventType1,func,true);};
@@ -29,6 +30,7 @@ function send_email(){
 	xmlHttp({url:'ajax/contact.php',method:'post',data:DT,response:this.r})	
 }
 function ajax_load(pfx,callback){xmlHttp({url:"Ajax/"+pfx+".html",response:function(s){$(pfx).innerHTML = s;if(callback){callback()}}})}
+
 function setCitiesList(){
 	var OPT = ""
 	curr_group = CITY[0].group
@@ -67,7 +69,6 @@ function search_mikve(){
 		}
 	}return false
 }
-
 function c(){console.log(c.arguments)}
 if (!(window.console)){
 var console = {
@@ -101,22 +102,10 @@ var Cookie = {
     Cookie.set(name,'',-1);
   }
 };
-function Move(e,elm,dragDropHandler){//Move by tlissak v 0.7 
+function Move(e,elm,dragDropHandler){
 	var elm = elm
 	elm.style.position = "absolute"
 	var process 	= true
-	/*
-	frm = $("cal")
-	x_left = findObjPos(frm).x
-	x_right = x_left + frm.offsetWidth
-	y_top = findObjPos(frm).y
-	y_bottom = y_top + frm.offsetHeight
-	*if (dragDropHandler){
-			range_x = in_range(cursorPosition(e).x - old_csr_y,x_left,x_right)
-			range_y = in_range(cursorPosition(e).y - old_csr_y,y_top,y_bottom)			
-			process = (range_x && range_y)			
-		}*/
-	
 	function cursorPosition(ev){
 		ev = ev || window.event;
 		if(ev.pageX || ev.pageY){			return {x:ev.pageX, y:ev.pageY};		}
@@ -231,7 +220,7 @@ function loadXMLwXSL(xmlpath,xslpath,_elm_id){
 	var parseXsl
 	/*if (window.ActiveXObject){_xmlDoc=new ActiveXObject("Microsoft.XMLDOM");_xmlDoc.async=false; _xmlDoc.load(xmlpath);
 	_xslDoc=new ActiveXObject("Microsoft.XMLDOM");_xslDoc.async=false; _xslDoc.load(xslpath);$(_elm_id).innerHTML=_xmlDoc.transformNode(_xslDoc);return	}*/
-	function marge(xmL,xsL){
+	function margeTo(xmL,xsL){
 		if (window.ActiveXObject){
 			$(_elm_id).innerHTML=xmL.transformNode(xsL)			
 		}else if (document.implementation && document.implementation.createDocument){ 
@@ -242,11 +231,10 @@ function loadXMLwXSL(xmlpath,xslpath,_elm_id){
 		}else{
 			throw("Browser does not support XSLT.");
 		}
-		return output
 	}
 	this._ba = function(xslRes){
 		parseXsl = xslRes //parser
-		return marge(parseXml,parseXsl)
+		margeTo(parseXml,parseXsl)
 	}
 	this._aa = function(xmlRes){
 		parseXml = xmlRes // parser

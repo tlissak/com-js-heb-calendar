@@ -198,9 +198,9 @@ function GDate(){
 	/****** Implementation *****/
 	/* private class methods. */
 	
-	function getMonthName(lng){
+	function getMonthName(){
 		//return ["","January","February","March","April","May","June","July","August","September","October","November","December"][this.getMonth()] ;
-		return _("month")[this.getMonth()] ;
+		return  _("month")[this.getMonth()] ;
 	}
 	
 	function st_monthLength(month, year){
@@ -334,7 +334,6 @@ function HDate(){
 	/* * private methods */
 	function getMonthName(lng){
 		//return ["","Nisan","Iyar","Sivan","Tamuz","Av","Elul","Tishri","Cheshvan","Kislev","Tevet","Shvat","Adar","Adar a","Adar b"][this.getMonth()] ;
-		if (!(lng)){lng="en"}
 		return _("heb_month")[this.getMonth()] ;		
 	}
 	function calculate(){

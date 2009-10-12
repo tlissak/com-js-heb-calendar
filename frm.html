@@ -19,6 +19,7 @@
 
 <script src="JavaScript/EVENT/veses.rbld.js" type="text/javascript"></script>
 <script src="JavaScript/EVENT/veses.new.js" type="text/javascript"></script>
+<script src="JavaScript/EVENT/veses.msg.js" type="text/javascript"></script>
 <script src="JavaScript/EVENT/kavua.js" type="text/javascript"></script>
 <script src="JavaScript/EVENT/event.js" type="text/javascript"></script>
 
@@ -35,6 +36,7 @@
 <img src="Images/patach.gif" onmousedown="Move(event,this)" style="position:absolute; top:0; right:0; display:none" />
 <div  id="menu" >	
 	<ul>
+    	<li><img src="Images/close.gif" onclick="$('menu').style.display='none'" class="pointer" /></li>
     	<li><select id="sLanguage" onchange="Pref.setLanguage(this.value)" >
         	<optgroup label="Language :">
         	<option value="en">English</option>
@@ -84,7 +86,7 @@
     </td>
     <td width="68%" height="100%" align="left" valign="top">    
     <div class="cal-title-box">    
-    	<div id="message" ><div style="float:right; border:#FFF 2px solid; margin-left:5px;" class="pointer" onclick="Msg.close()">X</div>
+    	<div id="message" ><img src="Images/close.gif" style="float:right; margin-left:5px;" class="pointer" onclick="Msg.close()" />
         <div id="msg_cont"></div></div>
     <div class="cal-title" style="width:100%" align="center">
     <img src="images/btn-left.png"  id="cal-previews" class="pointer" /><h1 id="cal-date"></h1><img src="images/btn-right.png" id="cal-next" class="pointer" />

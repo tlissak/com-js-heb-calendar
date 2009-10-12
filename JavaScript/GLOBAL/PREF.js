@@ -5,43 +5,41 @@ function _(str) {
 	return window.LNG[str];
 }
 function Pref(){ if (arguments.length == 0){return Pref.get()}}
-Pref.printLanguage 	= function(language){
-	xmlHttp({url:"Local/"+language+".xml",xml:Pref.loadResponse})
-}
 Pref.language = ""
-Pref.loadResponse = function(xmlDoc){
+Pref.load_xml_lng = function(xmlDoc){
 	if (xmlDoc) {
-		var strings = xmlDoc.getElementsByTagName("string");
-		for (var i=0;i<strings.length;i++) {
-			var n = strings[i].getAttribute("name");
-			var v = strings[i].firstChild.nodeValue.replace(/\*(.*?)\*/g,"<$1>");
-			window.LNG[n] = v;
-		}
-		var arrays = xmlDoc.getElementsByTagName("array");
-		for (var i=0;i<arrays.length;i++) {
-			var n = arrays[i].getAttribute("name");
-			var v = arrays[i].firstChild.nodeValue;
-			window.LNG[n] = v.split(",");
-		}
-		var objects = xmlDoc.getElementsByTagName("object");
-		for (var i=0;i<objects.length;i++) {
-			var n = objects[i].getAttribute("name");
-			var v = objects[i].firstChild.nodeValue;
-			window.LNG[n] = {} //v.split(",");
-			var items = objects[i].getElementsByTagName("item")
-			for (var j=0;j<items.length;j++) {
-				var _n = items[j].getAttribute("name");
-				var _v = items[j].firstChild.nodeValue;
-				window.LNG[n][_n] = _v ;
+			var strings = xmlDoc.getElementsByTagName("string");
+			for (var i=0;i<strings.length;i++) {
+				var n = strings[i].getAttribute("name");
+				var v = strings[i].firstChild.nodeValue.replace(/\*(.*?)\*/g,"<$1>");
+				window.LNG[n] = v;
 			}
+			var arrays = xmlDoc.getElementsByTagName("array");
+			for (var i=0;i<arrays.length;i++) {
+				var n = arrays[i].getAttribute("name");
+				var v = arrays[i].firstChild.nodeValue;
+				window.LNG[n] = v.split(",");
+				//console.info(n)
+			}
+			var objects = xmlDoc.getElementsByTagName("object");
+			for (var i=0;i<objects.length;i++) {
+				var n = objects[i].getAttribute("name");
+				var v = objects[i].firstChild.nodeValue;
+				window.LNG[n] = {} //v.split(",");
+				var items = objects[i].getElementsByTagName("item")
+				for (var j=0;j<items.length;j++) {
+					var _n = items[j].getAttribute("name");
+					var _v = items[j].firstChild.nodeValue;
+					window.LNG[n][_n] = _v ;
+				}
+			}
+		}else{
+			throw("unable to get language xml data")	
 		}
-	}else{
-		throw("unable to get language xml data")	
-	}
-	
-	Render("load",RENDER_MONTH)
-	
-	document.body.dir = (Pref.language=="he") ? "rtl" : "ltr" 		
+}
+Pref.reprintLabel = function(){
+	document.body.dir = (Pref.language=="he") ? "rtl" : "ltr" 
+
 	$("t_cal_start").innerHTML = _("cal_begin")
 	$("t_cal_end").innerHTML = _("cal_end")
 	$("refresh").innerHTML = _("refresh")
@@ -49,16 +47,27 @@ Pref.loadResponse = function(xmlDoc){
 	$("t_mikve_france").innerHTML = _("list_mikveh_france")
 	$("t_mikve_world").innerHTML = _("mikveh_world")
 	$("support_us").innerHTML = _("support_us")
-	$("t_select_minhag").innerHTML = _("select_minhag")
-	$("t_today").innerHTML = _("today")
-	$("t_user_guide").innerHTML = _("user_guide")
+	$("t_today").innerHTML = _("today")	
+	$("t_user_guide").innerHTML = _("user_guide")	
 	$("t_location").innerHTML   = _("location")
-	$("t_contact").innerHTML   = _("contact")
+	$("t_contact").innerHTML   = _("contact")	
 	x_s = '<option value="ch">'+_("chabad")+'</option>'
 	x_s += '<option value="sef">'+_("sefarad")+'</option>'
 	$("sMinhag").innerHTML = x_s
+	
 }
-Pref.load	= function(){
+Pref.printLanguage = function(_lngg,ondone_fnc){
+	this._lngResponse = function(xmlDoc){
+		Pref.load_xml_lng(xmlDoc)
+		Render("load",RENDER_MONTH)	
+		Pref.reprintLabel()			
+		if (ondone_fnc){
+			ondone_fnc()
+		}
+	}
+	xmlHttp({url:"Local/"+_lngg+".xml",xml:this._lngResponse})
+}
+Pref.load	= function(ondone_fnc){
 	oPref = Pref.get()
 	_city	= $("sCity")
 	for (var i=0;i<_city.options.length;i++){
@@ -72,13 +81,14 @@ Pref.load	= function(){
 	for (var i=0;i<_minhag.options.length;i++){
 		if (String(oPref.minhag) == String(_minhag.options[i].value)){_minhag.selectedIndex = i ;	break ;	}
 	}
-	Pref.printLanguage(oPref.language)
 	Pref.printRange(oPref.cal_end,oPref.cal_start)
+	Pref.printLanguage(oPref.language,ondone_fnc)
 }
 Pref.MAX_DISP_YEARS = 2
 Pref.setLanguage 	= function(lng){
 	if (lng != "he" && lng != "en" && lng != "fr"){lng = "fr" }
 	Cookie.set("language",lng,365)
+	Pref.language = lng
 	Pref.printLanguage(lng)
 }
 Pref.setManualDST	= function( BT /*0|1*/){

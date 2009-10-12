@@ -72,8 +72,12 @@ function print_ves(cal){
 				print_to_el(hefsek.m_hdn,1,"hefsek",_("ht")) 
 			}
 		}else{
-			
-			_html = "<span onclick='move_ht("+ves_id+",-1)' class='pointer' >&laquo;- </span>"
+			same_day = VESET._reeyah.m_hdn == VESET._hefsek.m_hdn
+			four_day = VESET._hefsek.m_hdn - VESET._reeyah.m_hdn  == 3
+			_html = ""
+			if (!(same_day) && !(four_day)){
+				_html = "<span onclick='move_ht("+ves_id+",-1)' class='pointer' >&laquo;- </span>"				
+			}			
 			_html +="<span onclick='confirm_HT_dialog("+ves_id+")' class='pointer' >"+_("ht_0")+"</span>"
 			_html +="<span onclick='move_ht("+ves_id+",1)' class='pointer' > -&raquo;</span>"
 			print_to_el(hefsek.m_hdn,1,"hefsek",null,_html)
@@ -144,7 +148,7 @@ function print_evt(cal){
 			print_to_el(date.m_hdn,chode_o,"veset_hodesh",_("veset_hodesh"))
 			DEVENT.push([date.m_hdn,chode_o])
 		}else if(type==7){
-			print_to_el(date.m_hdn,ves_o,"veset_haflaga",_("veset_haflaga",misc))
+			print_to_el(date.m_hdn,ves_o,"veset_haflaga",_("veset_haflaga")+"."+ misc)
 			DEVENT.push([date.m_hdn,ves_o])
 		}else if(type==8){
 			print_to_el(date.m_hdn,ves_o,"kevuah",_("kevuaa"))

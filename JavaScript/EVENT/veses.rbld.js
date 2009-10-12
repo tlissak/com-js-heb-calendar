@@ -3,6 +3,31 @@ function calender(){
 	this._veses = new Array();	
 	this.vestos_db = new Array()
 }
+function get_older_events(_veses){
+	// get older events . dispose benonit
+	var events=new Array();
+	vOna 	= _veses._onah
+	vRaia 	= _veses._reeyah	
+	for(i in Cal_Veses._events){		
+		cEv				= Cal_Veses._events[i]
+		cEv_veses		= cEv._vese
+		cEv_type 		= cEv._type
+		cEv_ona  		= cEv._onah
+		cEv_date 		= cEv._date
+		cEv_deletable 	= cEv._deletable
+		
+		b_same_day		= ( vRaia.eq(cEv_date) && (vOna==_NIGHT_ || cEv_ona==_DAY_) )
+		
+		if((cEv_type==_HAFLAGAH_)  && 	(! vRaia.gt(cEv_date) || b_same_day )	&& cEv_deletable ){
+			
+		}else if(cEv_type==_BENONIS_&& cEv_veses != _veses	&& ! vRaia.gt(cEv_date)){
+			
+		}else{ 
+			events.push(cEv);
+		}
+	}
+	return events
+}
 calender.prototype._events;
 calender.prototype._veses;
 calender.prototype.vestos_db;
@@ -68,43 +93,41 @@ function Veses(reeyah_date,_time,onah,cause){
 Veses.prototype.check_for_bad_mikvah=function(cal){
 	var badMikvah_reason='';
 	var mikvah_day= new HDate(this._mikvah);
-	
 	if(mikvah_day.getDay()==10 && mikvah_day.getMonth() == 7)	
-		badMikvah_reason='since relations are prohibited on Yom kippur';
+		badMikvah_reason ='bad_mik_kipur';
 	if(mikvah_day.getDay()==9 && mikvah_day.getMonth() == 5) 
-		badMikvah_reason='since relations are prohibited on Tisha B\'Av,';
+		badMikvah_reason ='bad_mik_9av';
 	for(i in cal._events){
 		var e=cal._events[i];
-		
 		if(e._date.eq(mikvah_day)){
 			if(e._type==_BENONIS_)
-				badMikvah_reason+='since you have an onah beinonit that night, ';
+				badMikvah_reason ='bad_mik_benonit';
 			else if(e._type==_CHODESH_&&e.chodesh_onah()==_NIGHT_)
-				badMikvah_reason+='since you have a veset hachodesh that night, ';
+				badMikvah_reason ='bad_mik_chodesh';
 			else if(e._type==_HAFLAGAH_&&e._onah==_NIGHT_)
-				badMikvah_reason+='since you have a veset haflagah that night, ';
+				badMikvah_reason ='bad_mik_haflaga';
 		}
 	}
+	
 	if(badMikvah_reason!='')
-		return "Your mikvah night may have to be postponed until the following night "+badMikvah_reason+" please ask a rabbi how to proceed.";
+		return {b:true,reason:_("bad_mik_start") + _(badMikvah_reason) + _("bad_mik_end")}
 	else 
-		return'';
+		return {b:false};
 }
-Veses.prototype.get_prev_veses=function(cal){
+Veses.prototype.get_prev_veses=function(){
 	var last_veses=null;
-	for(i in cal._veses)
-		if(cal._veses[i]!=this&&!cal._veses[i]._reeyah.gt(this._reeyah))
-			if(last_veses==null||cal._veses[i]._reeyah.gt(last_veses._reeyah))
-				last_veses=cal._veses[i];
+	for(i in Cal_Veses._veses)
+		if(Cal_Veses._veses[i]!=this&&!Cal_Veses._veses[i]._reeyah.gt(this._reeyah))
+			if(last_veses==null||Cal_Veses._veses[i]._reeyah.gt(last_veses._reeyah))
+				last_veses=Cal_Veses._veses[i];
 	return last_veses;
 }
-Veses.prototype.StartedInWhiteWeek=function(cal){
-	var last_veses=this.get_prev_veses(cal);
+Veses.prototype.StartedInWhiteWeek=function(){
+	var last_veses=this.get_prev_veses();
 	if(last_veses==null){	return false; }
 	return (last_veses._mikvah.gt(this._reeyah))
 }
-Veses.prototype.info=function(){
-	return "Vesos starting on "+this._reeyah+", ht on "+this._hefsek+", mikvah night iy\"h on "+this._mikvah;}	
+//Veses.prototype.info=function(){	return _("veset_info_1")+this._reeyah+_("veset_info_2")+ this._hefsek +_("veset_info_3") +this._mikvah;}
 Veses.prototype.set_haflagas=function(cal,last_veses){
 	for(i in this._haflagas){
 		var _date=this._hefsek.clone();
@@ -153,10 +176,7 @@ Veses.prototype.getEarliestHefsekTaharaNumber=function(){
 	return min_ht;
 }
 Veses.prototype.getEarliestHefsekTaharaDate=function(){
-	var v=this;
-	min_ht=this.getEarliestHefsekTaharaNumber();
-	var earliest_ht_date=v._reeyah.clone().add(min_ht);
-	return earliest_ht_date;
+	return this._reeyah.clone().add(this.getEarliestHefsekTaharaNumber());
 }
 Veses.prototype.confirm_hefsek=function(cal){
 	// check if hefsek is future date return false 	//store it in vestos_db top.frame[1].vestos_db=new Array();
@@ -173,7 +193,7 @@ Veses.prototype.confirm_hefsek=function(cal){
 	}
 	//add_reminder("7 nekiim")	
 	var bad_mikvah=this.check_for_bad_mikvah(cal);
-	if (bad_mikvah != ''){//	add_reminder("Veses.confirm_hefsek ::  BAD MIKVEH reminder-------------------")
+	if (bad_mikvah.b){//	add_reminder("Veses.confirm_hefsek ::  BAD MIKVEH reminder-------------------")
 		this._mikvah_confirmed=false
 	}else{
 		this._mikvah_confirmed=true //	add_reminder("Veses.prototype.confirm_hefsek :: add reminder for the mikveh")
@@ -222,17 +242,6 @@ Veses.prototype.confirm_hefsek=function(cal){
 			_event._misc=chashashot[i]._misc;
 		}
 		cal._events.push(_event);
-	}
-}
-Veses.prototype.set_haflagah_list=function(haflagah){
-	if(haflagah!=undefined&&haflagah!=''&&haflagah!=null){
-		this._haflagas=new Array();
-		var h=haflagah.split(",");
-		for(i in h){
-			ynew_haflaga = new Array(h[i].replace(" ",""),1,this._reeyah.clone())
-			this._haflagas.push(ynew_haflaga);
-			console.info("adding new HF 0",ynew_haflaga)
-		}
 	}
 }
 Veses.prototype.goesOnCalendar=function(){
@@ -292,25 +301,3 @@ Veses.prototype.goesOnCalendar=function(){
 	this._goesOnCal=false;
 	return false;
 }
-Veses.prototype.cause_str=function(leadup){
-	if(leadup===undefined) 
-		cause=this._cause;	
-	else if(leadup)
-		cause=this._leadup_cause;
-	if(cause==0||cause==7)
-		return"Your flow started ";
-	if(cause==1)
-		return"A stain was discovered ";
-	if(cause==2)
-		return"A womans medical prodedure was done ";
-	if(cause==3)
-		return"An unclean bedikah was made ";
-	if(cause==4)
-		return"You gave birth to a son ";
-	if(cause==5)
-		return"You gave birth to a daughter ";
-	if(cause==6)
-		return"A pregnancy was lost ";
-	return"You became nidah ";
-}
-
