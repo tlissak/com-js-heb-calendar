@@ -44,17 +44,35 @@ function Render(type,_oMonth){
 	}
 }
 function ondone_func(){
+	return
 	//e_add((new GDate(6,8,2008)).m_hdn,0,8,30)
 	//e_add((new GDate(8,10,2009)).m_hdn,0,9,30)		
 	//add_veses((new GDate(6,10,2008)).m_hdn,0,9,30)	
 	//console.log(top.frames[1].cal._events)
-	//e_add((new GDate(28,3,2009)).m_hdn,0,8,30);
-	/*
-	e_add((new GDate(24,4,2009)).m_hdn,0,8,30);e_add((new GDate(21,5,2009)).m_hdn,0,8,30)
+	
+	e_add((new GDate(28,3,2009)).m_hdn,0,8,30);	e_add((new GDate(24,4,2009)).m_hdn,0,8,30);e_add((new GDate(21,5,2009)).m_hdn,0,8,30)
 	e_add((new GDate(18,6,2009)).m_hdn,0,8,30);e_add((new GDate(14,7,2009)).m_hdn,0,8,30);e_add((new GDate(9,8,2009)).m_hdn,0,8,30)		
 	e_add((new GDate(14,8,2009)).m_hdn,3,15,30);e_add((new GDate(6,9,2009)).m_hdn,0,8,30);e_add((new GDate(11,9,2009)).m_hdn,3,15,30);
-	console.log(Cal_Veses._events)
+	/*
+	results :
+	H : 3 iyar
+	H : 3 sivan
+	H : 27 sivan
+	F : 25 sivan
+	H : 26 tamus
+	H : 27 tamuz
+	H : 22 av
+	H : 26 av
+	H : 19 elul
+	F : 15 elul
+	H : 22 elul
+	B : 17 tishri
+	H : 17 tishri
+	F : 16 tishri
+	H : 19 tishri
 	*/
+	console.log(Cal_Veses._events)
+	
 }
 Ev.add(window,"load",function(){	
 		Ev.add($("refresh"),"click",Reload)	

@@ -183,7 +183,7 @@ function add_veses(_hdn,_cause,_h,_m,conf){
 	oDate		= new HDate(_hdn)
 	oTime		= {hr:parseInt(_h),mn:parseInt(_m)}
 	iCause		= parseInt(_cause)	
-	new_veses(oDate,oTime,iCause,oLocation)
+	Veses.add(oDate,oTime,iCause,oLocation)
 	calc_event()
 	$('dialog').style.display="none"
 }
@@ -193,7 +193,7 @@ function e_add(_hdn,_cause,_h,_m,conf){
 	oTime		= {hr:parseInt(_h),mn:parseInt(_m)}
 	iCause		= parseInt(_cause)
 	
-	new_veses(oDate,oTime,iCause,oLocation)
+	Veses.add(oDate,oTime,iCause,oLocation)
 	Cal_Veses._veses[Cal_Veses._veses.length-1].confirm_hefsek(Cal_Veses)
 	
 	
