@@ -105,7 +105,22 @@
     <span class="link" id="t_contact"  style="margin-right:35px; margin-left:35px;"   
     onclick="$('contact').style.display=$('contact').style.display=='block'?'none':'block'" >Contact</span>
     </div>
-    <div class="cal-title" style="right:0; "><span class="link" style="margin-right:35px; margin-left:35px;" id="t_today">Today</span><a href="#" id="refresh" class="link">Refresh</a></div></div>
+    
+    
+    
+    <div class="cal-title" style="right:190px; "><span class="link" style="margin-right:35px; margin-left:35px;" id="t_today">Today</span><a href="#" id="refresh" class="link">Refresh</a></div>
+    
+    <div class="cal-title" style="right:0px; ">
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" >
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="7854787">
+            <input type="image" src="https://www.paypal.com/en_US/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+    </div>    
+    
+    </div>
+    
     <div class="bar-a"></div>
     <div class="bar-b"></div>
     <div class="bar-c" > 
@@ -119,9 +134,12 @@
   <div class="bar-a"></div>    
     </td>
     <td height="100%" align="left" valign="top">
-    	<div style="height:100%; ">
-        <div class="cal-title-box">
-        	<div style="position:absolute; bottom:0" align="right">
+    <div style="height:100%">
+    	<div style="height:90%; width:10px; overflow:hidden ">
+        <div class="cal-title-box pointer" style="height:10%" onclick="this.parentNode.style.width=this.parentNode.style.width=='10px'?'100%':'10px'">
+        
+     
+        	<div style="margin-left:10px;">
                 <a href="http://mikvah.org/directory/index.asp" target="_blank" ><h3 id="t_mikve_world"></h3></a>
                 <h2 id="t_mikve_france" style="display:inline"></h2>
             </div>
@@ -138,19 +156,14 @@
         <div class="bar-c">&nbsp;</div>
         <div class="bar-b"></div>
 		<div class="bar-a"></div>
-        <div align="center">
+        
+        </div>
+        <div align="center" style="height:10%">
         <div class="spacer"></div>
         <span id="support_us">Support us by donating</span> <br />
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" >
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="7854787">
-            <input type="image" src="https://www.paypal.com/en_US/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
-        </div>
-        </div>
         
-
+        </div>
+	</div>
      </td>
   </tr>
 </table>

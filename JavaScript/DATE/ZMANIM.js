@@ -27,7 +27,7 @@ JDate.prototype.getZmanim = function(_O){
 		var lon = ew * (1 *  _O.lond +  _O.lonm/60);
 		var lat = ns * (1 *  _O.latd + _O.latm/60);
 		/*	calculate auto dst	by client date	*/
-		_DST = (-1*(this.toDate().getTimezoneOffset()/60)) - _O.gmt +1;	
+		_DST = (-1*(_D.toDate().getTimezoneOffset()/60)) - _O.gmt +1;	
 		/***********************************************/
 		CITY_LL = {lon:lon,lat:lat,gmt: _O.gmt,dst:_DST}
 		if (place == "jerusalem"){									candle_offset = (40.0/ 60.0) }
