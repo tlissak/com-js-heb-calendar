@@ -117,12 +117,14 @@ function render_times(oMonth){
 	if (dd.dow==6){ $("je_"+dd.m_hdn).innerHTML += "<div class='shabat-s'>"+timeadj1(ZM.candlelight)+"</div>"	}
 	if (dd.dow==7){	$("je_"+dd.m_hdn).innerHTML += "<div class='parasha'>"+ dd.parasha+"</div>"	+ "<div class='shabat-e'>"+timeadj1(ZM.shabbat_end)+"</div>"	}
 	if (dd.holiday){
-		if ((oM[j].m == 7 && oM[j].d ==10)/*kippour*/ || (oM[j].m == 5 && oM[j].d ==9)/*9av*/){
+		if ((oM[j].m == 7 && oM[j].d ==10)/*kippour*/ 
+			|| (oM[j].m == 5 && oM[j].d ==9)/*9av*/){
+			
 			$("je_"+dd.m_hdn).innerHTML += "<div class='j-holiday j-inter'>" +	_("moadim")[dd.holiday] +"</div>"	
 		}else if((oM[j].m == 7 && (oM[j].d ==1 || oM[j].d ==2))/*R"H*/ 
 				|| (oM[j].m == 7 && (oM[j].d ==22 || (oM[j].d ==23 && bDispora))) /*shmini atseret simchat tora*/
 				|| (oM[j].m == 1 && (oM[j].d ==15 || (oM[j].d ==16 && bDispora))) /* pessah */
-				|| (oM[j].m == 3 && (oM[j].d ==6 || (oM[j].d ==7 && bDispora))) /* pessah */
+				|| (oM[j].m == 3 && (oM[j].d ==6 || (oM[j].d ==7 && bDispora))) /* shavout */
 				){
 			$("je_"+dd.m_hdn).innerHTML += "<div class='j-holiday j-cons'>" +	_("moadim")[dd.holiday] +"</div>"
 		}else{

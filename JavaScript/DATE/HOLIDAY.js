@@ -140,10 +140,6 @@ JDate.prototype.getMoadim = function() {
 		}else if(hday >= 15 && hday <= 21){return "pesach"
 		}else if(hday == 22 && bIsrael){return "isru_chag"
 		}else if(hday == 22 && bDispora){ return "pesach"}
-		/*******
-		7th day of pessach 
-		8th day of pessach
-		/*******/
 	}else if(hmonth == 1) {
 		/*
 		if(hday == 3 && dow == 5){return "yom_haatsmaut"
@@ -156,7 +152,7 @@ JDate.prototype.getMoadim = function() {
 	}else if(hmonth == 2) {
 		if(hday == 6){return "shavuot"
 		}else if(hday == 7 && bIsrael){return "isru_chag"
-		}else if(hday == 7 && (!(bIsrael))){return "shavuot"}
+		}else if(hday == 7 && bDispora){return "shavuot"}
 	}else if(hmonth == 3) {
 		if(hday == 17 && dow != 7){return "fast_tamuz"}
 		if(hday == 18 && dow == 1){return "fast_tamuz"}
