@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <locale>
+	<string name="veses_dilug_asc_establish">An incremental fixed cycle (veses hadilug) has been established for stringency.</string>
+	<string name="veses_dilug_desc_establish">A decreasing incremental fixed cycle (veses hadilug) has been established for stringency.</string>
+	<string name="veses_dilug_asc_span_establish">An incremental fixed cycle based on span (veses hadilug) has been established for stringency.</string>
+	<string name="veses_dilug_desc_span_establish">A decreasing incremental fixed cycle based on span (veses hadilug) has been established for stringency.</string>	
+	<string name="pattern_due_gap">This pattern is due to a gap of</string>	
+	<string name="veses_hodesh_establish_on">A Fixed cycle (veses kavuah) has been established by a flow starting on the</string>
+	<string name="days_between_flows">days between each monthly flow.</string>
+	<string name="onah_between_flows">onah between each monthly flow.</string>
+	<string name="days_between_haflaga">days between haflagah days over the past three flows.</string>
+	<string name="onahs_between_haflaga">onahs between haflagah numbers over the past three flows.</string>
+	<string name="days_from_ht">days from your next hefsek taharah</string>
+	<string name="onahs_from_ht">onahs from your next hefsek taharah</string> 
+	<string name="veses_sirug_establish">A regularly spaced cycle (veses hasirug) has been established for stringency.</string>
+	<string name="veses_sirug_alt_establish">An alternating regularly spaced cycle (veses hasirug) has been established for stringency.</string>
+	<string name="weeks_between_flows">weeks between each of the past three flows.</string>
+	<string name="weeks_over_last">weeks  over the last</string>
+	<string name="since_will_be">(since this will be</string>
+	<string name="weeks_from_on_the">weeks from the flow on the</string>	
+	<string name="between_last_flows">between each of the past three flows.</string>
+	<string name="pattern_flows_on_days">This pattern of flows on days</string>
+	<string name="has_repeated_over_past">has repeated itself three times over the past</string>
+	<string name="pattern_flows_on_day_of_month">This pattern of flows on the following days of the month:</string>	
+	<string name="separate_and_bedika">Aside from keeping your regular onot of separation,you should also separate and perform an examination</string>
+	<string name="pattern_by_flows_between">. This pattern was established by flows occurring between the</string>
+	
+	<string name="on_the">on the</string>
+	<string name="and_the">and the</string>
+	<string name="of">of</string>
+	<string name="months">months</string>
+	<string name="flows">flows</string>
+	<string name="excactly">excactly</string>
+	<!--  vmsg end -->
+	
 	
 	<string name="veset_info_1">Vesos starting on </string>
 	<string name="veset_info_2">, ht on </string>
@@ -140,11 +173,7 @@
 		
 	
 	<string name="confirm_hefsek_sucseed">Le hefsek a réussir ?</string>
-	
-	
-	
-	
-	
+		
 	
 	<string name="k_you may">
 		You may have a Fixed Cycle!
